@@ -26,7 +26,8 @@ if(!class_exists('Ralfdocs_Post_Types')){
     }
 
     public function acf_init(){
-      $this->add_acf_cpt_options();
+      $this->add_cpt_options();
+      $this->add_acf_field_groups();
     }
 
     public function create_post_types(){
@@ -206,7 +207,509 @@ if(!class_exists('Ralfdocs_Post_Types')){
       );  
     }
 
-    public function add_acf_cpt_options(){
+    public function add_acf_field_groups(){
+      /*
+       * activities cpt acf field groups
+      */
+
+      // activities cpt color setting
+      acf_add_local_field_group(array(
+        'key' => 'group_5c06db3c4e000',
+        'title' => 'Activities Articles Settings',
+        'fields' => array(
+          array(
+            'key' => 'field_5c06db454973e',
+            'label' => 'Activities Color',
+            'name' => 'activities_color',
+            'type' => 'color_picker',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+              'width' => '',
+              'class' => '',
+              'id' => '',
+            ),
+            'default_value' => '',
+          ),
+        ),
+        'location' => array(
+          array(
+            array(
+              'param' => 'options_page',
+              'operator' => '==',
+              'value' => 'acf-options-activities-settings',
+            ),
+          ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => 1,
+        'description' => '',
+      ));
+      
+      acf_add_local_field_group(array(
+        'key' => 'group_5a980a1c27c80',
+        'title' => 'Activities Settings',
+        'fields' => array(
+          array(
+            'key' => 'field_5a980a245519c',
+            'label' => 'Conditions',
+            'name' => 'conditions',
+            'type' => 'wysiwyg',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+              'width' => '',
+              'class' => '',
+              'id' => '',
+            ),
+            'default_value' => '',
+            'tabs' => 'all',
+            'toolbar' => 'full',
+            'media_upload' => 1,
+            'delay' => 0,
+          ),
+          array(
+            'key' => 'field_5a980a2e5519d',
+            'label' => 'Related Impacts',
+            'name' => 'related_impacts',
+            'type' => 'relationship',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+              'width' => '',
+              'class' => '',
+              'id' => '',
+            ),
+            'post_type' => array(
+              0 => 'impacts',
+            ),
+            'taxonomy' => array(
+            ),
+            'filters' => array(
+              0 => 'search',
+              1 => 'taxonomy',
+            ),
+            'elements' => '',
+            'min' => '',
+            'max' => '',
+            'return_format' => 'id',
+          ),
+          array(
+            'key' => 'field_5c06db6fdc09b',
+            'label' => 'Related Resources',
+            'name' => 'related_resources',
+            'type' => 'relationship',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+              'width' => '',
+              'class' => '',
+              'id' => '',
+            ),
+            'post_type' => array(
+              0 => 'resources',
+            ),
+            'taxonomy' => '',
+            'filters' => array(
+              0 => 'search',
+              1 => 'taxonomy',
+            ),
+            'elements' => '',
+            'min' => '',
+            'max' => '',
+            'return_format' => 'id',
+          ),
+        ),
+        'location' => array(
+          array(
+            array(
+              'param' => 'post_type',
+              'operator' => '==',
+              'value' => 'activities',
+            ),
+          ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => 1,
+        'description' => '',
+      ));
+
+      /*
+       * Impacts cpt settings
+      */
+
+      acf_add_local_field_group(array(
+        'key' => 'group_5c06dbba85ef8',
+        'title' => 'Impacts Articles Settings',
+        'fields' => array(
+          array(
+            'key' => 'field_5c06dbc4838c9',
+            'label' => 'Impacts Color',
+            'name' => 'impacts_color',
+            'type' => 'color_picker',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+              'width' => '',
+              'class' => '',
+              'id' => '',
+            ),
+            'default_value' => '',
+          ),
+        ),
+        'location' => array(
+          array(
+            array(
+              'param' => 'options_page',
+              'operator' => '==',
+              'value' => 'acf-options-impacts-settings',
+            ),
+          ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => 1,
+        'description' => '',
+      ));
+      
+      acf_add_local_field_group(array(
+        'key' => 'group_5a980a747f31e',
+        'title' => 'Impacts Settings',
+        'fields' => array(
+          array(
+            'key' => 'field_5c06dbf2ac3fd',
+            'label' => 'Related Resources',
+            'name' => 'related_resources',
+            'type' => 'relationship',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+              'width' => '',
+              'class' => '',
+              'id' => '',
+            ),
+            'post_type' => array(
+              0 => 'resources',
+            ),
+            'taxonomy' => '',
+            'filters' => array(
+              0 => 'search',
+              1 => 'taxonomy',
+            ),
+            'elements' => '',
+            'min' => '',
+            'max' => '',
+            'return_format' => 'id',
+          ),
+        ),
+        'location' => array(
+          array(
+            array(
+              'param' => 'post_type',
+              'operator' => '==',
+              'value' => 'impacts',
+            ),
+          ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => 1,
+        'description' => '',
+      ));
+
+      /*
+       * resources cpt settings
+      */
+
+      acf_add_local_field_group(array(
+        'key' => 'group_5c06dc2441cdb',
+        'title' => 'Resource Type Settings',
+        'fields' => array(
+          array(
+            'key' => 'field_5c06dc2c1bb60',
+            'label' => 'Abbreviation',
+            'name' => 'abbreviation',
+            'type' => 'text',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+              'width' => '',
+              'class' => '',
+              'id' => '',
+            ),
+            'default_value' => '',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+            'maxlength' => '',
+          ),
+          array(
+            'key' => 'field_5c06dc391bb61',
+            'label' => 'Resource Type Color',
+            'name' => 'resource_type_color',
+            'type' => 'color_picker',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+              'width' => '',
+              'class' => '',
+              'id' => '',
+            ),
+            'default_value' => '#002f6c',
+          ),
+        ),
+        'location' => array(
+          array(
+            array(
+              'param' => 'taxonomy',
+              'operator' => '==',
+              'value' => 'resource_types',
+            ),
+          ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => 1,
+        'description' => '',
+      ));
+      
+      acf_add_local_field_group(array(
+        'key' => 'group_5c06dc6c13758',
+        'title' => 'Resources Articles Settings',
+        'fields' => array(
+          array(
+            'key' => 'field_5c06dc75eac38',
+            'label' => 'Resources Color',
+            'name' => 'resources_color',
+            'type' => 'color_picker',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+              'width' => '',
+              'class' => '',
+              'id' => '',
+            ),
+            'default_value' => '',
+          ),
+        ),
+        'location' => array(
+          array(
+            array(
+              'param' => 'options_page',
+              'operator' => '==',
+              'value' => 'acf-options-resources-settings',
+            ),
+          ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => 1,
+        'description' => '',
+      ));
+      
+      acf_add_local_field_group(array(
+        'key' => 'group_5c06dc91d2bad',
+        'title' => 'Resources Settings',
+        'fields' => array(
+          array(
+            'key' => 'field_5c06dc9ca0a15',
+            'label' => 'Original Resource URL',
+            'name' => 'original_resource_url',
+            'type' => 'url',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+              'width' => '',
+              'class' => '',
+              'id' => '',
+            ),
+            'default_value' => '',
+            'placeholder' => '',
+          ),
+        ),
+        'location' => array(
+          array(
+            array(
+              'param' => 'post_type',
+              'operator' => '==',
+              'value' => 'resources',
+            ),
+          ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => 1,
+        'description' => '',
+      ));
+
+      /*
+       * sector taxonomy settings
+      */
+
+      acf_add_local_field_group(array(
+        'key' => 'group_5b043d750ef61',
+        'title' => 'Sector Settings',
+        'fields' => array(
+          array(
+            'key' => 'field_5b043d7fdffaf',
+            'label' => 'Sector Icon Type',
+            'name' => 'sector_icon_type',
+            'type' => 'select',
+            'instructions' => 'Select whether icon will be png or svg (svg preferred).',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+              'width' => '',
+              'class' => '',
+              'id' => '',
+            ),
+            'choices' => array(
+              'png' => 'png',
+              'svg' => 'svg',
+            ),
+            'default_value' => array(
+              0 => 'png',
+            ),
+            'allow_null' => 0,
+            'multiple' => 0,
+            'ui' => 0,
+            'ajax' => 0,
+            'return_format' => 'value',
+            'placeholder' => '',
+          ),
+          array(
+            'key' => 'field_5b043e0cdffb0',
+            'label' => 'Sector Icon',
+            'name' => 'sector_icon',
+            'type' => 'image',
+            'instructions' => 'Image should be a png about 200x200px with no background.	The background color circle will be added automatically.',
+            'required' => 0,
+            'conditional_logic' => array(
+              array(
+                array(
+                  'field' => 'field_5b043d7fdffaf',
+                  'operator' => '==',
+                  'value' => 'png',
+                ),
+              ),
+            ),
+            'wrapper' => array(
+              'width' => '',
+              'class' => '',
+              'id' => '',
+            ),
+            'return_format' => 'url',
+            'preview_size' => 'full',
+            'library' => 'all',
+            'min_width' => '',
+            'min_height' => '',
+            'min_size' => '',
+            'max_width' => '',
+            'max_height' => '',
+            'max_size' => '',
+            'mime_types' => 'png',
+          ),
+          array(
+            'key' => 'field_5b043e60dffb1',
+            'label' => 'Sector Icon',
+            'name' => 'sector_icon',
+            'type' => 'url',
+            'instructions' => 'Enter full file path to the svg file. The svg should not have a background - the background color will be added automatically.',
+            'required' => 0,
+            'conditional_logic' => array(
+              array(
+                array(
+                  'field' => 'field_5b043d7fdffaf',
+                  'operator' => '==',
+                  'value' => 'svg',
+                ),
+              ),
+            ),
+            'wrapper' => array(
+              'width' => '',
+              'class' => '',
+              'id' => '',
+            ),
+            'default_value' => '',
+            'placeholder' => '',
+          ),
+          array(
+            'key' => 'field_5b043ef7c86cf',
+            'label' => 'Sector Color',
+            'name' => 'sector_color',
+            'type' => 'color_picker',
+            'instructions' => 'Select a color for the sector. This will be used as the background circle for the sector icon.',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+              'width' => '',
+              'class' => '',
+              'id' => '',
+            ),
+            'default_value' => '#8cc63f',
+          ),
+        ),
+        'location' => array(
+          array(
+            array(
+              'param' => 'taxonomy',
+              'operator' => '==',
+              'value' => 'sectors',
+            ),
+          ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => 1,
+        'description' => '',
+      ));      
+    }
+
+    public function add_cpt_options(){
       acf_add_options_sub_page(array(
         'page_title' => __('Activities Settings', 'ralfdocs'),
         'menu_title' => __('Activities Settings', 'ralfdocs'),
