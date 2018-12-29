@@ -215,11 +215,11 @@ if(!class_exists('Ralfdocs_Post_Types')){
       // activities cpt color setting
       acf_add_local_field_group(array(
         'key' => 'group_5c06db3c4e000',
-        'title' => 'Activities Articles Settings',
+        'title' => __('Activities Articles Settings', 'ralfdocs'),
         'fields' => array(
           array(
             'key' => 'field_5c06db454973e',
-            'label' => 'Activities Color',
+            'label' => __('Activities Color', 'ralfdocs'),
             'name' => 'activities_color',
             'type' => 'color_picker',
             'instructions' => '',
@@ -254,11 +254,11 @@ if(!class_exists('Ralfdocs_Post_Types')){
       
       acf_add_local_field_group(array(
         'key' => 'group_5a980a1c27c80',
-        'title' => 'Activities Settings',
+        'title' => __('Activities Settings', 'ralfdocs'),
         'fields' => array(
           array(
             'key' => 'field_5a980a245519c',
-            'label' => 'Conditions',
+            'label' => __('Conditions', 'ralfdocs'),
             'name' => 'conditions',
             'type' => 'wysiwyg',
             'instructions' => '',
@@ -277,7 +277,7 @@ if(!class_exists('Ralfdocs_Post_Types')){
           ),
           array(
             'key' => 'field_5a980a2e5519d',
-            'label' => 'Related Impacts',
+            'label' => __('Related Impacts', 'ralfdocs'),
             'name' => 'related_impacts',
             'type' => 'relationship',
             'instructions' => '',
@@ -304,7 +304,7 @@ if(!class_exists('Ralfdocs_Post_Types')){
           ),
           array(
             'key' => 'field_5c06db6fdc09b',
-            'label' => 'Related Resources',
+            'label' => __('Related Resources', 'ralfdocs'),
             'name' => 'related_resources',
             'type' => 'relationship',
             'instructions' => '',
@@ -354,11 +354,11 @@ if(!class_exists('Ralfdocs_Post_Types')){
 
       acf_add_local_field_group(array(
         'key' => 'group_5c06dbba85ef8',
-        'title' => 'Impacts Articles Settings',
+        'title' => __('Impacts Articles Settings', 'ralfdocs'),
         'fields' => array(
           array(
             'key' => 'field_5c06dbc4838c9',
-            'label' => 'Impacts Color',
+            'label' => __('Impacts Color', 'ralfdocs'),
             'name' => 'impacts_color',
             'type' => 'color_picker',
             'instructions' => '',
@@ -393,11 +393,11 @@ if(!class_exists('Ralfdocs_Post_Types')){
       
       acf_add_local_field_group(array(
         'key' => 'group_5a980a747f31e',
-        'title' => 'Impacts Settings',
+        'title' => __('Impacts Settings', 'ralfdocs'),
         'fields' => array(
           array(
             'key' => 'field_5c06dbf2ac3fd',
-            'label' => 'Related Resources',
+            'label' => __('Related Resources', 'ralfdocs'),
             'name' => 'related_resources',
             'type' => 'relationship',
             'instructions' => '',
@@ -447,11 +447,11 @@ if(!class_exists('Ralfdocs_Post_Types')){
 
       acf_add_local_field_group(array(
         'key' => 'group_5c06dc2441cdb',
-        'title' => 'Resource Type Settings',
+        'title' => __('Resource Type Settings', 'ralfdocs'),
         'fields' => array(
           array(
             'key' => 'field_5c06dc2c1bb60',
-            'label' => 'Abbreviation',
+            'label' => __('Abbreviation', 'ralfdocs'),
             'name' => 'abbreviation',
             'type' => 'text',
             'instructions' => '',
@@ -470,7 +470,7 @@ if(!class_exists('Ralfdocs_Post_Types')){
           ),
           array(
             'key' => 'field_5c06dc391bb61',
-            'label' => 'Resource Type Color',
+            'label' => __('Resource Type Color', 'ralfdocs'),
             'name' => 'resource_type_color',
             'type' => 'color_picker',
             'instructions' => '',
@@ -505,11 +505,11 @@ if(!class_exists('Ralfdocs_Post_Types')){
       
       acf_add_local_field_group(array(
         'key' => 'group_5c06dc6c13758',
-        'title' => 'Resources Articles Settings',
+        'title' => __('Resources Articles Settings', 'ralfdocs'),
         'fields' => array(
           array(
             'key' => 'field_5c06dc75eac38',
-            'label' => 'Resources Color',
+            'label' => __('Resources Color', 'ralfdocs'),
             'name' => 'resources_color',
             'type' => 'color_picker',
             'instructions' => '',
@@ -544,11 +544,11 @@ if(!class_exists('Ralfdocs_Post_Types')){
       
       acf_add_local_field_group(array(
         'key' => 'group_5c06dc91d2bad',
-        'title' => 'Resources Settings',
+        'title' => __('Resources Settings', 'ralfdocs'),
         'fields' => array(
           array(
             'key' => 'field_5c06dc9ca0a15',
-            'label' => 'Original Resource URL',
+            'label' => __('Original Resource URL', 'ralfdocs'),
             'name' => 'original_resource_url',
             'type' => 'url',
             'instructions' => '',
@@ -592,10 +592,10 @@ if(!class_exists('Ralfdocs_Post_Types')){
         'fields' => array(
           array(
             'key' => 'field_5b043d7fdffaf',
-            'label' => 'Sector Icon Type',
+            'label' => __('Sector Icon Type', 'ralfdocs'),
             'name' => 'sector_icon_type',
             'type' => 'select',
-            'instructions' => 'Select whether icon will be png or svg (svg preferred).',
+            'instructions' => __('Select whether icon will be png or svg (svg preferred).', 'ralfdocs'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
@@ -619,10 +619,10 @@ if(!class_exists('Ralfdocs_Post_Types')){
           ),
           array(
             'key' => 'field_5b043e0cdffb0',
-            'label' => 'Sector Icon',
+            'label' => __('Sector Icon', 'ralfdocs'),
             'name' => 'sector_icon',
             'type' => 'image',
-            'instructions' => 'Image should be a png about 200x200px with no background.	The background color circle will be added automatically.',
+            'instructions' => __('Image should be a png about 200x200px with no background.	The background color circle will be added automatically.', 'ralfdocs'),
             'required' => 0,
             'conditional_logic' => array(
               array(
@@ -651,10 +651,10 @@ if(!class_exists('Ralfdocs_Post_Types')){
           ),
           array(
             'key' => 'field_5b043e60dffb1',
-            'label' => 'Sector Icon',
+            'label' => __('Sector Icon', 'ralfdocs'),
             'name' => 'sector_icon',
             'type' => 'url',
-            'instructions' => 'Enter full file path to the svg file. The svg should not have a background - the background color will be added automatically.',
+            'instructions' => __('Enter full file path to the svg file. The svg should not have a background - the background color will be added automatically.', 'ralfdocs'),
             'required' => 0,
             'conditional_logic' => array(
               array(
@@ -675,10 +675,10 @@ if(!class_exists('Ralfdocs_Post_Types')){
           ),
           array(
             'key' => 'field_5b043ef7c86cf',
-            'label' => 'Sector Color',
+            'label' => __('Sector Color', 'ralfdocs'),
             'name' => 'sector_color',
             'type' => 'color_picker',
-            'instructions' => 'Select a color for the sector. This will be used as the background circle for the sector icon.',
+            'instructions' => __('Select a color for the sector. This will be used as the background circle for the sector icon.', 'ralfdocs'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
