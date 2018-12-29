@@ -18,6 +18,7 @@ class Ralf_Docs{
   public function __construct(){
     $this->load_dependencies();
     add_action('init', array($this, 'init'));
+    add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'));
     add_action('widgets_init', array($this, 'init_widgets'));
 
     $this->setup_acf_reciprocal_relationship();
@@ -46,6 +47,39 @@ class Ralf_Docs{
 
   public function load_textdomain(){
     load_plugin_textdomain('ralfdocs', false, basename(RALFDOCS_PLUGIN_DIR) . '/languages');
+  }
+
+  public function enqueue_scripts(){
+    //wp_enqueue_style('ralfdocs-css', RALFDOCS_PLUGIN_URL . 'css/ralfdocs-style.css');
+    wp_register_script(
+      'js-cookie', 
+      RALFDOCS_PLUGIN_URL . 'js/js-cookie.js',
+      array('jquery'),
+      '',
+      true
+    );
+
+    wp_register_script(
+      'ralfdocs-scripts',
+      RALFDOCS_PLUGIN_URL . 'js/ralfdocs-scripts.js',
+      array('jquery'),
+      '',
+      true
+    );
+
+    wp_enqueue_script('js-cookie');
+    wp_enqueue_script('ralfdocs-scripts');
+
+    wp_localize_script('ralfdocs-scripts', 'ralfdocs_settings', array(
+      'ralfdocs_ajaxurl' => admin_url('admin-ajax.php'),
+      'send_label' => __('Email Report', 'ralfdocs'),
+      'error' => __('Sorry, something went wrong. Please try again.', 'ralfdocs'),
+      'save_to_report_label' => __('Save To Report', 'ralfdocs'),
+      'remove_from_report_label' => __('Remove From Report', 'ralfdocs'),
+      'added_to_report_label' => __('Added to report!', 'ralfdocs'),
+      'removed_from_report_label' => __('Removed from report', 'ralfdocs'),
+      'valid_email_address_error' => __('Please enter only valid email addresses.', 'ralfdocs')
+    ));    
   }
 
   public function rewrite_report_url(){
