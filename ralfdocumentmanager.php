@@ -18,6 +18,7 @@ class Ralf_Docs{
   public function __construct(){
     $this->load_dependencies();
     add_action('init', array($this, 'init'));
+    add_action('widgets_init', array($this, 'init_widgets'));
 
     $this->setup_acf_reciprocal_relationship();
 
@@ -30,6 +31,9 @@ class Ralf_Docs{
       add_filter('acf/settings/dir', array($this, 'acf_settings_dir'));
 
     require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-post-types.php';
+    require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-sectors-widget.php';
+    require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-search-history-widget.php';
+    require_once RALFDOCS_PLUGIN_DIR . '/admin/class-view-report-widget.php';
   }
 
   public function init(){
@@ -67,6 +71,22 @@ class Ralf_Docs{
     $dir = RALFDOCS_PLUGIN_DIR . '/vendors/advanced-custom-fields-pro';
 
     return $dir;
+  }
+
+  public function init_widgets(){
+    register_sidebar(array(
+      'name' => __('RALF Documents Sidebar', 'ralfdocs'),
+      'id' => 'ralfdocs-sidebar',
+      'description' => __('Sidebar for the RALF Documents results pages.', 'ralfdocs'),
+      'before_widget' => '<div class="sidebar-section">',
+      'after_widget' => '</div>',
+      'before_title' => '<h4>',
+      'after_title' => '</h4>'
+    ));
+
+    register_widget('Ralfdocs_Sectors_Widget');
+    register_widget('Ralfdocs_Search_History_Widget');
+    register_widget('Ralfdocs_View_Report_Widget');
   }
 }
 
