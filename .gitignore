@@ -77,3 +77,4 @@ Archive/
 *.pdf
 *.zip
 .vscode/
+vendors/
