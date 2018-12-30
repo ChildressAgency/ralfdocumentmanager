@@ -20,6 +20,8 @@ class Ralf_Docs{
     add_action('init', array($this, 'init'));
     add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'));
     add_action('widgets_init', array($this, 'init_widgets'));
+    add_action('plugins_loaded', array($this, 'housekeeping_tasks'));
+    add_action('acf/init', array($this, 'general_settings_acf_fields'));
 
     $this->setup_acf_reciprocal_relationship();
 
@@ -107,6 +109,61 @@ class Ralf_Docs{
     return $dir;
   }
 
+  public function general_settings_acf_fields(){
+    acf_add_options_page(array(
+      'page_title' => __('General Settings', 'ralfdocs'),
+      'menu_title' => __('General Settings', 'ralfdocs'),
+      'menu_slug' => 'general-settings',
+      'capability' => 'edit_posts',
+      'redirect' => false
+    ));
+
+    acf_add_local_field_group(array(
+      'key' => 'group_5bcde52f3147b',
+      'title' => __('Report History Settings', 'ralfdocs'),
+      'fields' => array(
+        array(
+          'key' => 'field_5bcde537c6286',
+          'label' => __('How long to store reports?', 'ralfdocs'),
+          'name' => 'how_long_to_store_reports',
+          'type' => 'number',
+          'instructions' => __('Enter number of days to keep reports before they are deleted.', 'ralfdocs'),
+          'required' => 0,
+          'conditional_logic' => 0,
+          'wrapper' => array(
+            'width' => '25',
+            'class' => '',
+            'id' => '',
+          ),
+          'default_value' => '',
+          'placeholder' => '',
+          'prepend' => '',
+          'append' => 'days',
+          'min' => '',
+          'max' => '',
+          'step' => 1,
+        ),
+      ),
+      'location' => array(
+        array(
+          array(
+            'param' => 'options_page',
+            'operator' => '==',
+            'value' => 'general-settings',
+          ),
+        ),
+      ),
+      'menu_order' => 0,
+      'position' => 'normal',
+      'style' => 'default',
+      'label_placement' => 'top',
+      'instruction_placement' => 'label',
+      'hide_on_screen' => '',
+      'active' => 1,
+      'description' => '',
+    ));    
+  }
+
   public function init_widgets(){
     register_sidebar(array(
       'name' => __('RALF Documents Sidebar', 'ralfdocs'),
@@ -122,6 +179,26 @@ class Ralf_Docs{
     register_widget('Ralfdocs_Search_History_Widget');
     register_widget('Ralfdocs_View_Report_Widget');
   }
-}
+  public function housekeeping_tasks(){
+    $this->delete_old_reports();
+    $this->email_admin_reports();
+  }
+
+  public function delete_old_reports(){
+    $how_long_to_store_reports = get_field('how_long_to_store_reports', 'option');
+
+    global $wpdb;
+    
+    $wpdb->query($wpdb->prepare("
+      DELETE from emailed_reports
+      WHERE datediff(now(), email_date) > %d", $how_long_to_store_reports));    
+  }
+
+  public function email_admin_reports(){
+    if(isset($_GET['email_admin_reports'])){
+      require_once RALFDOCS_PLUGIN_DIR . '/admin/email_admin_reports.php';
+    }
+  }
+} // end Ralf_Docs class
 
 new Ralf_Docs;
