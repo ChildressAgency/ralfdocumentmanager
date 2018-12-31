@@ -33,9 +33,9 @@ class Ralf_Docs{
       add_filter('acf/settings/dir', array($this, 'acf_settings_dir'));
 
     require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-post-types.php';
-    require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-sectors-widget.php';
-    require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-search-history-widget.php';
-    require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-view-report-widget.php';
+    require_once RALFDOCS_PLUGIN_DIR . '/admin/widgets/class-ralfdocs-sectors-widget.php';
+    require_once RALFDOCS_PLUGIN_DIR . '/admin/widgets/class-ralfdocs-search-history-widget.php';
+    require_once RALFDOCS_PLUGIN_DIR . '/admin/widgets/class-ralfdocs-view-report-widget.php';
     require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-background-admin-tasks.php';
   }
 
