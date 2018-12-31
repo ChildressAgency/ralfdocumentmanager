@@ -32,6 +32,286 @@ if(!class_exists('RALFDOCS_Background_Admin_Tasks')){
         'menu_title' => 'Report History Settings',
         'parent_slug' => 'ralfdocs-settings'
       ));
+
+      acf_add_local_field_group(array(
+        'key' => 'group_5bcde52f3147b',
+        'title' => __('Report History Settings', 'ralfdocs'),
+        'fields' => array(
+          array(
+            'key' => 'field_5bcde537c6286',
+            'label' => __('How long to store reports?', 'ralfdocs'),
+            'name' => 'how_long_to_store_reports',
+            'type' => 'number',
+            'instructions' => __('Enter the number of days to keep reports before they are deleted.', 'ralfdocs'),
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+              'width' => '25',
+              'class' => '',
+              'id' => ''
+            ),
+            'default_value' => '',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => 'days',
+            'min' => '',
+            'max' => '',
+            'step' => 1
+          )
+        ),
+        'location' => array(
+          array(
+            array(
+              'param' => 'options_page',
+              'operator' => '==',
+              'value' => 'ralfdocs-settings'
+            )
+          )
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => 1,
+        'description' => ''
+      ));
+
+      acf_add_local_field_group(array(
+        'key' => 'group_5bf5dc4ee5038',
+        'title' => __('Email Reports Settings', 'ralfdocs'),
+        'fields' => array(
+          array(
+            'key' => 'field_5bf5dc59b7941',
+            'label' => __('Number of results to include in report', 'ralfdocs'),
+            'name' => 'number_of_results',
+            'type' => 'number',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+              'width' => '',
+              'class' => '',
+              'id' => '',
+            ),
+            'default_value' => 20,
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+            'min' => '',
+            'max' => '',
+            'step' => 1,
+          ),
+          array(
+            'key' => 'field_5bf5dca7b7942',
+            'label' => __('Saved to Report', 'ralfdocs'),
+            'name' => 'saved_to_report',
+            'type' => 'group',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+              'width' => '',
+              'class' => '',
+              'id' => '',
+            ),
+            'layout' => 'block',
+            'sub_fields' => array(
+              array(
+                'key' => 'field_5bf5dd04b7943',
+                'label' => __('Email Addresses to Send Weekly', 'ralfdocs'),
+                'name' => 'weekly_email_addresses',
+                'type' => 'repeater',
+                'instructions' => '',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => array(
+                  'width' => '50',
+                  'class' => '',
+                  'id' => '',
+                ),
+                'collapsed' => '',
+                'min' => 0,
+                'max' => 0,
+                'layout' => 'table',
+                'button_label' => __('Add Email Address', 'ralfdocs'),
+                'sub_fields' => array(
+                  array(
+                    'key' => 'field_5bf5dd38b7944',
+                    'label' => __('Email Address', 'ralfdocs'),
+                    'name' => 'email_address',
+                    'type' => 'email',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                      'width' => '',
+                      'class' => '',
+                      'id' => '',
+                    ),
+                    'default_value' => '',
+                    'placeholder' => '',
+                    'prepend' => '',
+                    'append' => '',
+                  ),
+                ),
+              ),
+              array(
+                'key' => 'field_5bf5dd69b7945',
+                'label' => __('Email Addresses to Send Monthly', 'ralfdocs'),
+                'name' => 'monthly_email_addresses',
+                'type' => 'repeater',
+                'instructions' => '',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => array(
+                  'width' => '50',
+                  'class' => '',
+                  'id' => '',
+                ),
+                'collapsed' => '',
+                'min' => 0,
+                'max' => 0,
+                'layout' => 'table',
+                'button_label' => __('Add Email Address', 'ralfdocs'),
+                'sub_fields' => array(
+                  array(
+                    'key' => 'field_5bf5dd81b7946',
+                    'label' => __('Email Address', 'ralfdocs'),
+                    'name' => 'email_address',
+                    'type' => 'email',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                      'width' => '',
+                      'class' => '',
+                      'id' => '',
+                    ),
+                    'default_value' => '',
+                    'placeholder' => '',
+                    'prepend' => '',
+                    'append' => '',
+                  ),
+                ),
+              ),
+            ),
+          ),
+          array(
+            'key' => 'field_5bf5ddb3b7947',
+            'label' => __('Searched Terms', 'ralfdocs'),
+            'name' => 'searched_terms',
+            'type' => 'group',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+              'width' => '',
+              'class' => '',
+              'id' => '',
+            ),
+            'layout' => 'block',
+            'sub_fields' => array(
+              array(
+                'key' => 'field_5bf5ddd8b7948',
+                'label' => __('Email Addresses to Send Weekly', 'ralfdocs'),
+                'name' => 'weekly_email_addresses',
+                'type' => 'repeater',
+                'instructions' => '',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => array(
+                  'width' => '50',
+                  'class' => '',
+                  'id' => '',
+                ),
+                'collapsed' => '',
+                'min' => 0,
+                'max' => 0,
+                'layout' => 'table',
+                'button_label' => __('Add Email Address', 'ralfdocs'),
+                'sub_fields' => array(
+                  array(
+                    'key' => 'field_5bf5ddedb7949',
+                    'label' => __('Email Address', 'ralfdocs'),
+                    'name' => 'email_address',
+                    'type' => 'email',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                      'width' => '',
+                      'class' => '',
+                      'id' => '',
+                    ),
+                    'default_value' => '',
+                    'placeholder' => '',
+                    'prepend' => '',
+                    'append' => '',
+                  ),
+                ),
+              ),
+              array(
+                'key' => 'field_5bf5de13b794a',
+                'label' => __('Email Addresses to Send Monthly', 'ralfdocs'),
+                'name' => 'monthly_email_addresses',
+                'type' => 'repeater',
+                'instructions' => '',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => array(
+                  'width' => '50',
+                  'class' => '',
+                  'id' => '',
+                ),
+                'collapsed' => '',
+                'min' => 0,
+                'max' => 0,
+                'layout' => 'table',
+                'button_label' => __('Add Email Address', 'ralfdocs'),
+                'sub_fields' => array(
+                  array(
+                    'key' => 'field_5bf5de27b794b',
+                    'label' => __('Email Address', 'ralfdocs'),
+                    'name' => 'email_address',
+                    'type' => 'email',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                      'width' => '',
+                      'class' => '',
+                      'id' => '',
+                    ),
+                    'default_value' => '',
+                    'placeholder' => '',
+                    'prepend' => '',
+                    'append' => '',
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        'location' => array(
+          array(
+            array(
+              'param' => 'options_page',
+              'operator' => '==',
+              'value' => 'ralfdocs-settings',
+            ),
+          ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => 1,
+        'description' => '',
+      ));      
     }
 
     public function delete_old_reports(){
