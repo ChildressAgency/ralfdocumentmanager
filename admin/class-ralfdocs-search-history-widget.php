@@ -1,7 +1,7 @@
 <?php
 if(!defined('ABSPATH')){ exit; }
 
-class Ralfdocs_Search_History_Widget extends WP_Widget{
+class RALFDOCS_Search_History_Widget extends WP_Widget{
   function __construct(){
     add_action('acf/init', array($this, 'acf_history_limit_field'));
     

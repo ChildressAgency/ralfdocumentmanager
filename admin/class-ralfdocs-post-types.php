@@ -1,8 +1,8 @@
 <?php
 if(!defined('ABSPATH')){ exit; }
 
-if(!class_exists('Ralfdocs_Post_Types')){
-  class Ralfdocs_Post_Types{
+if(!class_exists('RALFDOCS_Post_Types')){
+  class RALFDOCS_Post_Types{
     /*
     * acf field keys for reciprocal relationships of related activities & impacts
     * $related_impacts is the acf relationship field that shows on the activities cpt

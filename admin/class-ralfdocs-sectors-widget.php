@@ -1,7 +1,7 @@
 <?php
 if(!defined('ABSPATH')){ exit; }
 
-class Ralfdocs_Sectors_Widget extends WP_Widget{
+class RALFDOCS_Sectors_Widget extends WP_Widget{
 	function __construct(){
 		parent::__construct(
 			'ralfdocs_sectors_widget',
