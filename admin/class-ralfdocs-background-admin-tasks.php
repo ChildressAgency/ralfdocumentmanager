@@ -12,15 +12,10 @@ if(!defined('ABSPATH')){ exit; }
 if(!class_exists('RALFDOCS_Background_Admin_Tasks')){
   class RALFDOCS_Background_Admin_Tasks{
     public function __construct(){
-      add_action('acf/init', array($this, 'options'));
-      $this->delete_old_reports();
 
-      if(isset($_GET['email_admin_reports'])){
-        $this->email_admin_reports();
-      }
     }
 
-    public function options(){
+    public function admin_settings(){
       acf_add_options_sub_page(array(
         'page_title' => 'Admin Report Settings',
         'menu_title' => 'Admin Report Settings',

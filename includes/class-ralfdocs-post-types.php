@@ -8,16 +8,16 @@ if(!class_exists('RALFDOCS_Post_Types')){
     * $related_impacts is the acf relationship field that shows on the activities cpt
     * $related_activities is the acf relationship field that shows on the impacts cpt
     */
-    private $related_impacts = 'field_5a980a2e5519d';
-    private $related_activities = 'field_5a980a8d64d2a';
+    private $related_impacts;
+    private $related_activities;
 
     public function __construct(){
-      add_action('init', array($this, 'init'));
-      add_action('acf/init', array($this, 'acf_init'));
+      $this->related_impacts = 'field_5a980a2e5519d';
+      $this->related_activities = 'field_5a980a8d64d2a';
 
-      add_filter('acf/update_value/key=' . $this->related_impacts, array($this, 'acf_reciprocal_relationship'), 10, 3);
-      add_filter('acf/update_value/key=' . $this->related_activities, array($this, 'acf_reciprocal_relationship'), 10, 3);
-      add_filter('acf/fields/relationship/result/key=' . $this->related_impacts, array($this, 'acf_related_impacts_relationship_display'), 10, 4);
+      add_filter('acf/update_value/key=' . $this->get_related_impacts_field(), array($this, 'acf_reciprocal_relationship'), 10, 3);
+      add_filter('acf/update_value/key=' . $this->get_related_activities_field(), array($this, 'acf_reciprocal_relationship'), 10, 3);
+      add_filter('acf/fields/relationship/result/key=' . $this->get_related_impacts_field(), array($this, 'acf_related_impacts_relationship_display'), 10, 4);
     }
 
     public function init(){
@@ -882,5 +882,13 @@ if(!class_exists('RALFDOCS_Post_Types')){
       return $value;
       
     } // end function acf_reciprocal_relationship
+
+    public function get_related_impacts_field(){
+      return $this->related_impacts;
+    }
+
+    public function get_related_activities_field(){
+      return $this->related_activities;
+    }
   }
 }
