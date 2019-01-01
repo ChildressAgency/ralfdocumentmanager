@@ -12,7 +12,12 @@ if(!defined('ABSPATH')){ exit; }
 if(!class_exists('RALFDOCS_Background_Admin_Tasks')){
   class RALFDOCS_Background_Admin_Tasks{
     public function __construct(){
+      add_action('acf/init', array($this, 'admin_settings'));
+      add_action('plugins_loaded', array($this, 'delete_old_reports'));
 
+      if(isset($_GET['email_admin_reports'])){
+        add_action('plugins_loaded', array($this, 'email_admin_reports'));
+      }
     }
 
     public function admin_settings(){
