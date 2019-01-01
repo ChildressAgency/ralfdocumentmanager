@@ -18,6 +18,7 @@ class RALFDOCS_Dashboard{
     add_action('wp_dashboard_setup', array($dashboard_widgets, 'add_dashboard_widgets'));
 
     add_filter('set-screen-option', array(__CLASS__, 'set_screen'), 10, 3);
+
     add_action('admin_menu', array($this, 'dashboard_submenus'));
 
     add_action('load-post.php', array($this, 'saved_count_metabox'));
@@ -48,10 +49,6 @@ class RALFDOCS_Dashboard{
     require_once RALFDOCS_PLUGIN_DIR . '/admin/partials/class-ralfdocs-dashboard-widgets.php';
   }
 
-  public function show_saved_statistics_dashboard(){
-    require_once RALFREPORTS_PLUGIN_DIR . '/reports/saved_statistics.php';
-  }
-
   public static function set_screen($status, $option, $value){
     return $value;
   }
@@ -59,8 +56,8 @@ class RALFDOCS_Dashboard{
   public function dashboard_submenus(){
     $emailed_reports_submenu = add_submenu_page(
       'index.php',
-      _x('Emailed Reports', 'submenu page title', 'ralfreports'),
-      _x('Emailed Reports', 'submenu title', 'ralfreports'),
+      esc_html_x('Emailed Reports', 'submenu page title', 'ralfdocs'),
+      esc_html_x('Emailed Reports', 'submenu title', 'ralfdocs'),
       'manage_options',
       'emailed-reports-submenu-page',
       array($this, 'show_emailed_reports_submenu')
@@ -69,8 +66,8 @@ class RALFDOCS_Dashboard{
 
     $saved_stats_submenu = add_submenu_page(
       'index.php',
-      _x('Saved to Report Statistics', 'submenu page title', 'ralfreports'),
-      _x('Saved Stats', 'submenu title', 'ralfreports'),
+      esc_html_x('Saved to Report Statistics', 'submenu page title', 'ralfdocs'),
+      esc_html_x('Saved Stats', 'submenu title', 'ralfdocs'),
       'manage_options',
       'saved-statistics-submenu-page',
       array($this, 'show_saved_stats_submenu')
@@ -79,8 +76,8 @@ class RALFDOCS_Dashboard{
 
     $search_term_stats_submenu = add_submenu_page(
       'index.php',
-      _x('Search Terms Statistics', 'submenu page title', 'ralfreports'),
-      _x('Search Terms Stats', 'submenu title', 'ralfreports'),
+      esc_html_x('Search Terms Statistics', 'submenu page title', 'ralfdocs'),
+      esc_html_x('Search Terms Stats', 'submenu title', 'ralfdocs'),
       'manage_options',
       'search-term-stats-submenu-page',
       array($this, 'show_search_term_stats_submenu')
@@ -91,46 +88,46 @@ class RALFDOCS_Dashboard{
   public function emailed_reports_screen_option(){
     $option = 'per_page';
     $args = array(
-      'label' => __('Emailed Reports Per Page', 'ralfreports'),
+      'label' => esc_html__('Emailed Reports Per Page', 'ralfdocs'),
       'default' => 25,
       'option' => 'emailed_reports_per_page'
     );
 
     add_screen_option($option, $args);
 
-    $this->emailed_reports_list = new emailed_reports_list_table();
+    $this->emailed_reports_list = new RALFDOCS_Emailed_Reports_List_Table();
   }
 
   public function saved_stats_screen_option(){
     $option = 'per_page';
     $args = array(
-      'label' => __('Saved Stats Per Page', 'ralfreports'),
+      'label' => esc_html__('Saved Stats Per Page', 'ralfdocs'),
       'default' => 25,
       'option' => 'saved_stats_per_page'
     );
 
     add_screen_option($option, $args);
 
-    $this->saved_stats_list = new saved_stats_list_table();
+    $this->saved_stats_list = new RALFDOCS_Saved_Stats_List_Table();
   }
 
   public function search_terms_stats_screen_option(){
     $option = 'per_page';
     $args = array(
-      'label' => __('Search Terms Per Page', 'ralfreports'),
+      'label' => esc_html__('Search Terms Per Page', 'ralfdocs'),
       'default' => 25,
       'option' => 'search_terms_per_page'
     );
 
     add_screen_option($option, $args);
 
-    $this->search_terms_stats_list = new search_terms_stats_list_table();
+    $this->search_terms_stats_list = new RALFDOCS_Search_Terms_Stats_List_Table();
   }
 
   public function show_emailed_reports_submenu(){
     ?>
     <div class="wrap">
-      <h2>Emailed Reports</h2>
+      <h2><?php esc_html_e('Emailed Reports', 'ralfdocs'); ?></h2>
 
       <div id="poststuff">
         <div id="post-body" class="metabox-holder">
@@ -154,7 +151,7 @@ class RALFDOCS_Dashboard{
   public function show_saved_stats_submenu(){
     ?>
     <div class="wrap">
-      <h2>Saved to Report Statistics</h2>
+      <h2><?php esc_html_e('Saved to Report Statistics', 'ralfdocs'); ?></h2>
 
       <div id="poststuff">
         <div id="post-body" class="metabox-holder">
@@ -180,7 +177,7 @@ class RALFDOCS_Dashboard{
   public function show_search_term_stats_submenu(){
     ?>
     <div class="wrap">
-      <h2>Search Terms Statistics</h2>
+      <h2><?php esc_html_e('Search Terms Statistics', 'ralfdocs'); ?></h2>
 
       <div id="poststuff">
         <div id="post-body" class="metabox-holder">
@@ -211,7 +208,7 @@ class RALFDOCS_Dashboard{
     if(in_array($post_type, $post_types)){
       add_meta_box(
         'save-count',
-        __('Number of Times Saved to Report', 'ralfreports'),
+        esc_html__('Number of Times Saved to Report', 'ralfdocs'),
         array($this, 'show_saved_count'),
         $post_type,
         'side'
@@ -225,7 +222,7 @@ class RALFDOCS_Dashboard{
 
     $saved_count = $this->get_saved_count($article_id);
 
-    echo '<p>' . $saved_count . '</p>';
+    echo '<p>' . esc_html($saved_count) . '</p>';
   }
 
   protected function get_saved_count($article_id){
@@ -240,10 +237,10 @@ class RALFDOCS_Dashboard{
   }
 
   public function set_saved_count_column($columns){
-    //$columns['saved_count'] = __('Number of Times Saved to Report', 'ralfreports');
+    //$columns['saved_count'] = __('Number of Times Saved to Report', 'ralfdocs');
     //return $columns;
 
-    return array_merge($columns,array('saved_count' => __('Number of Times Saved to Report', 'ralfreports')));
+    return array_merge($columns,array('saved_count' => esc_html__('Number of Times Saved to Report', 'ralfdocs')));
   }
 
   public function saved_count_column_values($column, $post_id){
@@ -278,16 +275,8 @@ class RALFDOCS_Dashboard{
   }
 
   function link_stats_keywords($query, $args){
-    echo '<a href="' . esc_url(add_query_arg('s', $query, home_url())) . '" target="_blank" style="float:right;">' . __('View Results', 'ralfreports') . '</a>';
+    echo '<a href="' . esc_url(add_query_arg('s', $query, home_url())) . '" target="_blank" style="float:right;">' . esc_html__('View Results', 'ralfdocs') . '</a>';
     //var_dump($query);
-  }
-
-  public static function get_instance(){
-    if(!isset(self::$instance)){
-      self::$instance = new self();
-    }
-
-    return self::$instance;
   }
 }
 }
