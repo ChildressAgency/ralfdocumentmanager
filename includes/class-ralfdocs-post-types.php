@@ -15,6 +15,9 @@ if(!class_exists('RALFDOCS_Post_Types')){
       $this->related_impacts = 'field_5a980a2e5519d';
       $this->related_activities = 'field_5a980a8d64d2a';
 
+      add_action('init', array($this, 'init'));
+      add_action('acf/init', array($this, 'acf_init'));
+
       add_filter('acf/update_value/key=' . $this->get_related_impacts_field(), array($this, 'acf_reciprocal_relationship'), 10, 3);
       add_filter('acf/update_value/key=' . $this->get_related_activities_field(), array($this, 'acf_reciprocal_relationship'), 10, 3);
       add_filter('acf/fields/relationship/result/key=' . $this->get_related_impacts_field(), array($this, 'acf_related_impacts_relationship_display'), 10, 4);
