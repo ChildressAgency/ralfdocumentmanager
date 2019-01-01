@@ -42,16 +42,12 @@ class Ralf_Docs{
     add_action('acf/init', array($this, 'admin_settings_acf_options_page'));
 
     $background_admin_tasks = new RALFDOCS_Background_Admin_Tasks();
-    add_action('acf/init', array($background_admin_tasks, 'admin_settings'));
-    add_action('plugins_loaded', array($background_admin_tasks, 'delete_old_reports'));
-
-    if(isset($_GET['email_admin_reports'])){
-      add_action('plugins_loaded', array($background_admin_tasks, 'email_admin_reports'));
-    }
-
     $ralfdocs_post_types = new RALFDOCS_Post_Types();
-    add_action('init', array($ralfdocs_post_types, 'init'));
-    add_action('acf/init', array($ralfdocs_post_types, 'acf_init'));
+
+    if(is_admin()){
+      $dashboard_functions = new RALFDOCS_Dashboard();
+      add_action('plugins_loaded', array($dashboard_functions, 'init'));
+    }
   }
 
   public function public_init(){
