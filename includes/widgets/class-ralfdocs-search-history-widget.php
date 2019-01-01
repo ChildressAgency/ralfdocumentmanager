@@ -3,12 +3,13 @@ if(!defined('ABSPATH')){ exit; }
 
 class RALFDOCS_Search_History_Widget extends WP_Widget{
   function __construct(){
+    add_action('init', array($this, 'update_search_history'));
     add_action('acf/init', array($this, 'acf_history_limit_field'));
     
     parent::__construct(
       'ralfdocs_search_history_widget',
-      __('Search History Widget', 'ralfdocs'),
-      array('description' => __('Show the search history', 'ralfdocs'))
+      esc_html__('Search History Widget', 'ralfdocs'),
+      array('description' => esc_html__('Show the search history', 'ralfdocs'))
     );
   }
 
@@ -94,6 +95,16 @@ class RALFDOCS_Search_History_Widget extends WP_Widget{
 		$instance['title'] = (!empty($new_instance['title'])) ? strip_tags($new_instance['title']) : '';
 		return $instance;
   }
+
+  public function update_search_history(){
+    $new_search_terms_list = get_search_history($this->id);
+  
+    if($new_search_terms_list != ''){
+      $cookie_lifetime = 30; //days
+      $date_of_expiry = time() + 60 * 60 * 24 * $cookie_lifetime;
+      setcookie("STYXKEY_ralfdocs_search_history", $new_search_terms_list, $date_of_expiry, "/");
+    }
+  }
   
   public function acf_history_limit_field(){
     acf_add_local_field_group(array(
@@ -127,7 +138,7 @@ class RALFDOCS_Search_History_Widget extends WP_Widget{
           array(
             'param' => 'widget',
             'operator' => '==',
-            'value' => 'usaidralf_search_history_widget',
+            'value' => 'ralfdocs_search_history_widget',
           ),
         ),
       ),

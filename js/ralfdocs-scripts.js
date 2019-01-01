@@ -143,7 +143,7 @@ $(document).ready(function($){
 
     var data = {
       'action' : 'send_rtf_report',
-      'report_ids' : $button.data('report_ids'),
+      'article_ids' : $button.data('article_ids'),
       'nonce' : $button.data('nonce'),
       //'report' : $('.test-email-message').val()
       'email-addresses' : emailAddresses
@@ -193,7 +193,7 @@ $(document).ready(function($){
   $('#clear-search-history').on('click', function(e){
     e.preventDefault();
 
-    Cookies.remove('STYXKEY_usaidralf_search_history', { path:'/' });
+    Cookies.remove('STYXKEY_ralfdocs_search_history', { path:'/' });
     $(this).parent().remove();
   });
 });

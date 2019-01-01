@@ -41,6 +41,7 @@ class Ralf_Docs{
     require_once RALFDOCS_PLUGIN_DIR . '/includes/widgets/class-ralfdocs-search-history-widget.php';
     require_once RALFDOCS_PLUGIN_DIR . '/includes/widgets/class-ralfdocs-view-report-widget.php';
     require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-background-admin-tasks.php';
+    require_once RALFDOCS_PLUGIN_DIR . '/includes/class-ralfdocs-email-report.php';
   }
 
   public function admin_init(){
@@ -60,7 +61,13 @@ class Ralf_Docs{
 
   public function public_init(){
     add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'));
+
+    // search functions
     add_filter('pre_get_posts', array($this, 'ralfdocs_search_filter'));
+    add_filter('searchwp_query_join', array($this, 'searchwp_join_term_relationships'), 10, 3);
+    add_filter('searchwp_weight_mods', array($this, 'searchwp_weight_priority_keywords'));
+
+    $email_report = new RALFDOCS_Email_Report();
   }
 
   public function shared_init(){
@@ -109,14 +116,6 @@ class Ralf_Docs{
     add_rewrite_rule('^view-report/([^.]*)$', 'index.php?pagename=view-report&report_id=$matches[1]', 'top');
   }
 
-  public function ralfdocs_search_filter($query){
-    if($query->is_search && !is_admin()){
-      $query->set('post_type', array('activities', 'impacts', 'resources'));
-    }
-
-    return $query;
-  }
-
   public function acf_settings_path($path){
     $path = RALFDOCS_PLUGIN_URL . '/vendors/advanced-custom-fields-pro';
 
@@ -153,6 +152,32 @@ class Ralf_Docs{
     register_widget('RALFDOCS_Sectors_Widget');
     register_widget('RALFDOCS_Search_History_Widget');
     register_widget('RALFDOCS_View_Report_Widget');
+  }
+
+  public function ralfdocs_search_filter($query){
+    if($query->is_search && !is_admin()){
+      $query->set('post_type', array('activities', 'impacts', 'resources'));
+    }
+
+    return $query;
+  }
+
+  public function searchwp_join_term_relationships($sql, $post_type, $engine){
+    global $wpdb;
+
+    return "LEFT JOIN {$wpdb->prefix}term_relationships as swp_tax_rel ON swp_tax_rel.object_id = {$wpdb->prefix}posts.ID";  
+  }
+
+  public function searchwp_weight_priority_keywords($sql){
+    $searched_keyword = get_search_query();
+    $searched_keyword_term = get_term_by('slug', $searched_keyword, 'priority_keywords');
+  
+    if($searched_keyword_term != false){
+      $priority_keyword_id = esc_sql($searched_keyword_term->term_id);
+      $additional_weight = 1000;
+  
+      return $sql . " + (IF ((swp_tax_rel.term_taxonomy_id = {$priority_keyword_id}), {$additional_weight}, 0))";
+    }  
   }
 } // end Ralf_Docs class
 }
