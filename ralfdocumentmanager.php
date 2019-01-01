@@ -13,6 +13,14 @@ if(!defined('ABSPATH')){ exit; }
 define('RALFDOCS_PLUGIN_DIR', dirname(__FILE__));
 define('RALFDOCS_PLUGIN_URL', plugin_dir_url(__FILE__));
 
+register_activation_hook(__FILE__, 'ralfdocs_activation_tasks');
+
+function ralfdocs_activation_tasks(){
+  require_once RALFDOCS_PLUGIN_DIR . '/includes/class-ralfdocs-activator.php';
+  RALFDOCS_Activator::create_emailed_reports_table();
+  RALFDOCS_Activator::create_saved_reports_table();
+}
+
 if(!class_exists('Ralf_Docs')){
 class Ralf_Docs{
 
