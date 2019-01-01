@@ -94,13 +94,13 @@ class Ralf_Docs{
 
     wp_localize_script('ralfdocs-scripts', 'ralfdocs_settings', array(
       'ralfdocs_ajaxurl' => admin_url('admin-ajax.php'),
-      'send_label' => __('Email Report', 'ralfdocs'),
-      'error' => __('Sorry, something went wrong. Please try again.', 'ralfdocs'),
-      'save_to_report_label' => __('Save To Report', 'ralfdocs'),
-      'remove_from_report_label' => __('Remove From Report', 'ralfdocs'),
-      'added_to_report_label' => __('Added to report!', 'ralfdocs'),
-      'removed_from_report_label' => __('Removed from report', 'ralfdocs'),
-      'valid_email_address_error' => __('Please enter only valid email addresses.', 'ralfdocs')
+      'send_label' => esc_html__('Email Report', 'ralfdocs'),
+      'error' => esc_html__('Sorry, something went wrong. Please try again.', 'ralfdocs'),
+      'save_to_report_label' => esc_html__('Save To Report', 'ralfdocs'),
+      'remove_from_report_label' => esc_html__('Remove From Report', 'ralfdocs'),
+      'added_to_report_label' => esc_html__('Added to report!', 'ralfdocs'),
+      'removed_from_report_label' => esc_html__('Removed from report', 'ralfdocs'),
+      'valid_email_address_error' => esc_html__('Please enter only valid email addresses.', 'ralfdocs')
     ));    
   }
 
@@ -131,8 +131,8 @@ class Ralf_Docs{
 
   public function admin_settings_acf_options_page(){
     acf_add_options_page(array(
-      'page_title' => __('RALF Documents Settings', 'ralfdocs'),
-      'menu_title' => __('RALF Documents Settings', 'ralfdocs'),
+      'page_title' => esc_html__('RALF Documents Settings', 'ralfdocs'),
+      'menu_title' => esc_html__('RALF Documents Settings', 'ralfdocs'),
       'menu_slug' => 'ralfdocs-settings',
       'capability' => 'edit_posts',
       'redirect' => false
@@ -141,9 +141,9 @@ class Ralf_Docs{
 
   public function init_widgets(){
     register_sidebar(array(
-      'name' => __('RALF Documents Sidebar', 'ralfdocs'),
+      'name' => esc_html__('RALF Documents Sidebar', 'ralfdocs'),
       'id' => 'ralfdocs-sidebar',
-      'description' => __('Sidebar for the RALF Documents results pages.', 'ralfdocs'),
+      'description' => esc_html__('Sidebar for the RALF Documents results pages.', 'ralfdocs'),
       'before_widget' => '<div class="sidebar-section">',
       'after_widget' => '</div>',
       'before_title' => '<h4>',
