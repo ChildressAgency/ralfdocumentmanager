@@ -39,7 +39,7 @@ class RALFDOCS_Template_Functions{
   }
 
   public function locate_template($template_name){
-    $template_path = '/ralfdocs_templates/';
+    $template_path = '/templates/';
 
     $template = locate_template(array(
       $template_name,
