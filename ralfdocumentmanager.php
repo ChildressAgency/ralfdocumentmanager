@@ -42,6 +42,7 @@ class Ralf_Docs{
     require_once RALFDOCS_PLUGIN_DIR . '/includes/widgets/class-ralfdocs-view-report-widget.php';
     require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-background-admin-tasks.php';
     require_once RALFDOCS_PLUGIN_DIR . '/includes/class-ralfdocs-email-report.php';
+    require_once RALFDOCS_PLUGIN_DIR . '/includes/ralfdocs-template-functions.php';
   }
 
   public function admin_init(){
@@ -68,6 +69,9 @@ class Ralf_Docs{
     add_filter('searchwp_weight_mods', array($this, 'searchwp_weight_priority_keywords'));
 
     $email_report = new RALFDOCS_Email_Report();
+
+    $template_loader = new RALFDOCS_Template_Functions();
+    add_filter('template_include', array($template_loader, 'load_template'));
   }
 
   public function shared_init(){
