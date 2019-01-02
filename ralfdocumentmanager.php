@@ -29,6 +29,7 @@ class Ralf_Docs{
     $this->admin_init();
     $this->public_init();
     $this->shared_init();
+    $this->define_template_hooks();
   }
 
   public function load_dependencies(){
@@ -76,6 +77,14 @@ class Ralf_Docs{
 
   public function shared_init(){
     add_action('widgets_init', array($this, 'init_widgets'));
+  }
+
+  public function define_template_hooks(){
+    $template_functions = new RALFDOCS_Template_Functions();
+
+    add_action('ralfdocs_view_report_header', array($template_functions, 'view_report_header'));
+    add_action('ralfdocs_view_report_loop', array($template_functions, 'view_report_loop'));
+    add_action('ralfdocs_article_meta', array($template_functions, 'article_meta'));
   }
 
   public function load_textdomain(){
