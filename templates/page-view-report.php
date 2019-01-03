@@ -26,7 +26,7 @@
           $article_ids = ralfdocs_convert_to_int_array($report_ids_cookie);
         }
 
-        //$article_ids[0] == 0 happens whan all items are removed from the report but user hasn't left the reports page
+        //$article_ids[0] == 0 happens when all items are removed from the report but user hasn't left the reports page
         if($article_ids && article_ids[0] !=0){
           $articles_report = new WP_Query(array(
             'post_type' => array('activities', 'impacts', 'resources'),
