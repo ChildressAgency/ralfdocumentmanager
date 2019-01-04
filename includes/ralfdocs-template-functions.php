@@ -25,6 +25,10 @@ function ralfdocs_get_related_activities($article_id, $article_type = 'impacts')
   return RALFDOCS_Template_Functions::get_related_activities($article_id, $article_type);
 }
 
+function ralfdocs_get_related_impacts($resource_id){
+  return RALFDOCS_Template_Functions::get_related_impacts($resource_id);
+}
+
 if(!class_exists('RALFDOCS_Template_Functions')){
 class RALFDOCS_Template_Functions{
   public function __construct(){
@@ -155,6 +159,24 @@ class RALFDOCS_Template_Functions{
     return $article_ids;
   }
 
+  public function ralfdocs_get_related_impacts($resource_id){
+    // only used for resources cpt
+    $impacts = new WP_Query(array(
+      'post_type' => 'impacts',
+      'posts_per_page' => -1,
+      'post_status' => 'publish',
+      'meta_query' => array(
+        array(
+          'key' => 'related_resources',
+          'value' => '"' . $resource_id . '"',
+          'compare' => 'LIKE'
+        )
+      )
+    ));
+
+    return $impacts;
+  }
+
   public function back_button(){
     ob_start();
     echo '<div class="go-back">';
@@ -240,12 +262,24 @@ class RALFDOCS_Template_Functions{
     include ralfdocs_get_template('ralfdocs-activities-loop.php');
   }
 
+  public function resources_loop(){
+    include ralfdocs_get_template('ralfdocs-resources-loop.php');
+  }
+
   public function related_impacts($impact_ids){
     include ralfdocs_get_template('ralfdocs-related-impacts.php');
   }
 
-  public function related_resources($related_resources){
+  public function related_resources($article_id){
     include ralfdocs_get_template('ralfdocs-related-resources.php');
+  }
+
+  public function related_activities($article_id, $article_type){
+    include ralfdocs_get_template('ralfdocs-related-activities.php');
+  }
+
+  public function resources_related_impacts($resource_id){
+    include ralfdocs_get_template('ralfdocs-resources-related_impacts.php');
   }
 }
 }

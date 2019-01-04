@@ -1,14 +1,13 @@
-<?php
+<?php 
 if(!defined('ABSPATH')){ exit; }
 
-$impact_id = get_the_ID();
-$sectors = get_the_terms($impact_id, 'sectors'); ?>
+$resource_id = get_the_ID(); ?>
 
 <article class="ralf-article">
   <header class="result-header">
     <h1><?php the_title(); ?></h1>
     <div class="result-meta">
-      <?php do_action('ralfdocs_article_meta', $impact_id); ?>
+      <?php do_action('ralfdocs_article_meta', $resource_id); ?>
     </div>
   </header>
 
@@ -17,7 +16,7 @@ $sectors = get_the_terms($impact_id, 'sectors'); ?>
   </section>
   <?php echo do_shortcode('[report_button]'); ?>
 
-  <?php do_action('ralfdocs_related_activities', $impact_id, 'impacts'); ?>
+  <?php do_action('ralfdocs_related_activities', $resource_id, 'resources'); ?>
 
-  <?php do_action('ralfdocs_related_resources', $impact_id); ?>
+  <?php do_action('ralfdocs_resources_related_impacts', $resource_id); ?>
 </article>

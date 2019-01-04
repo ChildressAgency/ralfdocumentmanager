@@ -31,16 +31,5 @@ $activity_id = get_the_ID(); ?>
     }
   ?>
 
-    <section class="related">
-      <h3><?php echo esc_html__('Related Resources', 'ralfdocs'); ?></h3>
-      <?php 
-        $related_resources = get_field('related_resources', $activity_id);
-        if($related_resources){
-          do_action('ralfdocs_related_resources', $related_resources);
-        }
-        else{
-          echo '<p>' . esc_html__('No related Resources', 'ralfdocs') . '</p>';
-        }
-      ?>
-    </section>
+  <?php do_action('ralfdocs_related_resources', $activity_id); ?>
 </article>
