@@ -35,5 +35,33 @@ if(!class_exists('RALFDOCS_Activator')){
       require_once ABSPATH . 'wp-admin/includes/upgrade.php';
       dbDelta($sql);
     }
+
+    public static function create_view_report_page(){
+      $page_args = array(
+        'post_name' => 'view-report',
+        'post_title' => esc_html__('View Report', 'ralfdocs'),
+        'post_status' => 'publish',
+        'post_author' => 1,
+        'comment_status' => 'closed',
+        'ping_status' => 'closed',
+        'post_type' => 'page'
+      );
+
+      wp_insert_post($page_args);
+    }
+
+    public static function create_quick_select_results_page(){
+      $page_args = array(
+        'post_name' => 'quick-select-results',
+        'post_title' => esc_html__('Quick Select Results', 'ralfdocs'),
+        'post_status' => 'publish',
+        'post_author' => 1,
+        'comment_status' => 'closed',
+        'ping_status' => 'closed',
+        'post_type' => 'page'
+      );
+
+      wp_insert_post($page_args);
+    }
   }
 }

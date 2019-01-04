@@ -19,6 +19,8 @@ function ralfdocs_activation_tasks(){
   require_once RALFDOCS_PLUGIN_DIR . '/includes/class-ralfdocs-activator.php';
   RALFDOCS_Activator::create_emailed_reports_table();
   RALFDOCS_Activator::create_saved_reports_table();
+  RALFDOCS_Activator::create_view_report_page();
+  RALFDOCS_Activator::create_quick_select_results_page();
 }
 
 if(!class_exists('Ralf_Docs')){
