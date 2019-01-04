@@ -231,7 +231,7 @@ class RALFDOCS_Template_Functions{
     $template_path = '/ralfdocs-templates/';
 
     $template = locate_template(array(
-      $template_name,
+      //$template_name,
       $template_path . $template_name
     ), TRUE);
 
