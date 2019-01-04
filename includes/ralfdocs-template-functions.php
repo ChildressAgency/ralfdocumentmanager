@@ -338,5 +338,13 @@ class RALFDOCS_Template_Functions{
   public function sector_resources_loop($current_sector){
     include ralfdocs_get_template('loop/ralfdocs-sector-resources-loop.php');
   }
+
+  public function resource_type_title($current_resource_type){
+    include ralfdocs_get_template('loop/ralfdocs-resource-type-title.php');
+  }
+
+  public function resource_type_loop($current_resource_type){
+    include ralfdocs_get_template('loop/ralfdocs-resource-type-loop.php');
+  }
 }
 }

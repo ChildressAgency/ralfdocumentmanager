@@ -98,6 +98,8 @@ class Ralf_Docs{
     add_action('ralfdocs_sector_title', array($template_functions, 'sector_title'));
     add_action('ralfdocs_sector_impacts_loop', array($template_functions, 'sector_impacts_loop'));
     add_action('ralfdocs_sector_resources_loop', array($template_functions, 'sector_resources_loop'));
+    add_action('ralfdocs_resource_type_title', array($template_functions, 'resource_type_title'));
+    add_action('ralfdocs_resource_type_loop', array($template_functions, 'resource_type_loop'));
   }
 
   public function load_textdomain(){
