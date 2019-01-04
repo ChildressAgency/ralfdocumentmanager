@@ -29,6 +29,10 @@ function ralfdocs_get_related_impacts($resource_id){
   return RALFDOCS_Template_Functions::get_related_impacts($resource_id);
 }
 
+function ralfdocs_pagination(){
+  return RALFDOCS_Template_Functions::pagination();
+}
+
 if(!class_exists('RALFDOCS_Template_Functions')){
 class RALFDOCS_Template_Functions{
   public function __construct(){
@@ -177,6 +181,33 @@ class RALFDOCS_Template_Functions{
     return $impacts;
   }
 
+  public function pagination(){
+    global $wp_query;
+
+    if($wp_query->max_num_pages <= 1){ return; }
+
+    $big = 999999999;
+    $pages = paginate_links(array(
+              'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
+              'format' => '?paged=%#%',
+              'current' => max(1, get_query_var('paged')),
+              'total' => $wp_query->max_num_pages,
+              'type' => 'array'
+    ));
+
+    if(is_array($pages)){
+      $paged = (get_query_var('paged') == 0) ? 1 : get_query_var('paged');
+
+      echo '<nav aria-label="Page navigation" class="pagination-nav"><ul class="pagination">';
+
+      foreach($pages as $page){
+        echo '<li>' . $page . '</li>';
+      }
+
+      echo '</ul></nav>';
+    }
+  }
+
   public function back_button(){
     ob_start();
     echo '<div class="go-back">';
@@ -276,6 +307,14 @@ class RALFDOCS_Template_Functions{
 
   public function resources_related_impacts($resource_id){
     include ralfdocs_get_template('related/ralfdocs-resources-related-impacts.php');
+  }
+
+  public function impacts_activities_search_results(){
+    include ralfdocs_get_template('search/ralfdocs-impacts-activities-search-results.php');
+  }
+
+  public function resources_search_results(){
+    include ralfdocs_get_template('search/ralfdocs-resources-search-results.php');
   }
 }
 }

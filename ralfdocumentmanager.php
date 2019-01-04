@@ -91,6 +91,8 @@ class Ralf_Docs{
     add_action('ralfdocs_related_resources', array($template_functions, 'related_resources'));
     add_action('ralfdocs_related_activities', array($template_functions, 'related_activities'), 10, 2);
     add_action('ralfdocs_resources_related_impacts', array($template_functions, 'resources_related_impacts'));
+    add_action('ralfdocs_impacts_activities_search_results', array($template_functions, 'impacts_activities_search_results'));
+    add_action('ralfdocs_resources_search_results', array($template_functions, 'resources_search_results'));
   }
 
   public function load_textdomain(){
