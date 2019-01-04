@@ -228,7 +228,7 @@ class RALFDOCS_Template_Functions{
   }
 
   public function locate_template($template_name){
-    $template_path = '/templates/';
+    $template_path = '/ralfdocs-templates/';
 
     $template = locate_template(array(
       $template_name,
@@ -242,12 +242,8 @@ class RALFDOCS_Template_Functions{
     return $template;
   }
 
-  public function view_report_header(){
-    include ralfdocs_get_template('ralfdocs-view-report-header.php');
-  }
-
   public function view_report_loop(){
-    include ralfdocs_get_template('ralfdocs-view-report-loop.php');
+    include ralfdocs_get_template('loop/ralfdocs-view-report-loop.php');
   }
 
   public function article_meta($article_id){
@@ -255,31 +251,31 @@ class RALFDOCS_Template_Functions{
   }
 
   public function impacts_loop(){
-    include ralfdocs_get_template('ralfdocs-impacts-loop.php');
+    include ralfdocs_get_template('loop/ralfdocs-impacts-loop.php');
   }
 
   public function activities_loop(){
-    include ralfdocs_get_template('ralfdocs-activities-loop.php');
+    include ralfdocs_get_template('loop/ralfdocs-activities-loop.php');
   }
 
   public function resources_loop(){
-    include ralfdocs_get_template('ralfdocs-resources-loop.php');
+    include ralfdocs_get_template('loop/ralfdocs-resources-loop.php');
   }
 
   public function related_impacts($impact_ids){
-    include ralfdocs_get_template('ralfdocs-related-impacts.php');
+    include ralfdocs_get_template('related/ralfdocs-related-impacts.php');
   }
 
   public function related_resources($article_id){
-    include ralfdocs_get_template('ralfdocs-related-resources.php');
+    include ralfdocs_get_template('related/ralfdocs-related-resources.php');
   }
 
   public function related_activities($article_id, $article_type){
-    include ralfdocs_get_template('ralfdocs-related-activities.php');
+    include ralfdocs_get_template('related/ralfdocs-related-activities.php');
   }
 
   public function resources_related_impacts($resource_id){
-    include ralfdocs_get_template('ralfdocs-resources-related_impacts.php');
+    include ralfdocs_get_template('related/ralfdocs-resources-related-impacts.php');
   }
 }
 }

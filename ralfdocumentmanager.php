@@ -70,9 +70,6 @@ class Ralf_Docs{
     add_filter('searchwp_weight_mods', array($this, 'searchwp_weight_priority_keywords'));
 
     $email_report = new RALFDOCS_Email_Report();
-
-    $template_loader = new RALFDOCS_Template_Functions();
-    add_filter('template_include', array($template_loader, 'load_template'));
   }
 
   public function shared_init(){
@@ -82,7 +79,8 @@ class Ralf_Docs{
   public function define_template_hooks(){
     $template_functions = new RALFDOCS_Template_Functions();
 
-    add_action('ralfdocs_view_report_header', array($template_functions, 'view_report_header'));
+    add_filter('template_include', array($template_loader, 'load_template'));
+
     add_action('ralfdocs_view_report_loop', array($template_functions, 'view_report_loop'));
     add_action('ralfdocs_article_meta', array($template_functions, 'article_meta'));
     add_action('ralfdocs_back_button', array($template_functions, 'back_button'));

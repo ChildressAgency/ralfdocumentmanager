@@ -2,7 +2,9 @@
 <div class="page-content">
   <div class="container">
     <main class="results-list">
-      <?php do_action('ralfdocs_view_report_header'); ?>
+      <header class="page-header">
+        <h1><?php echo esc_html__('Report of Activities, Associated Impacts and Resources', 'ralfdocs'); ?></h1>
+      </header>
 
       <?php
         $article_ids = [];
