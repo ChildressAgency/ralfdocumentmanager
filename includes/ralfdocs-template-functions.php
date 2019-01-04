@@ -21,6 +21,10 @@ function ralfdocs_get_impacts_by_sector($impact_ids){
   return RALFDOCS_Template_Functions::get_impacts_by_sector($impact_ids);
 }
 
+function ralfdocs_get_related_activities($article_id, $article_type = 'impacts'){
+  return RALFDOCS_Template_Functions::get_related_activities($article_id, $article_type);
+}
+
 if(!class_exists('RALFDOCS_Template_Functions')){
 class RALFDOCS_Template_Functions{
   public function __construct(){
@@ -70,7 +74,7 @@ class RALFDOCS_Template_Functions{
     }
 
     if($article_type->name == 'impacts' || $article_type->name == 'resources'){
-      $related_activities = usaidralf_get_related_activities($article_id, $article_type->name);
+      $related_activities = $this->get_related_activities($article_id, $article_type->name);
       $article_meta['related_activities_count'] = $related_activities->post_count;
     }
 
@@ -151,6 +155,15 @@ class RALFDOCS_Template_Functions{
     return $article_ids;
   }
 
+  public function back_button(){
+    ob_start();
+    echo '<div class="go-back">';
+    echo '<a href="javascript:history.back(-1);">' . esc_html__('BACK', 'ralfdocs') . '</a>';
+    echo '</div>';
+
+    return ob_get_clean();
+  }
+
   public function get_field_excerpt($field_name){
     global $post;
     $text = get_field($field_name);
@@ -217,6 +230,22 @@ class RALFDOCS_Template_Functions{
 
   public function article_meta($article_id){
     include ralfdocs_get_template('ralfdocs-article-meta.php');
+  }
+
+  public function impacts_loop(){
+    include ralfdocs_get_template('ralfdocs-impacts-loop.php');
+  }
+
+  public function activities_loop(){
+    include ralfdocs_get_template('ralfdocs-activities-loop.php');
+  }
+
+  public function related_impacts($impact_ids){
+    include ralfdocs_get_template('ralfdocs-related-impacts.php');
+  }
+
+  public function related_resources($related_resources){
+    include ralfdocs_get_template('ralfdocs-related-resources.php');
   }
 }
 }
