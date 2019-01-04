@@ -74,6 +74,7 @@ class Ralf_Docs{
 
   public function shared_init(){
     add_action('widgets_init', array($this, 'init_widgets'));
+    add_shortcode('ralfdocs_quick_select_form', array($this, 'quick_select__form'));
   }
 
   public function define_template_hooks(){
@@ -93,6 +94,7 @@ class Ralf_Docs{
     add_action('ralfdocs_resources_related_impacts', array($template_functions, 'resources_related_impacts'));
     add_action('ralfdocs_impacts_activities_search_results', array($template_functions, 'impacts_activities_search_results'));
     add_action('ralfdocs_resources_search_results', array($template_functions, 'resources_search_results'));
+    add_action('ralfdocs_quick_select_results', array($template_functions, 'quick_select_results'));
   }
 
   public function load_textdomain(){
@@ -175,6 +177,15 @@ class Ralf_Docs{
     register_widget('RALFDOCS_Sectors_Widget');
     register_widget('RALFDOCS_Search_History_Widget');
     register_widget('RALFDOCS_View_Report_Widget');
+  }
+
+  public function quick_select_form($atts){
+    $num_filters = shortcode_atts(array(
+      'number_of_options' => 40
+    ), $atts);
+    ob_start();
+      include ralfdocs_get_template('search/ralfdocs-quick-select-form.php');
+    return ob_get_clean();
   }
 
   public function ralfdocs_search_filter($query){

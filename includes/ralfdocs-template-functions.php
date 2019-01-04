@@ -253,6 +253,12 @@ class RALFDOCS_Template_Functions{
     elseif(is_tax('sectors')){
       $template_name = 'taxonomy-sectors.php';
     }
+    elseif(is_page('quick-select-results')){
+      $template_name = 'page-quick-select-results.php';
+    }
+    elseif(is_page('view-report')){
+      $template_name = 'page-view-report.php';
+    }
 
     $template_file = $this->locate_template($template_name);
     return $template_file;
@@ -315,6 +321,10 @@ class RALFDOCS_Template_Functions{
 
   public function resources_search_results(){
     include ralfdocs_get_template('search/ralfdocs-resources-search-results.php');
+  }
+
+  public function quick_select_results(){
+    include ralfdocs_get_template('search/ralfdocs-quick-select-results.php');
   }
 }
 }
