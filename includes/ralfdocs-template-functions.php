@@ -326,5 +326,17 @@ class RALFDOCS_Template_Functions{
   public function quick_select_results(){
     include ralfdocs_get_template('search/ralfdocs-quick-select-results.php');
   }
+
+  public function sector_title($current_sector){
+    include ralfdocs_get_template('loop/ralfdocs-sector-title.php');
+  }
+
+  public function sector_impacts_loop($current_sector){
+    include ralfdocs_get_template('loop/ralfdocs-sector-impacts-loop.php');
+  }
+
+  public function sector_resources_loop($current_sector){
+    include ralfdocs_get_template('loop/ralfdocs-sector-resources-loop.php');
+  }
 }
 }

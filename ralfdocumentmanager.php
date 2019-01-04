@@ -95,6 +95,9 @@ class Ralf_Docs{
     add_action('ralfdocs_impacts_activities_search_results', array($template_functions, 'impacts_activities_search_results'));
     add_action('ralfdocs_resources_search_results', array($template_functions, 'resources_search_results'));
     add_action('ralfdocs_quick_select_results', array($template_functions, 'quick_select_results'));
+    add_action('ralfdocs_sector_title', array($template_functions, 'sector_title'));
+    add_action('ralfdocs_sector_impacts_loop', array($template_functions, 'sector_impacts_loop'));
+    add_action('ralfdocs_sector_resources_loop', array($template_functions, 'sector_resources_loop'));
   }
 
   public function load_textdomain(){
