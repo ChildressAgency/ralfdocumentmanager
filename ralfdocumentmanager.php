@@ -109,20 +109,19 @@ class Ralf_Docs{
   }
 
   public function enqueue_scripts(){
-    //wp_enqueue_style('ralfdocs-css', RALFDOCS_PLUGIN_URL . 'css/ralfdocs-style.css');
     wp_register_script(
       'js-cookie', 
       RALFDOCS_PLUGIN_URL . 'js/js-cookie.js',
       array('jquery'),
-      '',
+      false,
       true
     );
 
     wp_register_script(
       'ralfdocs-scripts',
       RALFDOCS_PLUGIN_URL . 'js/ralfdocs-scripts.js',
-      array('jquery'),
-      '',
+      array('jquery', 'js-cookie'),
+      false,
       true
     );
 
@@ -140,6 +139,10 @@ class Ralf_Docs{
       'valid_email_address_error' => esc_html__('Please enter only valid email addresses.', 'ralfdocs')
     ));
 
+    //styles
+    //wp_register_style('ralfdocs-style', RALFDOCS_PLUGIN_URL . 'css/ralfdocs-style.css');
+
+    //wp_enqueue_style('ralfdocs-style');
     wp_enqueue_style('dashicons');
   }
 
