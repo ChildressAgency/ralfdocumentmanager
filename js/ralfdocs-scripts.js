@@ -189,6 +189,30 @@ $(document).ready(function($){
     return true;
   }
 
+  $('.factor-grid').on('change', 'input[type="checkbox"]', function(){
+    if(this.checked){
+      $(this).parent().addClass('active');
+    }
+    else{
+      $(this).parent().removeClass('active');
+    }
+  });
+
+  $(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+
+  $('.impact-by-sector>h2').on('click', '.dashicons-excerpt-view', function(){
+    $(this).removeClass('dashicons-excerpt-view').addClass('dashicons-list-view');
+    $(this).attr('data-original-title', 'Contract All');
+    $('#impacts-accordion .collapse').collapse('show');
+  });
+  $('.impact-by-sector>h2').on('click', '.dashicons-list-view', function(){
+    $(this).removeClass('dashicons-list-view').addClass('dashicons-excerpt-view');
+    $(this).attr('data-original-title', 'Expand All');
+    $('#impacts-accordion .collapse').collapse('hide');
+  });
+
   //clear search history
   $('#clear-search-history').on('click', function(e){
     e.preventDefault();
