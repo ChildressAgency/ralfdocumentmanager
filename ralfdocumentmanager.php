@@ -76,7 +76,7 @@ class Ralf_Docs{
 
   public function shared_init(){
     add_action('widgets_init', array($this, 'init_widgets'));
-    add_shortcode('ralfdocs_quick_select_form', array($this, 'quick_select__form'));
+    add_shortcode('ralfdocs_quick_select_form', array($this, 'quick_select_form'));
   }
 
   public function define_template_hooks(){
