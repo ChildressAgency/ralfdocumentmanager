@@ -28,7 +28,7 @@ if(!class_exists('RALFDOCS_Activator')){
       $sql = "CREATE TABLE $table_name (
               ID bigint(20) NOT NULL AUTO_INCREMENT,
               article_id bigint(20) NOT NULL,
-              saved_date datetime DEFAULT CURRENT_TIMESTAMP NOT NULL
+              saved_date datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
               PRIMARY KEY  (ID)
       );";
 
@@ -37,23 +37,23 @@ if(!class_exists('RALFDOCS_Activator')){
     }
 
     public static function create_view_report_page(){
-      $page_args = array(
-        'post_name' => 'view-report',
-        'post_title' => esc_html__('View Report', 'ralfdocs'),
-        'post_status' => 'publish',
-        'post_author' => 1,
-        'comment_status' => 'closed',
-        'ping_status' => 'closed',
-        'post_type' => 'page'
-      );
-
-      wp_insert_post($page_args);
+      if(!get_page_by_path('view-report')){
+        RALFDOCS_Activator::create_page('View Report');
+      }
     }
 
     public static function create_quick_select_results_page(){
+      if(!get_page_by_path('quick-select-results')){
+        RALFDOCS_Activator::create_page('Quick Select Results');
+      }
+    }
+
+    private function create_page($page_title){
+      $page_slug = sanitize_title($page_title);
+
       $page_args = array(
-        'post_name' => 'quick-select-results',
-        'post_title' => esc_html__('Quick Select Results', 'ralfdocs'),
+        'post_name' => $page_slug,
+        'post_title' => esc_html__($page_title,'ralfdocs'),
         'post_status' => 'publish',
         'post_author' => 1,
         'comment_status' => 'closed',
