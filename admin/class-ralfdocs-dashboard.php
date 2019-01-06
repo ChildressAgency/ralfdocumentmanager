@@ -46,7 +46,7 @@ class RALFDOCS_Dashboard{
     require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-saved-stats-list-table.php';
     require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-search-terms-stats-list-table.php';
 
-    require_once RALFDOCS_PLUGIN_DIR . '/admin/partials/class-ralfdocs-dashboard-widgets.php';
+    require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-dashboard-widgets.php';
   }
 
   public static function set_screen($status, $option, $value){

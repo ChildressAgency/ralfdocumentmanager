@@ -38,7 +38,7 @@ class RALFDOCS_Search_History_Widget extends WP_Widget{
     }
   }
 
-  protected function get_search_history($widget_id){
+  public function get_search_history($widget_id){
     //get new search term if its there
     $search_term = isset($_GET['s']) ? sanitize_text_field($_GET['s']) : '';
 
@@ -97,7 +97,7 @@ class RALFDOCS_Search_History_Widget extends WP_Widget{
   }
 
   public function update_search_history(){
-    $new_search_terms_list = get_search_history($this->id);
+    $new_search_terms_list = $this->get_search_history($this->id);
   
     if($new_search_terms_list != ''){
       $cookie_lifetime = 30; //days

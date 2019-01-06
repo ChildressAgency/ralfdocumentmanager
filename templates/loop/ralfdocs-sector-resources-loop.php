@@ -26,4 +26,4 @@ if($resources->have_posts()): while($resources->have_posts()): $resources->the_p
   </div>
 <?php endwhile; else: ?>
 <p><?php echo esc_html__('Sorry, no resources found.', 'ralfdocs'); ?></p>
-<?php endif; wp_reset_postdata(); 
+<?php endif; wp_reset_postdata();

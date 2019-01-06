@@ -39,6 +39,7 @@ class Ralf_Docs{
       add_filter('acf/settings/path', array($this, 'acf_settings_path'));
       add_filter('acf/settings/dir', array($this, 'acf_settings_dir'));
 
+    require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-dashboard.php';
     require_once RALFDOCS_PLUGIN_DIR . '/includes/class-ralfdocs-post-types.php';
     require_once RALFDOCS_PLUGIN_DIR . '/includes/widgets/class-ralfdocs-sectors-widget.php';
     require_once RALFDOCS_PLUGIN_DIR . '/includes/widgets/class-ralfdocs-search-history-widget.php';
@@ -82,7 +83,7 @@ class Ralf_Docs{
   public function define_template_hooks(){
     $template_functions = new RALFDOCS_Template_Functions();
 
-    add_filter('template_include', array($template_loader, 'load_template'));
+    add_filter('template_include', array($template_functions, 'load_template'));
 
     add_action('ralfdocs_view_report_loop', array($template_functions, 'view_report_loop'));
     add_action('ralfdocs_article_meta', array($template_functions, 'article_meta'));

@@ -45,4 +45,4 @@ if(isset($_POST['factor']) && !empty($_POST['factor'])){
 }
 else{
   echo '<p>' . esc_html__('You did not select any factors.', 'ralfdocs') . '</p>';
-} ?>
+}

@@ -29,4 +29,4 @@ if($resources->have_posts()): while($resources->have_posts()):
   </div>
 <?php endwhile; else: ?>
 <p><?php echo esc_html__('Sorry, nothing was found.', 'ralfdocs'); ?></p>
-<?php endif; ralfdocs_pagination(); wp_reset_postdata(); ?>
+<?php endif; ralfdocs_pagination(); wp_reset_postdata();
