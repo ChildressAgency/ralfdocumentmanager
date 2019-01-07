@@ -149,7 +149,7 @@ class RALFDOCS_Template_Functions{
   }
 
   public function convert_to_int_array($article_ids_string){
-    $article_ids_list = explode(',', $_GET['article_ids']);
+    $article_ids_list = explode(',', $article_ids_string);
 
     $article_ids = array_map(
       function($value){ return (int)$value; },
