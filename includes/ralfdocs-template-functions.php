@@ -107,7 +107,9 @@ class RALFDOCS_Template_Functions{
   public function get_impacts_by_sector($impact_ids){
     global $wpdb;
     $impact_ids_placeholder = implode(', ', array_fill(0, count($impact_ids), '%d'));
-    
+
+    //$impact_ids_for_query = $this->convert_to_int_array(implode(',', $impact_ids));
+
     $impacts_with_sector = $wpdb->get_results($wpdb->prepare("
       SELECT $wpdb->posts.ID AS impact_id, $wpdb->posts.post_title AS impact_title, $wpdb->posts.guid AS impact_link, $wpdb->terms.name AS sector, $wpdb->terms.term_id as sector_id, $wpdb->posts.post_content AS impact_description
       FROM $wpdb->posts
@@ -316,11 +318,11 @@ class RALFDOCS_Template_Functions{
     include ralfdocs_get_template('related/ralfdocs-resources-related-impacts.php');
   }
 
-  public function impacts_activities_search_results(){
+  public function impacts_activities_search_results($searched_word){
     include ralfdocs_get_template('search/ralfdocs-impacts-activities-search-results.php');
   }
 
-  public function resources_search_results(){
+  public function resources_search_results($searched_word){
     include ralfdocs_get_template('search/ralfdocs-resources-search-results.php');
   }
 
