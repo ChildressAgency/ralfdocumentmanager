@@ -20,7 +20,7 @@ if(!defined('ABSPATH')){ exit; }
     }
 
     if(array_key_exists('related_activities_count', $article_meta) && $article_meta['related_activities_count'] > 0){
-      echo '<a href="' . esc_url(get_permalink()) . '" class="meta-btn btn-activities hidden-print" style="background-color:' . esc_html(get_field('activities_color', 'option')) . ';">' . esc_html(sprintf(__('Activities (%d)', 'ralfdocs'), $article_meta['related_activities_count'])) . '</a>';
+      echo '<a href="' . esc_url(get_permalink($article_id)) . '" class="meta-btn btn-activities hidden-print" style="background-color:' . esc_html(get_field('activities_color', 'option')) . ';">' . esc_html(sprintf(__('Activities (%d)', 'ralfdocs'), $article_meta['related_activities_count'])) . '</a>';
     }
 
     if(array_key_exists('related_impacts_count', $article_meta) && $article_meta['related_impacts_count'] > 0){
