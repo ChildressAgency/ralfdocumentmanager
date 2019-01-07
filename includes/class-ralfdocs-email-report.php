@@ -14,7 +14,8 @@ if(!class_exists('RALFDOCS_Email_Report')){
     }
 
     public function email_report_form($atts){
-      $article_ids = implode(',', $atts['activity_ids']);
+      //$article_ids = implode(',', $atts['activity_ids']);
+      $article_ids = $atts['activity_ids'];
       $nonce = wp_create_nonce('email_rtf_report_' . $article_ids);
 
       $form_content = '<div class="email-report hidden-print">

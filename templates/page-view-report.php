@@ -25,11 +25,11 @@
         elseif(isset($_COOKIE['STYXKEY_ralfdocs_article_ids'])){
           $article_ids_cookie = $_COOKIE['STYXKEY_ralfdocs_article_ids'];
 
-          $article_ids = ralfdocs_convert_to_int_array($report_ids_cookie);
+          $article_ids = ralfdocs_convert_to_int_array($article_ids_cookie);
         }
 
         //$article_ids[0] == 0 happens when all items are removed from the report but user hasn't left the reports page
-        if($article_ids && article_ids[0] !=0){
+        if($article_ids && $article_ids[0] != 0){
           $articles_report = new WP_Query(array(
             'post_type' => array('activities', 'impacts', 'resources'),
             'posts_per_page' => -1,
@@ -44,8 +44,9 @@
             }
           } wp_reset_postdata();
 
-          global $shortcode_tags;
-          return call_user_func($shortcode_tags['email_form'], array('activity_ids' => $article_ids));
+          //global $shortcode_tags;
+          //return call_user_func($shortcode_tags['email_form'], array('activity_ids' => $article_ids));
+          echo do_shortcode('[email_form activity_ids="' . implode(',', $article_ids) . '"]');
         }
       ?>
     </main>
