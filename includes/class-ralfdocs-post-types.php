@@ -36,23 +36,23 @@ if(!class_exists('RALFDOCS_Post_Types')){
     public function create_post_types(){
       $activity_labels = array(
         'name' => _x('Activities', 'post type general name', 'ralfdocs'),
-        'singular_name' => _x('Activity', 'post type singular name', 'ralfdocs'),
-        'menu_name' => _x('Activities', 'admin menu', 'ralfdocs'),
-        'name_admin_bar' => _x('Activity', 'add new on admin bar', 'ralfdocs'),
-        'add_new' => _x('Add New', 'activity', 'ralfdocs'),
-        'add_new_item' => __('Add New Activity', 'ralfdocs'),
-        'new_item' => __('New Activity', 'ralfdocs'),
-        'edit_item' => __('Edit Activity', 'ralfdocs'),
-        'view_item' => __('View Activity', 'ralfdocs'),
-        'view_items' => __('View Activities', 'ralfdocs'),
-        'all_items' => __('All Activities', 'ralfdocs'),
-        'search_items' => __('Search Activities', 'ralfdocs'),
-        'not_found' => __('No Activities Found', 'ralfdocs'),
-        'not_found_in_trash' => __('No Activities Found in Trash', 'ralfdocs')
+        'singular_name' => esc_html_x('Activity', 'post type singular name', 'ralfdocs'),
+        'menu_name' => esc_html_x('Activities', 'admin menu', 'ralfdocs'),
+        'name_admin_bar' => esc_html_x('Activity', 'add new on admin bar', 'ralfdocs'),
+        'add_new' => esc_html_x('Add New', 'activity', 'ralfdocs'),
+        'add_new_item' => esc_html__('Add New Activity', 'ralfdocs'),
+        'new_item' => esc_html__('New Activity', 'ralfdocs'),
+        'edit_item' => esc_html__('Edit Activity', 'ralfdocs'),
+        'view_item' => esc_html__('View Activity', 'ralfdocs'),
+        'view_items' => esc_html__('View Activities', 'ralfdocs'),
+        'all_items' => esc_html__('All Activities', 'ralfdocs'),
+        'search_items' => esc_html__('Search Activities', 'ralfdocs'),
+        'not_found' => esc_html__('No Activities Found', 'ralfdocs'),
+        'not_found_in_trash' => esc_html__('No Activities Found in Trash', 'ralfdocs')
       );
       $activity_args = array(
         'labels' => $activity_labels,
-        'description' => __('RALF Activities', 'ralfdocs'),
+        'description' => esc_html__('RALF Activities', 'ralfdocs'),
         'public' => true,
         'menu_position' => 5,
         'menu_icon' => 'dashicons-store',
@@ -61,24 +61,24 @@ if(!class_exists('RALFDOCS_Post_Types')){
       register_post_type('activities', $activity_args);
     
       $impacts_labels = array(
-        'name' => _x('Impacts', 'post type general name', 'ralfdocs'),
-        'singular_name' => _x('Impact', 'post type singular name', 'ralfdocs'),
-        'menu_name' => _x('Impacts', 'admin menu', 'ralfdocs'),
-        'name_admin_bar' => _x('Impact', 'add new on admin bar', 'ralfdocs'),
-        'add_new' => _x('Add New', 'impact', 'ralfdocs'),
-        'add_new_item' => __('Add New Impact', 'ralfdocs'),
-        'new_item' => __('New Impact', 'ralfdocs'),
-        'edit_item' => __('Edit Impact', 'ralfdocs'),
-        'view_item' => __('View Impact', 'ralfdocs'),
-        'view_items' => __('View Impacts', 'ralfdocs'),
-        'all_items' => __('All Impacts', 'ralfdocs'),
-        'search_items' => __('Search Impacts', 'ralfdocs'),
-        'not_found' => __('No Impacts Found', 'ralfdocs'),
-        'not_found_in_trash' => __('No Impacts Found in Trash', 'ralfdocs')
+        'name' => esc_html_x('Impacts', 'post type general name', 'ralfdocs'),
+        'singular_name' => esc_html_x('Impact', 'post type singular name', 'ralfdocs'),
+        'menu_name' => esc_html_x('Impacts', 'admin menu', 'ralfdocs'),
+        'name_admin_bar' => esc_html_x('Impact', 'add new on admin bar', 'ralfdocs'),
+        'add_new' => esc_html_x('Add New', 'impact', 'ralfdocs'),
+        'add_new_item' => esc_html__('Add New Impact', 'ralfdocs'),
+        'new_item' => esc_html__('New Impact', 'ralfdocs'),
+        'edit_item' => esc_html__('Edit Impact', 'ralfdocs'),
+        'view_item' => esc_html__('View Impact', 'ralfdocs'),
+        'view_items' => esc_html__('View Impacts', 'ralfdocs'),
+        'all_items' => esc_html__('All Impacts', 'ralfdocs'),
+        'search_items' => esc_html__('Search Impacts', 'ralfdocs'),
+        'not_found' => esc_html__('No Impacts Found', 'ralfdocs'),
+        'not_found_in_trash' => esc_html__('No Impacts Found in Trash', 'ralfdocs')
       );
       $impacts_args = array(
         'labels' => $impacts_labels,
-        'description' => __('RALF Impacts', 'ralfdocs'),
+        'description' => esc_html__('RALF Impacts', 'ralfdocs'),
         'public' => true,
         'menu_position' => 6,
         'menu_icon' => 'dashicons-lightbulb',
@@ -87,24 +87,24 @@ if(!class_exists('RALFDOCS_Post_Types')){
       register_post_type('impacts', $impacts_args);
     
       $resources_labels = array(
-        'name' => _x('Resources','post type general name', 'ralfdocs'),
-        'singular_name' => _x('Resource', 'post type singular name', 'ralfdocs'),
-        'menu_name' => _x('Resources', 'admin menu', 'ralfdocs'),
-        'name_admin_bar' => _x('Resource', 'add new on admin bar', 'ralfdocs'),
-        'add_new' => _x('Add New', 'resource', 'ralfdocs'),
-        'add_new_item' => __('Add New Resource', 'ralfdocs'),
-        'new_item' => __('New Resource', 'ralfdocs'),
-        'edit_item' => __('Edit Resource', 'ralfdocs'),
-        'view_item' => __('View Resource', 'ralfdocs'),
-        'view_items' => __('View Resources', 'ralfdocs'),
-        'all_items' => __('All Resources', 'ralfdocs'),
-        'search_items' => __('Search Resources', 'ralfdocs'),
-        'not_found' => __('No Resources Found', 'ralfdocs'),
-        'not_found_in_trash' => __('No Resources Found in Trash', 'ralfdocs')
+        'name' => esc_html_x('Resources','post type general name', 'ralfdocs'),
+        'singular_name' => esc_html_x('Resource', 'post type singular name', 'ralfdocs'),
+        'menu_name' => esc_html_x('Resources', 'admin menu', 'ralfdocs'),
+        'name_admin_bar' => esc_html_x('Resource', 'add new on admin bar', 'ralfdocs'),
+        'add_new' => esc_html_x('Add New', 'resource', 'ralfdocs'),
+        'add_new_item' => esc_html__('Add New Resource', 'ralfdocs'),
+        'new_item' => esc_html__('New Resource', 'ralfdocs'),
+        'edit_item' => esc_html__('Edit Resource', 'ralfdocs'),
+        'view_item' => esc_html__('View Resource', 'ralfdocs'),
+        'view_items' => esc_html__('View Resources', 'ralfdocs'),
+        'all_items' => esc_html__('All Resources', 'ralfdocs'),
+        'search_items' => esc_html__('Search Resources', 'ralfdocs'),
+        'not_found' => esc_html__('No Resources Found', 'ralfdocs'),
+        'not_found_in_trash' => esc_html__('No Resources Found in Trash', 'ralfdocs')
       );
       $resources_args = array(
         'labels' => $resources_labels,
-        'description' => __('RALF Resources', 'ralfdocs'),
+        'description' => esc_html__('RALF Resources', 'ralfdocs'),
         'public' => true,
         'menu_position' => 7,
         'menu_icon' => 'dashicons-book-alt',
@@ -121,17 +121,17 @@ if(!class_exists('RALFDOCS_Post_Types')){
           'show_admin_column' => true,
           'public' => true,
           'labels' => array(
-            'name' => _x('Sectors', 'taxonomy general name', 'ralfdocs'),
-            'singular_name' => _x('Sector', 'taxonomy singular name', 'ralfdocs'),
-            'search_items' => __('Search Sectors', 'ralfdocs'),
-            'all_items' => __('All Sectors', 'ralfdocs'),
-            'parent_item' => __('Parent Sector', 'ralfdocs'),
-            'parent_item_colon' => __('Parent Sector:', 'ralfdocs'),
-            'edit_item' => __('Edit Sector', 'ralfdocs'),
-            'update_item' => __('Update Sector', 'ralfdocs'),
-            'add_new_item' => __('Add New Sector', 'ralfdocs'),
-            'new_item_name' => __('New Sector Name', 'ralfdocs'),
-            'menu_name' => __('Sectors', 'ralfdocs')
+            'name' => esc_html_x('Sectors', 'taxonomy general name', 'ralfdocs'),
+            'singular_name' => esc_html_x('Sector', 'taxonomy singular name', 'ralfdocs'),
+            'search_items' => esc_html__('Search Sectors', 'ralfdocs'),
+            'all_items' => esc_html__('All Sectors', 'ralfdocs'),
+            'parent_item' => esc_html__('Parent Sector', 'ralfdocs'),
+            'parent_item_colon' => esc_html__('Parent Sector:', 'ralfdocs'),
+            'edit_item' => esc_html__('Edit Sector', 'ralfdocs'),
+            'update_item' => esc_html__('Update Sector', 'ralfdocs'),
+            'add_new_item' => esc_html__('Add New Sector', 'ralfdocs'),
+            'new_item_name' => esc_html__('New Sector Name', 'ralfdocs'),
+            'menu_name' => esc_html__('Sectors', 'ralfdocs')
           )
         )
       );
@@ -142,22 +142,22 @@ if(!class_exists('RALFDOCS_Post_Types')){
           'show_admin_column' => true,
           'public' => true,
           'labels' => array(
-            'name' => _x('Impact Tags', 'taxonomy general name', 'ralfdocs'),
-            'singular_name' => _x('Impact Tag', 'taxonomy singular name', 'ralfdocs'),
-            'search_items' => __('Search Impact Tags', 'ralfdocs'),
-            'popular_items' => __('Popular Impact Tags', 'ralfdocs'),
-            'all_items' => __('All Impact Tags', 'ralfdocs'),
+            'name' => esc_html_x('Impact Tags', 'taxonomy general name', 'ralfdocs'),
+            'singular_name' => esc_html_x('Impact Tag', 'taxonomy singular name', 'ralfdocs'),
+            'search_items' => esc_html__('Search Impact Tags', 'ralfdocs'),
+            'popular_items' => esc_html__('Popular Impact Tags', 'ralfdocs'),
+            'all_items' => esc_html__('All Impact Tags', 'ralfdocs'),
             'parent_item' => null,
             'parent_item_colon' => null,
-            'edit_item' => __('Edit Impact Tag', 'ralfdocs'),
-            'update_item' => __('Update Impact Tag', 'ralfdocs'),
-            'add_new_item' => __('Add New Impact Tag', 'ralfdocs'),
-            'new_item_name' => __('New Impact Tag Name', 'ralfdocs'),
-            'separate_items_with_commas' => __('Separate Impact Tags with commas', 'ralfdocs'),
-            'add_or_remove_items' => __('Add or Remove Impact Tags', 'ralfdocs'),
-            'choose_from_most_used' => __('Choose from the most used Impact Tags', 'ralfdocs'),
-            'not_found' => __('No Impact Tags Found', 'ralfdocs'),
-            'menu_name' => __('Impact Tags', 'ralfdocs')
+            'edit_item' => esc_html__('Edit Impact Tag', 'ralfdocs'),
+            'update_item' => esc_html__('Update Impact Tag', 'ralfdocs'),
+            'add_new_item' => esc_html__('Add New Impact Tag', 'ralfdocs'),
+            'new_item_name' => esc_html__('New Impact Tag Name', 'ralfdocs'),
+            'separate_items_with_commas' => esc_html__('Separate Impact Tags with commas', 'ralfdocs'),
+            'add_or_remove_items' => esc_html__('Add or Remove Impact Tags', 'ralfdocs'),
+            'choose_from_most_used' => esc_html__('Choose from the most used Impact Tags', 'ralfdocs'),
+            'not_found' => esc_html__('No Impact Tags Found', 'ralfdocs'),
+            'menu_name' => esc_html__('Impact Tags', 'ralfdocs')
           )
         )
       );
@@ -168,17 +168,17 @@ if(!class_exists('RALFDOCS_Post_Types')){
           'show_admin_column' => true,
           'public' => true,
           'labels' => array(
-            'name' => _x('Resource Types', 'taxonomy general name', 'ralfdocs'),
-            'singular_name' => _x('Resource Type', 'taxonomy singular name', 'ralfdocs'),
-            'search_items' => __('Search Resource Types', 'ralfdocs'),
-            'all_items' => __('All Resource Types', 'ralfdocs'),
-            'parent_item' => __('Parent Resource Type', 'ralfdocs'),
-            'parent_item_colon' => __('Parent Resource Type:', 'ralfdocs'),
-            'edit_item' => __('Edit Resource Type', 'ralfdocs'),
-            'update_item' => __('Update Resource Type', 'ralfdocs'),
-            'add_new_item' => __('Add New Resource Type', 'ralfdocs'),
-            'new_item_name' => __('New Resource Type Name', 'ralfdocs'),
-            'menu_name' => __('Resource Types', 'ralfdocs')
+            'name' => esc_html_x('Resource Types', 'taxonomy general name', 'ralfdocs'),
+            'singular_name' => esc_html_x('Resource Type', 'taxonomy singular name', 'ralfdocs'),
+            'search_items' => esc_html__('Search Resource Types', 'ralfdocs'),
+            'all_items' => esc_html__('All Resource Types', 'ralfdocs'),
+            'parent_item' => esc_html__('Parent Resource Type', 'ralfdocs'),
+            'parent_item_colon' => esc_html__('Parent Resource Type:', 'ralfdocs'),
+            'edit_item' => esc_html__('Edit Resource Type', 'ralfdocs'),
+            'update_item' => esc_html__('Update Resource Type', 'ralfdocs'),
+            'add_new_item' => esc_html__('Add New Resource Type', 'ralfdocs'),
+            'new_item_name' => esc_html__('New Resource Type Name', 'ralfdocs'),
+            'menu_name' => esc_html__('Resource Types', 'ralfdocs')
           )
         )
       );
@@ -189,22 +189,22 @@ if(!class_exists('RALFDOCS_Post_Types')){
           'show_admin_column' => false,
           'public' => true,
           'labels' => array(
-            'name' => _x('Priority Keywords', 'taxonomy general name', 'ralfdocs'),
-            'singular_name' => _x('Priority Keyword', 'taxonomy singular name', 'ralfdocs'),
-            'search_items' => __('Search Priority Keywords', 'ralfdocs'),
-            'popular_items' => __('Popular Priority Keywords', 'ralfdocs'),
-            'all_items' => __('All Priority Keywords', 'ralfdocs'),
+            'name' => esc_html_x('Priority Keywords', 'taxonomy general name', 'ralfdocs'),
+            'singular_name' => esc_html_x('Priority Keyword', 'taxonomy singular name', 'ralfdocs'),
+            'search_items' => esc_html__('Search Priority Keywords', 'ralfdocs'),
+            'popular_items' => esc_html__('Popular Priority Keywords', 'ralfdocs'),
+            'all_items' => esc_html__('All Priority Keywords', 'ralfdocs'),
             'parent_item' => null,
             'parent_item_colon' => null,
-            'edit_item' => __('Edit Priority Keyword', 'ralfdocs'),
-            'update_item' => __('Update Priority Keyword', 'ralfdocs'),
-            'add_new_item' => __('Add New Priority Keyword', 'ralfdocs'),
-            'new_item_name' => __('New Priority Keyword Name', 'ralfdocs'),
-            'separate_items_with_commas' => __('Separate Priority Keywords with Commas', 'ralfdocs'),
-            'add_or_remove_items' => __('Add or Remove Priority Keywords', 'ralfdocs'),
-            'choose_from_most_used' => __('Choose from the most used Priority Keywords', 'ralfdocs'),
-            'not_found' => __('No Priority Keywords Found', 'ralfdocs'),
-            'menu_name' => __('Priority Keywords', 'ralfdocs')
+            'edit_item' => esc_html__('Edit Priority Keyword', 'ralfdocs'),
+            'update_item' => esc_html__('Update Priority Keyword', 'ralfdocs'),
+            'add_new_item' => esc_html__('Add New Priority Keyword', 'ralfdocs'),
+            'new_item_name' => esc_html__('New Priority Keyword Name', 'ralfdocs'),
+            'separate_items_with_commas' => esc_html__('Separate Priority Keywords with Commas', 'ralfdocs'),
+            'add_or_remove_items' => esc_html__('Add or Remove Priority Keywords', 'ralfdocs'),
+            'choose_from_most_used' => esc_html__('Choose from the most used Priority Keywords', 'ralfdocs'),
+            'not_found' => esc_html__('No Priority Keywords Found', 'ralfdocs'),
+            'menu_name' => esc_html__('Priority Keywords', 'ralfdocs')
           )
         )
       );  
@@ -218,11 +218,11 @@ if(!class_exists('RALFDOCS_Post_Types')){
       // activities cpt color setting
       acf_add_local_field_group(array(
         'key' => 'group_5c06db3c4e000',
-        'title' => __('Activities Articles Settings', 'ralfdocs'),
+        'title' => esc_html__('Activities Articles Settings', 'ralfdocs'),
         'fields' => array(
           array(
             'key' => 'field_5c06db454973e',
-            'label' => __('Activities Color', 'ralfdocs'),
+            'label' => esc_html__('Activities Color', 'ralfdocs'),
             'name' => 'activities_color',
             'type' => 'color_picker',
             'instructions' => '',
@@ -257,11 +257,11 @@ if(!class_exists('RALFDOCS_Post_Types')){
       
       acf_add_local_field_group(array(
         'key' => 'group_5a980a1c27c80',
-        'title' => __('Activities Settings', 'ralfdocs'),
+        'title' => esc_html__('Activities Settings', 'ralfdocs'),
         'fields' => array(
           array(
             'key' => 'field_5a980a245519c',
-            'label' => __('Conditions', 'ralfdocs'),
+            'label' => esc_html__('Conditions', 'ralfdocs'),
             'name' => 'conditions',
             'type' => 'wysiwyg',
             'instructions' => '',
@@ -280,7 +280,7 @@ if(!class_exists('RALFDOCS_Post_Types')){
           ),
           array(
             'key' => 'field_5a980a2e5519d',
-            'label' => __('Related Impacts', 'ralfdocs'),
+            'label' => esc_html__('Related Impacts', 'ralfdocs'),
             'name' => 'related_impacts',
             'type' => 'relationship',
             'instructions' => '',
@@ -307,7 +307,7 @@ if(!class_exists('RALFDOCS_Post_Types')){
           ),
           array(
             'key' => 'field_5c06db6fdc09b',
-            'label' => __('Related Resources', 'ralfdocs'),
+            'label' => esc_html__('Related Resources', 'ralfdocs'),
             'name' => 'related_resources',
             'type' => 'relationship',
             'instructions' => '',
@@ -357,11 +357,11 @@ if(!class_exists('RALFDOCS_Post_Types')){
 
       acf_add_local_field_group(array(
         'key' => 'group_5c06dbba85ef8',
-        'title' => __('Impacts Articles Settings', 'ralfdocs'),
+        'title' => esc_html__('Impacts Articles Settings', 'ralfdocs'),
         'fields' => array(
           array(
             'key' => 'field_5c06dbc4838c9',
-            'label' => __('Impacts Color', 'ralfdocs'),
+            'label' => esc_html__('Impacts Color', 'ralfdocs'),
             'name' => 'impacts_color',
             'type' => 'color_picker',
             'instructions' => '',
@@ -396,11 +396,11 @@ if(!class_exists('RALFDOCS_Post_Types')){
       
       acf_add_local_field_group(array(
         'key' => 'group_5a980a747f31e',
-        'title' => __('Impacts Settings', 'ralfdocs'),
+        'title' => esc_html__('Impacts Settings', 'ralfdocs'),
         'fields' => array(
           array(
             'key' => 'field_5c06dbf2ac3fd',
-            'label' => __('Related Resources', 'ralfdocs'),
+            'label' => esc_html__('Related Resources', 'ralfdocs'),
             'name' => 'related_resources',
             'type' => 'relationship',
             'instructions' => '',
@@ -450,11 +450,11 @@ if(!class_exists('RALFDOCS_Post_Types')){
 
       acf_add_local_field_group(array(
         'key' => 'group_5c06dc2441cdb',
-        'title' => __('Resource Type Settings', 'ralfdocs'),
+        'title' => esc_html__('Resource Type Settings', 'ralfdocs'),
         'fields' => array(
           array(
             'key' => 'field_5c06dc2c1bb60',
-            'label' => __('Abbreviation', 'ralfdocs'),
+            'label' => esc_html__('Abbreviation', 'ralfdocs'),
             'name' => 'abbreviation',
             'type' => 'text',
             'instructions' => '',
@@ -473,7 +473,7 @@ if(!class_exists('RALFDOCS_Post_Types')){
           ),
           array(
             'key' => 'field_5c06dc391bb61',
-            'label' => __('Resource Type Color', 'ralfdocs'),
+            'label' => esc_html__('Resource Type Color', 'ralfdocs'),
             'name' => 'resource_type_color',
             'type' => 'color_picker',
             'instructions' => '',
@@ -508,11 +508,11 @@ if(!class_exists('RALFDOCS_Post_Types')){
       
       acf_add_local_field_group(array(
         'key' => 'group_5c06dc6c13758',
-        'title' => __('Resources Articles Settings', 'ralfdocs'),
+        'title' => esc_html__('Resources Articles Settings', 'ralfdocs'),
         'fields' => array(
           array(
             'key' => 'field_5c06dc75eac38',
-            'label' => __('Resources Color', 'ralfdocs'),
+            'label' => esc_html__('Resources Color', 'ralfdocs'),
             'name' => 'resources_color',
             'type' => 'color_picker',
             'instructions' => '',
@@ -547,11 +547,11 @@ if(!class_exists('RALFDOCS_Post_Types')){
       
       acf_add_local_field_group(array(
         'key' => 'group_5c06dc91d2bad',
-        'title' => __('Resources Settings', 'ralfdocs'),
+        'title' => esc_html__('Resources Settings', 'ralfdocs'),
         'fields' => array(
           array(
             'key' => 'field_5c06dc9ca0a15',
-            'label' => __('Original Resource URL', 'ralfdocs'),
+            'label' => esc_html__('Original Resource URL', 'ralfdocs'),
             'name' => 'original_resource_url',
             'type' => 'url',
             'instructions' => '',
@@ -591,14 +591,14 @@ if(!class_exists('RALFDOCS_Post_Types')){
 
       acf_add_local_field_group(array(
         'key' => 'group_5b043d750ef61',
-        'title' => 'Sector Settings',
+        'title' => esc_html__('Sector Settings', 'ralfdocs'),
         'fields' => array(
           array(
             'key' => 'field_5b043d7fdffaf',
-            'label' => __('Sector Icon Type', 'ralfdocs'),
+            'label' => esc_html__('Sector Icon Type', 'ralfdocs'),
             'name' => 'sector_icon_type',
             'type' => 'select',
-            'instructions' => __('Select whether icon will be png or svg (svg preferred).', 'ralfdocs'),
+            'instructions' => esc_html__('Select whether icon will be png or svg (svg preferred).', 'ralfdocs'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
@@ -622,10 +622,10 @@ if(!class_exists('RALFDOCS_Post_Types')){
           ),
           array(
             'key' => 'field_5b043e0cdffb0',
-            'label' => __('Sector Icon', 'ralfdocs'),
+            'label' => esc_html__('Sector Icon', 'ralfdocs'),
             'name' => 'sector_icon',
             'type' => 'image',
-            'instructions' => __('Image should be a png about 200x200px with no background.	The background color circle will be added automatically.', 'ralfdocs'),
+            'instructions' => esc_html__('Image should be a png about 200x200px with no background.	The background color circle will be added automatically.', 'ralfdocs'),
             'required' => 0,
             'conditional_logic' => array(
               array(
@@ -654,10 +654,10 @@ if(!class_exists('RALFDOCS_Post_Types')){
           ),
           array(
             'key' => 'field_5b043e60dffb1',
-            'label' => __('Sector Icon', 'ralfdocs'),
+            'label' => esc_html__('Sector Icon', 'ralfdocs'),
             'name' => 'sector_icon',
             'type' => 'url',
-            'instructions' => __('Enter full file path to the svg file. The svg should not have a background - the background color will be added automatically.', 'ralfdocs'),
+            'instructions' => esc_html__('Enter full file path to the svg file. The svg should not have a background - the background color will be added automatically.', 'ralfdocs'),
             'required' => 0,
             'conditional_logic' => array(
               array(
@@ -678,10 +678,10 @@ if(!class_exists('RALFDOCS_Post_Types')){
           ),
           array(
             'key' => 'field_5b043ef7c86cf',
-            'label' => __('Sector Color', 'ralfdocs'),
+            'label' => esc_html__('Sector Color', 'ralfdocs'),
             'name' => 'sector_color',
             'type' => 'color_picker',
-            'instructions' => __('Select a color for the sector. This will be used as the background circle for the sector icon.', 'ralfdocs'),
+            'instructions' => esc_html__('Select a color for the sector. This will be used as the background circle for the sector icon.', 'ralfdocs'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
@@ -714,18 +714,18 @@ if(!class_exists('RALFDOCS_Post_Types')){
 
     public function add_cpt_options(){
       acf_add_options_sub_page(array(
-        'page_title' => __('Activities Settings', 'ralfdocs'),
-        'menu_title' => __('Activities Settings', 'ralfdocs'),
+        'page_title' => esc_html__('Activities Settings', 'ralfdocs'),
+        'menu_title' => esc_html__('Activities Settings', 'ralfdocs'),
         'parent_slug' => 'edit.php?post_type=activities'
       ));
       acf_add_options_sub_page(array(
-        'page_title' => __('Impacts Settings', 'ralfdocs'),
-        'menu_title' => __('Impacts Settings', 'ralfdocs'),
+        'page_title' => esc_html__('Impacts Settings', 'ralfdocs'),
+        'menu_title' => esc_html__('Impacts Settings', 'ralfdocs'),
         'parent_slug' => 'edit.php?post_type=impacts'
       ));
       acf_add_options_sub_page(array(
-        'page_title' => __('Resources Settings', 'ralfdocs'),
-        'menu_title' => __('Resources Settings', 'ralfdocs'),
+        'page_title' => esc_html__('Resources Settings', 'ralfdocs'),
+        'menu_title' => esc_html__('Resources Settings', 'ralfdocs'),
         'parent_slug' => 'edit.php?post_type=resources'
       ));    
     }
