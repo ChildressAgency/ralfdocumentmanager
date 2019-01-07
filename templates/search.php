@@ -18,13 +18,13 @@
             <div class="tab-content">
               <div id="impacts-activities" class="tab-pane fade in active" role="tabpanel">
 
-                <?php do_action('ralfdocs_impacts_activities_search_results'); ?>
+                <?php do_action('ralfdocs_impacts_activities_search_results', $searched_word); ?>
 
               </div>
 
               <div id="resources" class="tab-pane fade" role="tabpanel">
 
-                <?php do_action('ralfdocs_resources_search_results'); ?>
+                <?php do_action('ralfdocs_resources_search_results', $searched_word); ?>
 
               </div>
             </div>
