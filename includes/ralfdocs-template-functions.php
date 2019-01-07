@@ -7,11 +7,11 @@ function ralfdocs_get_template($template_name){
 }
 
 function ralfdocs_convert_to_int_array($article_ids_string){
-  return RALFDOCS_Template_Functions::convert_to_int_array($article_ids_string);
+  return (new RALFDOCS_Template_Functions)->convert_to_int_array($article_ids_string);
 }
 
 function ralfdocs_get_field_excerpt($field_name){
-  return RALFDOCS_Template_Functions::get_field_excerpt($field_name);
+  return (new RALFDOCS_Template_Functions)->get_field_excerpt($field_name);
 }
 
 function ralfdocs_get_article_meta($article_id){
@@ -20,19 +20,19 @@ function ralfdocs_get_article_meta($article_id){
 }
 
 function ralfdocs_get_impacts_by_sector($impact_ids){
-  return RALFDOCS_Template_Functions::get_impacts_by_sector($impact_ids);
+  return (new RALFDOCS_Template_Functions)->get_impacts_by_sector($impact_ids);
 }
 
 function ralfdocs_get_related_activities($article_id, $article_type = 'impacts'){
-  return RALFDOCS_Template_Functions::get_related_activities($article_id, $article_type);
+  return (new RALFDOCS_Template_Functions)->get_related_activities($article_id, $article_type);
 }
 
 function ralfdocs_get_related_impacts($resource_id){
-  return RALFDOCS_Template_Functions::get_related_impacts($resource_id);
+  return (new RALFDOCS_Template_Functions)->get_related_impacts($resource_id);
 }
 
 function ralfdocs_pagination(){
-  return RALFDOCS_Template_Functions::pagination();
+  return (new RALFDOCS_Template_Functions)->pagination();
 }
 
 if(!class_exists('RALFDOCS_Template_Functions')){
@@ -159,7 +159,7 @@ class RALFDOCS_Template_Functions{
     return $article_ids;
   }
 
-  public function ralfdocs_get_related_impacts($resource_id){
+  public function get_related_impacts($resource_id){
     // only used for resources cpt
     $impacts = new WP_Query(array(
       'post_type' => 'impacts',
