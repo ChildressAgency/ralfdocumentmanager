@@ -48,7 +48,7 @@ if(!class_exists('RALFDOCS_Activator')){
       }
     }
 
-    private function create_page($page_title){
+    private static function create_page($page_title){
       $page_slug = sanitize_title($page_title);
 
       $page_args = array(
