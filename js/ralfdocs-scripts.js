@@ -1,7 +1,7 @@
 $(document).ready(function($){
   //define the save/remove buttons
-  var saveToReportButton = '<a href="#" class="btn-main btn-report save-to-report">' + ralf_settings.save_to_report_label + '</a>';
-  var removeFromReportButton = '<a href="#" class="btn-main btn-report remove-from-report">' + ralf_settings.remove_from_report_label + '</a>';
+  var saveToReportButton = '<a href="#" class="btn-main btn-report save-to-report">' + ralfdocs_settings.save_to_report_label + '</a>';
+  var removeFromReportButton = '<a href="#" class="btn-main btn-report remove-from-report">' + ralfdocs_settings.remove_from_report_label + '</a>';
   var reportIdsCookieName = 'STYXKEY_ralfdocs_article_ids'; //STYXKEY is required by pantheon.io for some reason
 
   //get the report ids saved so far from the cookie
@@ -77,7 +77,7 @@ $(document).ready(function($){
     //change the save button to remove
     var $btnToUpdate = $('.report-button[data-article_id="' + articleId + '"]');
     $btnToUpdate.html(removeFromReportButton);
-    $btnToUpdate.append('<span><em>' + ralf_settings.added_to_report_label + '</em></span>');
+    $btnToUpdate.append('<span><em>' + ralfdocs_settings.added_to_report_label + '</em></span>');
 
     //update the sidebar view report link
     $('#view-report-widget-count').text(reportIdsCount);
@@ -116,7 +116,7 @@ $(document).ready(function($){
     //change the remove button to save
     var $btnToUpdate = $('.report-button[data-article_id="' + articleId + '"]');
     $btnToUpdate.html(saveToReportButton);
-    $btnToUpdate.append('<span><em>' + ralf_settings.removed_from_report_label + '</em></span>');
+    $btnToUpdate.append('<span><em>' + ralfdocs_settings.removed_from_report_label + '</em></span>');
 
     //update the sidebar view report link
     var reportIdsCount = reportIds.split(',').length;
@@ -134,7 +134,7 @@ $(document).ready(function($){
     if(emailAddresses.length == 0 || validEmailAddresses == false){
       //email addresses field was empty
       $('#email-addresses').css('border', '2px solid red');
-      $('.email-response').text(ralf_settings.valid_email_address_error);
+      $('.email-response').text(ralfdocs_settings.valid_email_address_error);
       return false;
     }
 
@@ -149,7 +149,7 @@ $(document).ready(function($){
       'email-addresses' : emailAddresses
     };
 
-    $.post(ralf_settings.ralf_ajaxurl, data, function(response){
+    $.post(ralfdocs_settings.ralf_ajaxurl, data, function(response){
       if(response.success == true){
         //get rid of button and email address field since we're done with them
         $button.remove();
@@ -230,7 +230,7 @@ function record_save(articleId, nonce){
       'nonce': nonce
     }
 
-    $.post(ralf_settings.ralf_ajaxurl, data, function(response){
+    $.post(ralfdocs_settings.ralf_ajaxurl, data, function(response){
       
     });
   }
