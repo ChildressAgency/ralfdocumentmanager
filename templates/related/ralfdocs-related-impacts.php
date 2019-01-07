@@ -1,13 +1,14 @@
 <?php
 if(!defined('ABSPATH')){ exit; }
-
-$impacts_by_sector = ralfdocs_get_impacts_by_sector($impact_ids); ?>
+?>
 
 <section class="impact-by-sector">
   <h2><?php echo esc_html__('IMPACT BY SECTOR', 'ralfdocs'); ?><span class="dashicons dashicons-excerpt-view" data-toggle="tooltip" data-position="top" title="<?php echo esc_attr__('Expand All', 'ralfdocs'); ?>"></span></h2>
   <div class="panel-group" id="impacts-accordion" role="tablist" aria-multiselectable="true">
     <?php 
-        $i = 0;
+    if(!empty($impact_ids)):
+      $impacts_by_sector = ralfdocs_get_impacts_by_sector($impact_ids); 
+      $i = 0;
       foreach($impacts_by_sector as $sector):
         $acf_sector_id = 'sectors_' . $sector['sector_id'];
         foreach($sector['impacts'] as $impact): ?>
@@ -38,5 +39,8 @@ $impacts_by_sector = ralfdocs_get_impacts_by_sector($impact_ids); ?>
         
       <?php $i++; endforeach; ?>
     <?php endforeach; ?>
+    <?php else: ?>
+      <p><?php echo esc_html__('No related Impacts', 'ralfdocs'); ?></p>
+    <?php endif; ?>
   </div>
 </section>
