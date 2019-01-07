@@ -26,9 +26,7 @@ $activity_id = get_the_ID(); ?>
   
   <?php 
     $impact_ids = get_field('related_impacts', false, false);
-    if(!empty($impact_ids)){
-      do_action('ralfdocs_related_impacts', $impact_ids);
-    }
+    do_action('ralfdocs_related_impacts', $impact_ids);
   ?>
 
   <?php do_action('ralfdocs_related_resources', $activity_id); ?>
