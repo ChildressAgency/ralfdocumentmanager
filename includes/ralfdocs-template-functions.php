@@ -39,12 +39,6 @@ class RALFDOCS_Template_Functions{
 
   }
 
-  public static function get_template($template_name){
-    $template_file = $this->locate_template($template_name);
-
-    return $template_file;
-  }
-
   public function get_article_meta($article_id){
     $article_meta = array();
 
@@ -232,8 +226,14 @@ class RALFDOCS_Template_Functions{
     return apply_filters('the_excerpt', $text);
   }
 
+  public static function get_template($template_name){
+    $template_file = $this->find_template($template_name);
+
+    return $template_file;
+  }
+
   public function load_template($template){
-    $template_name = '';
+    $template_name = basename($template);
 
     if(is_singular('activities')){
       $template_name = 'single-activities.php';
@@ -254,26 +254,27 @@ class RALFDOCS_Template_Functions{
       $template_name = 'taxonomy-sectors.php';
     }
     elseif(is_page('quick-select-results')){
-      $template_name = 'page-quick-select-results.php';
+      $template_name = 'search/page-quick-select-results.php';
     }
     elseif(is_page('view-report')){
       $template_name = 'page-view-report.php';
     }
 
-    $template_file = $this->locate_template($template_name);
+    $template_file = $this->find_template($template_name);
     return $template_file;
   }
 
-  public function locate_template($template_name){
-    $template_path = '/ralfdocs-templates/';
+  public function find_template($template_name){
+    $template_path = get_stylesheet_directory_uri() . '/ralfdocs-templates/';
 
     $template = locate_template(array(
-      //$template_name,
-      $template_path . $template_name
+      $template_path . $template_name,
+      $template_name
     ), TRUE);
 
     if(empty($template)){
-      $template = plugin_dir_path(dirname(__FILE__)) . '/templates/' . $template_name;
+      //$template = plugin_dir_path(dirname(__FILE__)) . '/templates/' . $template_name;
+      $template = RALFDOCS_PLUGIN_DIR . '/templates/' . $template_name;
     }
 
     return $template;
