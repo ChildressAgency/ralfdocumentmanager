@@ -2,9 +2,8 @@
 if(!defined('ABSPATH')){ exit; }
 
 function ralfdocs_get_template($template_name){
-  return RALFDOCS_Template_Functions::get_plugin_template($template_name);
-  //$template = new RALFDOCS_Template_Functions();
-  //return $template->get_template($template_name);
+  //return RALFDOCS_Template_Functions::get_plugin_template($template_name);
+  return (new RALFDOCS_Template_Functions)->find_template($template_name);
 }
 
 function ralfdocs_convert_to_int_array($article_ids_string){
@@ -16,7 +15,8 @@ function ralfdocs_get_field_excerpt($field_name){
 }
 
 function ralfdocs_get_article_meta($article_id){
-  return RALFDOCS_Template_Functions::get_article_meta($article_id);
+  //$template_function = new RALFDOCS_Template_Functions();
+  return (new RALFDOCS_Template_Functions)->get_article_meta($article_id);
 }
 
 function ralfdocs_get_impacts_by_sector($impact_ids){
@@ -228,15 +228,9 @@ class RALFDOCS_Template_Functions{
     return apply_filters('the_excerpt', $text);
   }
 
-  public static function get_plugin_template($template_name){
-    $template_file = (new RALFDOCS_Template_Functions)->find_template($template_name);
-    //$template_file = $this->find_template($template_name);
-
-    return $template_file;
-  }
-
   public function load_template($template){
-    $template_name = basename($template);
+    //$template_name = basename($template);
+    $template_name = '';
 
     if(is_singular('activities')){
       $template_name = 'single-activities.php';
@@ -263,8 +257,11 @@ class RALFDOCS_Template_Functions{
       $template_name = 'page-view-report.php';
     }
 
-    $template_file = $this->find_template($template_name);
-    return $template_file;
+    if($template_name !== ''){
+      return $this->find_template($template_name);
+    }
+
+    return $template;
   }
 
   public function find_template($template_name){
@@ -275,8 +272,8 @@ class RALFDOCS_Template_Functions{
       $template_name
     ), TRUE);
 
-    if(empty($template)){
-      //$template = plugin_dir_path(dirname(__FILE__)) . '/templates/' . $template_name;
+    if(!$template){
+      //$template = plugin_dir_path(__FILE__) . '/templates/' . $template_name;
       $template = RALFDOCS_PLUGIN_DIR . '/templates/' . $template_name;
     }
 

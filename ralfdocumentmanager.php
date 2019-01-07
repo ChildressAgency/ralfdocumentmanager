@@ -83,7 +83,7 @@ class Ralf_Docs{
   public function define_template_hooks(){
     $template_functions = new RALFDOCS_Template_Functions();
 
-    add_filter('template_include', array($template_functions, 'load_template'));
+    add_filter('template_include', array($template_functions, 'load_template'), 99);
 
     add_action('ralfdocs_view_report_loop', array($template_functions, 'view_report_loop'));
     add_action('ralfdocs_article_meta', array($template_functions, 'article_meta'));
