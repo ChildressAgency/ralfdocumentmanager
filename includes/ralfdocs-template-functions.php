@@ -2,7 +2,9 @@
 if(!defined('ABSPATH')){ exit; }
 
 function ralfdocs_get_template($template_name){
-  return RALFDOCS_Template_Functions::get_template($template_name);
+  return RALFDOCS_Template_Functions::get_plugin_template($template_name);
+  //$template = new RALFDOCS_Template_Functions();
+  //return $template->get_template($template_name);
 }
 
 function ralfdocs_convert_to_int_array($article_ids_string){
@@ -226,8 +228,9 @@ class RALFDOCS_Template_Functions{
     return apply_filters('the_excerpt', $text);
   }
 
-  public static function get_template($template_name){
-    $template_file = $this->find_template($template_name);
+  public static function get_plugin_template($template_name){
+    $template_file = (new RALFDOCS_Template_Functions)->find_template($template_name);
+    //$template_file = $this->find_template($template_name);
 
     return $template_file;
   }
