@@ -7,7 +7,7 @@ if(!defined('ABSPATH')){ exit; }
     $article_meta = ralfdocs_get_article_meta($article_id);
     if($article_meta['article_type']['name'] != ''){
       $article_type_class = 'article-type';
-      if($article_meta['article_type']['name'] == 'resource'){
+      if($article_meta['article_type']['name'] == 'Resource'){
         $article_type_class .= ' resource-article-type';
       }
       echo '<span class="' . $article_type_class . '" style="background-color:' . esc_html($article_meta['article_type']['color']) . ';">' . esc_html($article_meta['article_type']['name']) . '</span>';
