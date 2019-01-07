@@ -153,13 +153,15 @@ class Ralf_Docs{
   }
 
   public function acf_settings_path($path){
-    $path = RALFDOCS_PLUGIN_URL . '/vendors/advanced-custom-fields-pro';
+    //$path = RALFDOCS_PLUGIN_URL . 'vendors/advanced-custom-fields-pro/';
+    $path = plugin_dir_path(__FILE__) . 'vendors/advanced-custom-fields-pro/';
 
     return $path;
   }
 
   public function acf_settings_dir($dir){
-    $dir = RALFDOCS_PLUGIN_DIR . '/vendors/advanced-custom-fields-pro';
+    //$dir = RALFDOCS_PLUGIN_DIR . '/vendors/advanced-custom-fields-pro/';
+    $dir = plugin_dir_url(__FILE__) . 'vendors/advanced-custom-fields-pro/';
 
     return $dir;
   }
