@@ -193,11 +193,12 @@ class Ralf_Docs{
   }
 
   public function quick_select_form($atts){
-    $num_filters = shortcode_atts(array(
+    $number_of_options = shortcode_atts(array(
       'number_of_options' => 40
     ), $atts);
+    $num_filters = $number_of_options['number_of_options'];
     ob_start();
-      include ralfdocs_get_template('search/ralfdocs-quick-select-form.php');
+      require_once ralfdocs_get_template('search/ralfdocs-quick-select-form.php');
     return ob_get_clean();
   }
 
