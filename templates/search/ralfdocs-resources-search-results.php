@@ -9,8 +9,16 @@ $resources = new SWP_Query(array(
   'fields' => 'all'
 ));
 
-if(!empty($resources->posts)): foreach($resources->posts as $post):
-  setup_postdata($post);
+$resources = new WP_Query(array(
+  'post_type' => 'resources',
+  's' => $searched_word,
+  'posts_per_page' => -1,
+  'fields' => 'all'
+));
+
+//if(!empty($resources->posts)): foreach($resources->posts as $post):
+  //setup_postdata($post);
+if($resources->have_posts()): while($resources->have_posts()): $resources->the_post();
   $resource_id = get_the_ID(); ?>
 
   <div class="loop-item">
@@ -27,6 +35,6 @@ if(!empty($resources->posts)): foreach($resources->posts as $post):
       ?>
     </div>
   </div>
-<?php endforeach; else: ?>
-<p><?php echo esc_html__('Sorry, no resources found.', 'ralfdocs'); ?></p>
+<?php endwhile; else: ?>
+  <p><?php echo esc_html__('Sorry, no resources found.', 'ralfdocs'); ?></p>
 <?php endif; wp_reset_postdata();
