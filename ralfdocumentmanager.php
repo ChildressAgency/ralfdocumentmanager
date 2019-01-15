@@ -72,6 +72,10 @@ class Ralf_Docs{
     add_filter('searchwp_query_join', array($this, 'searchwp_join_term_relationships'), 10, 3);
     add_filter('searchwp_weight_mods', array($this, 'searchwp_weight_priority_keywords'));
 
+    //ajax pagination
+    add_action('wp_ajax_nopriv_ralfdocs_ajax_pagination', array($this, 'do_ralfdocs_ajax_pagination'));
+    add_action('wp_ajax_ralfdocs_ajax_pagination', array($this, 'do_ralfdocs_ajax_pagination'));
+
     $email_report = new RALFDOCS_Email_Report();
   }
 
@@ -129,6 +133,7 @@ class Ralf_Docs{
     wp_enqueue_script('js-cookie');
     wp_enqueue_script('ralfdocs-scripts');
 
+    global $wp_query;
     wp_localize_script('ralfdocs-scripts', 'ralfdocs_settings', array(
       'ralfdocs_ajaxurl' => admin_url('admin-ajax.php'),
       'send_label' => esc_html__('Email Report', 'ralfdocs'),
@@ -137,7 +142,8 @@ class Ralf_Docs{
       'remove_from_report_label' => esc_html__('Remove From Report', 'ralfdocs'),
       'added_to_report_label' => esc_html__('Added to report!', 'ralfdocs'),
       'removed_from_report_label' => esc_html__('Removed from report', 'ralfdocs'),
-      'valid_email_address_error' => esc_html__('Please enter only valid email addresses.', 'ralfdocs')
+      'valid_email_address_error' => esc_html__('Please enter only valid email addresses.', 'ralfdocs'),
+      'query_vars' => json_encode($wp_query->query)
     ));
 
     //styles
@@ -226,6 +232,30 @@ class Ralf_Docs{
   
       return $sql . " + (IF ((swp_tax_rel.term_taxonomy_id = {$priority_keyword_id}), {$additional_weight}, 0))";
     }  
+  }
+
+  public function do_ralfdocs_ajax_pagination(){
+    //global $wp_query;
+
+    $query_vars = json_decode(stripslashes($_POST['query_vars']), true);
+    $query_vars['paged'] = $_POST['page'];
+    //$posts = new WP_Query($query_vars);
+    // $wp_query = $posts;
+
+    $html = '';
+/*
+    if($posts->have_posts()){
+      while($posts->have_posts()){
+        $posts->the_post();
+        echo '<h1>' . get_the_title() . '</h1>';
+      }
+    }
+
+    */
+    
+    ralfdocs_pagination($_POST['page']);
+
+    wp_die();
   }
 } // end Ralf_Docs class
 }

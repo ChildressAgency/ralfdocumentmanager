@@ -1,4 +1,4 @@
-$(document).ready(function($){
+jQuery(document).ready(function($){
   //define the save/remove buttons
   var saveToReportButton = '<a href="#" class="btn-main btn-report save-to-report">' + ralfdocs_settings.save_to_report_label + '</a>';
   var removeFromReportButton = '<a href="#" class="btn-main btn-report remove-from-report">' + ralfdocs_settings.remove_from_report_label + '</a>';
@@ -149,7 +149,7 @@ $(document).ready(function($){
       'email-addresses' : emailAddresses
     };
 
-    $.post(ralfdocs_settings.ralf_ajaxurl, data, function(response){
+    $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
       if(response.success == true){
         //get rid of button and email address field since we're done with them
         $button.remove();
@@ -220,6 +220,30 @@ $(document).ready(function($){
     Cookies.remove('STYXKEY_ralfdocs_search_history', { path:'/' });
     $(this).parent().remove();
   });
+
+  //pagination
+  $('.tab-pane').on('click', '.pagination a', function(e){
+    e.preventDefault();
+    var $tab = $(this).closest('.tab-pane');
+
+    var page = find_page_number($(this).clone());
+
+    var data = {
+      action: 'ralfdocs_ajax_pagination',
+      query_vars: ralfdocs_settings.query_vars,
+      page: page
+    };
+
+    $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
+      console.log(response);
+      $tab.html(response);
+    });
+  });
+
+  function find_page_number(el){
+    el.find('span').remove();
+    return parseInt(el.html());
+  }
 });
 
 function record_save(articleId, nonce){
@@ -230,7 +254,7 @@ function record_save(articleId, nonce){
       'nonce': nonce
     }
 
-    $.post(ralfdocs_settings.ralf_ajaxurl, data, function(response){
+    $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
       
     });
   }

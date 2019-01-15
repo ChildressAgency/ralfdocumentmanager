@@ -11,7 +11,7 @@ $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
   'page' => $paged,
   'fields' => 'all'
 ));*/
-
+var_dump($paged);
 $impacts_activities = new WP_Query(array(
   'post_type' => array('impacts', 'activities'),
   's' => $searched_word,
