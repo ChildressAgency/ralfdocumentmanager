@@ -73,8 +73,8 @@ class Ralf_Docs{
     add_filter('searchwp_weight_mods', array($this, 'searchwp_weight_priority_keywords'));
 
     //ajax pagination
-    add_action('wp_ajax_nopriv_ralfdocs_ajax_pagination', array($this, 'do_ralfdocs_ajax_pagination'));
-    add_action('wp_ajax_ralfdocs_ajax_pagination', array($this, 'do_ralfdocs_ajax_pagination'));
+    //add_action('wp_ajax_nopriv_ralfdocs_ajax_pagination', array($this, 'do_ralfdocs_ajax_pagination'));
+    //add_action('wp_ajax_ralfdocs_ajax_pagination', array($this, 'do_ralfdocs_ajax_pagination'));
 
     $email_report = new RALFDOCS_Email_Report();
   }
@@ -235,27 +235,8 @@ class Ralf_Docs{
   }
 
   public function do_ralfdocs_ajax_pagination(){
-    //global $wp_query;
 
-    $query_vars = json_decode(stripslashes($_POST['query_vars']), true);
-    $query_vars['paged'] = $_POST['page'];
-    //$posts = new WP_Query($query_vars);
-    // $wp_query = $posts;
-
-    $html = '';
-/*
-    if($posts->have_posts()){
-      while($posts->have_posts()){
-        $posts->the_post();
-        echo '<h1>' . get_the_title() . '</h1>';
-      }
-    }
-
-    */
-    
-    ralfdocs_pagination($_POST['page']);
-
-    wp_die();
+    //wp_die();
   }
 } // end Ralf_Docs class
 }

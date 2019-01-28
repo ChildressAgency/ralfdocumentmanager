@@ -222,7 +222,7 @@ jQuery(document).ready(function($){
   });
 
   //pagination
-  $('.tab-pane').on('click', '.pagination a', function(e){
+/*  $('.tab-pane').on('click', '.pagination a', function(e){
     e.preventDefault();
     var $tab = $(this).closest('.tab-pane');
 
@@ -238,7 +238,7 @@ jQuery(document).ready(function($){
       console.log(response);
       $tab.html(response);
     });
-  });
+  });*/
 
   function find_page_number(el){
     el.find('span').remove();
