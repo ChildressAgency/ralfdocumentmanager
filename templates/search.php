@@ -10,24 +10,46 @@
             <?php $searched_word = get_search_query(); ?>
             <h1><?php printf(esc_html__('Search results for "%s"', 'ralfdocs'), $searched_word); ?></h1>
 
-            <ul class="nav nav-pills nav-justified" role="tablist">
-              <li role="presentation" class="active"><a href="#impacts-activities" aria-controls="impacts-activities" role="tab" data-toggle="tab"><?php echo esc_html__('Impacts / Activities', 'ralfdocs'); ?></a></li>
-              <li role="presentation"><a href="#resources" aria-controls="resources" role="tab" data-toggle="tab"><?php echo esc_html__('Resources', 'ralfdocs'); ?></a></li>
-            </ul>
+            <?php
+              $impacts_activities = new SWP_Query(array(
+                'post_type' => array('impacts', 'activities'),
+                's' => $searched_word,
+                'engine' => 'default',
+                'posts_per_page' => 10,
+                'page' => $paged,
+                'fields' => 'all'
+              ));
 
-            <div class="tab-content">
-              <div id="impacts-activities" class="tab-pane fade in active" role="tabpanel">
+              $resources = new WP_Query(array(
+                'post_type' => 'resources',
+                's' => $searched_word,
+                'engine' => 'default',
+                'posts_per_page' => 10,
+                'page' => $paged,
+                'fields' => 'all'
+              ));
+              
+              include ralfdocs_get_template('loop/tabs.php');
 
-                <?php do_action('ralfdocs_impacts_activities_search_results', $searched_word); ?>
-
-              </div>
-
-              <div id="resources" class="tab-pane fade" role="tabpanel">
-
-                <?php do_action('ralfdocs_resources_search_results', $searched_word); ?>
-
-              </div>
-            </div>
+              if(isset($_GET['type']) && $_GET['type'] == 'resources'){
+                // user clicked the resources tab
+                include ralfdocs_get_template('loop/resources-search-results.php');
+              }
+              else{
+                /**
+                 * initial results - resources tab not clicked
+                 * 
+                 * if $impacts_activities has no results then default to the resources tab,
+                 * unless its also empty - then just display the default tab.
+                 */
+                if(empty($impacts_activities->posts) && !empty($resources->posts)){
+                  include ralfdocs_get_template('loop/resources-search-results.php');
+                }
+                else{
+                  include ralfdocs_get_template('loop/impacts-activities-search-results.php');
+                }
+              }
+            ?>
 
           </main>
         </div>
