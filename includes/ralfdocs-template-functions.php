@@ -31,8 +31,8 @@ function ralfdocs_get_related_impacts($resource_id){
   return (new RALFDOCS_Template_Functions)->get_related_impacts($resource_id);
 }
 
-function ralfdocs_pagination($ajax_page = ''){
-  return (new RALFDOCS_Template_Functions)->pagination($ajax_page);
+function ralfdocs_pagination($the_query = ''){
+  return (new RALFDOCS_Template_Functions)->pagination($the_query);
 }
 
 if(!class_exists('RALFDOCS_Template_Functions')){
@@ -179,26 +179,26 @@ class RALFDOCS_Template_Functions{
     return $impacts;
   }
 
-  public function pagination($ajax_page){
+  public function pagination($the_query){
     //https://premium.wpmudev.org/blog/load-posts-ajax/
-    if($ajax_page != ''){
-      $paged = $ajax_page;
-    }
-    else{
-      $paged = get_query_var('paged') ? get_query_var('paged') : 1;
+    if($the_query == ''){
+      global $wp_query;
+      $the_query = $wp_query;
     }
 
-    global $wp_query;
+    $paged = get_query_var('paged') ? get_query_var('paged') : 1;
 
-    if($wp_query->max_num_pages <= 1){ return; }
+    //global $wp_query;
+
+    if($the_query->max_num_pages <= 1){ return; }
 
     $big = 999999999;
     $pages = paginate_links(array(
-              'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
-              'format' => '?paged=%#%',
+              'base' => str_replace($big, '%#%', html_entity_decode(get_pagenum_link($big))),
+              //'format' => '?paged=%#%',
               //'current' => max(1, get_query_var('paged')),
               'current' => max(1, $paged),
-              'total' => $wp_query->max_num_pages,
+              'total' => $the_query->max_num_pages,
               'type' => 'array'
     ));
 
