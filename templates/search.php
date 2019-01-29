@@ -11,6 +11,8 @@
             <h1><?php printf(esc_html__('Search results for "%s"', 'ralfdocs'), $searched_word); ?></h1>
 
             <?php
+              $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+
               $impacts_activities = new SWP_Query(array(
                 'post_type' => array('impacts', 'activities'),
                 's' => $searched_word,
@@ -20,7 +22,7 @@
                 'fields' => 'all'
               ));
 
-              $resources = new WP_Query(array(
+              $resources = new SWP_Query(array(
                 'post_type' => 'resources',
                 's' => $searched_word,
                 'engine' => 'default',
@@ -29,8 +31,6 @@
                 'fields' => 'all'
               ));
               
-              include ralfdocs_get_template('loop/tabs.php');
-
               if(isset($_GET['type']) && $_GET['type'] == 'resources'){
                 // user clicked the resources tab
                 include ralfdocs_get_template('loop/resources-search-results.php');
