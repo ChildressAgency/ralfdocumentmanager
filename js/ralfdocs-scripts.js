@@ -222,23 +222,26 @@ jQuery(document).ready(function($){
   });
 
   //pagination
-/*  $('.tab-pane').on('click', '.pagination a', function(e){
+  $('.tab-pane').on('click', '.pagination a', function(e){
     e.preventDefault();
     var $tab = $(this).closest('.tab-pane');
+    //tab id for post_type
+    var tabId = $tab.attr('id');
 
     var page = find_page_number($(this).clone());
 
     var data = {
       action: 'ralfdocs_ajax_pagination',
       query_vars: ralfdocs_settings.query_vars,
-      page: page
+      page: page,
+      tab_id: tabId
     };
 
     $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
-      console.log(response);
+      //console.log(response);
       $tab.html(response);
     });
-  });*/
+  });
 
   function find_page_number(el){
     el.find('span').remove();

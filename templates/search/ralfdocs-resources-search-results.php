@@ -1,14 +1,6 @@
 <?php
 if(!defined('ABSPATH')){ exit; }
 
-$resources = new SWP_Query(array(
-  'post_type' => 'resources',
-  's' => $searched_word,
-  'engine' => 'default',
-  'posts_per_page' => -1,
-  'fields' => 'all'
-));
-
 $resources = new WP_Query(array(
   'post_type' => 'resources',
   's' => $searched_word,
@@ -16,8 +8,6 @@ $resources = new WP_Query(array(
   'fields' => 'all'
 ));
 
-//if(!empty($resources->posts)): foreach($resources->posts as $post):
-  //setup_postdata($post);
 if($resources->have_posts()): while($resources->have_posts()): $resources->the_post();
   $resource_id = get_the_ID(); ?>
 

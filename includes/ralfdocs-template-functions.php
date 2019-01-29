@@ -31,8 +31,8 @@ function ralfdocs_get_related_impacts($resource_id){
   return (new RALFDOCS_Template_Functions)->get_related_impacts($resource_id);
 }
 
-function ralfdocs_pagination(){
-  return (new RALFDOCS_Template_Functions)->pagination();
+function ralfdocs_pagination($ajax_page = ''){
+  return (new RALFDOCS_Template_Functions)->pagination($ajax_page);
 }
 
 if(!class_exists('RALFDOCS_Template_Functions')){
@@ -181,6 +181,13 @@ class RALFDOCS_Template_Functions{
 
   public function pagination($ajax_page){
     //https://premium.wpmudev.org/blog/load-posts-ajax/
+    if($ajax_page != ''){
+      $paged = $ajax_page;
+    }
+    else{
+      $paged = get_query_var('paged') ? get_query_var('paged') : 1;
+    }
+
     global $wp_query;
 
     if($wp_query->max_num_pages <= 1){ return; }
@@ -189,14 +196,14 @@ class RALFDOCS_Template_Functions{
     $pages = paginate_links(array(
               'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
               'format' => '?paged=%#%',
-              'current' => max(1, get_query_var('paged')),
-              //'current' => max(1, $paged),
+              //'current' => max(1, get_query_var('paged')),
+              'current' => max(1, $paged),
               'total' => $wp_query->max_num_pages,
               'type' => 'array'
     ));
 
     if(is_array($pages)){
-      $paged = (get_query_var('paged') == 0) ? 1 : get_query_var('paged');
+      //$paged = (get_query_var('paged') == 0) ? 1 : get_query_var('paged');
 
       echo '<nav aria-label="Page navigation" class="pagination-nav"><ul class="pagination">';
 
