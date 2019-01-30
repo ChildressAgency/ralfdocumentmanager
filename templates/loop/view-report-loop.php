@@ -1,4 +1,10 @@
 <?php
+/**
+ * Template for showing reports in loop
+ * 
+ * Can be overridden with custom template file here:
+ * THEME_STYLESHEET_DIRECTORY/ralfdocs-templates/loop/view-report-loop.php
+ */
 if(!defined('ABSPATH')){ exit; }
 
 $report_article_id = get_the_ID(); ?>
