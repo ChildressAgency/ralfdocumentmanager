@@ -98,15 +98,6 @@ class Ralf_Docs{
     add_action('ralfdocs_related_impacts', array($template_functions, 'related_impacts'));
     add_action('ralfdocs_related_resources', array($template_functions, 'related_resources'));
     add_action('ralfdocs_related_activities', array($template_functions, 'related_activities'), 10, 2);
-    add_action('ralfdocs_resources_related_impacts', array($template_functions, 'resources_related_impacts'));
-    //add_action('ralfdocs_impacts_activities_search_results', array($template_functions, 'impacts_activities_search_results'));
-    //add_action('ralfdocs_resources_search_results', array($template_functions, 'resources_search_results'));
-    add_action('ralfdocs_quick_select_results', array($template_functions, 'quick_select_results'));
-    //add_action('ralfdocs_sector_title', array($template_functions, 'sector_title'));
-    //add_action('ralfdocs_sector_impacts_loop', array($template_functions, 'sector_impacts_loop'));
-    //add_action('ralfdocs_sector_resources_loop', array($template_functions, 'sector_resources_loop'));
-    //add_action('ralfdocs_resource_type_title', array($template_functions, 'resource_type_title'));
-    //add_action('ralfdocs_resource_type_loop', array($template_functions, 'resource_type_loop'));
   }
 
   public function load_textdomain(){
@@ -204,7 +195,7 @@ class Ralf_Docs{
     ), $atts);
     $num_filters = $number_of_options['number_of_options'];
     ob_start();
-      require_once ralfdocs_get_template('search/ralfdocs-quick-select-form.php');
+      require_once ralfdocs_get_template('quick-select-form.php');
     return ob_get_clean();
   }
 
