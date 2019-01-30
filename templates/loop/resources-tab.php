@@ -2,6 +2,9 @@
 /**
  * Tabs for search results loops and taxonomy loop pages
  * This displays the Resources tab as active
+ * 
+ * Can be overridden with custom template file here:
+ * THEME_STYLESHEET_DIRECTORY/ralfdocs-templates/loop/resources-tab.php
  */
 if(!defined('ABSPATH')){ exit; }
 ?>
