@@ -1,4 +1,11 @@
-<?php get_header(); ?>
+<?php 
+/**
+ * Template for displaying ralfdocs search results
+ * 
+ * Can be overridden with custom template file here:
+ * THEME_STYLESHEET_DIRECTORY/ralfdocs-templates/search.php
+ */
+get_header(); ?>
   <div class="page-content">
     <div class="container">
       <div class="row">
