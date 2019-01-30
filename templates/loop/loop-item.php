@@ -1,6 +1,9 @@
 <?php
 /**
  * Template for displaying items in search and taxonomy results
+ * 
+ * Can be overridden with custom template file here:
+ * THEME_STYLESHEET_DIRECTORY/ralfdocs-templates/loop/loop-item.php
  */
 if(!defined('ABSPATH')){ exit; }
 ?>
@@ -15,7 +18,7 @@ if(!defined('ABSPATH')){ exit; }
         echo '<span class="priority"></span>';
       }
 
-      include ralfdocs_get_template('ralfdocs-article-meta.php');
+      include ralfdocs_get_template('article-meta.php');
     ?>
   </div>
 </div>
