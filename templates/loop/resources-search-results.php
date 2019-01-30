@@ -2,6 +2,9 @@
 /**
  * Template for displaying the Resources search results
  * Resources tab is active and Impacts / Activities tab is linked
+ * 
+ * Can be overridden with custom template file here:
+ * THEME_STYLESHEET_DIRECTORY/ralfdocs-templates/loop/resources-search-results.php
  */
 if(!defined('ABSPATH')){ exit; }
 
