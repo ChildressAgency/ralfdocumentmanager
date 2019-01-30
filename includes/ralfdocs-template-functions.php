@@ -265,7 +265,7 @@ class RALFDOCS_Template_Functions{
       $template_name = 'taxonomy-sectors.php';
     }
     elseif(is_page('quick-select-results')){
-      $template_name = 'search/page-quick-select-results.php';
+      $template_name = 'page-quick-select-results.php';
     }
     elseif(is_page('view-report')){
       $template_name = 'page-view-report.php';
@@ -295,23 +295,11 @@ class RALFDOCS_Template_Functions{
   }
 
   public function view_report_loop(){
-    include ralfdocs_get_template('loop/ralfdocs-view-report-loop.php');
+    include ralfdocs_get_template('loop/view-report-loop.php');
   }
 
   public function article_meta($article_id){
     include ralfdocs_get_template('loop/article-meta.php');
-  }
-
-  public function impacts_loop(){
-    include ralfdocs_get_template('loop/ralfdocs-impacts-loop.php');
-  }
-
-  public function activities_loop(){
-    include ralfdocs_get_template('loop/ralfdocs-activities-loop.php');
-  }
-
-  public function resources_loop(){
-    include ralfdocs_get_template('loop/ralfdocs-resources-loop.php');
   }
 
   public function related_impacts($impact_ids){
@@ -323,7 +311,7 @@ class RALFDOCS_Template_Functions{
   }
 
   public function related_activities($article_id, $article_type){
-    include ralfdocs_get_template('related/ralfdocs-related-activities.php');
+    include ralfdocs_get_template('related/related-activities.php');
   }
 }
 }

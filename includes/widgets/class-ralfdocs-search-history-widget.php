@@ -109,11 +109,11 @@ class RALFDOCS_Search_History_Widget extends WP_Widget{
   public function acf_history_limit_field(){
     acf_add_local_field_group(array(
       'key' => 'group_5ba111684098e',
-      'title' => __('Search History Settings', 'ralfdocs'),
+      'title' => esc_html__('Search History Settings', 'ralfdocs'),
       'fields' => array(
         array(
           'key' => 'field_5ba111791e0a6',
-          'label' => __('Search Term History Limit', 'ralfdocs'),
+          'label' => esc_html__('Search Term History Limit', 'ralfdocs'),
           'name' => 'search_term_history_limit',
           'type' => 'number',
           'instructions' => '',

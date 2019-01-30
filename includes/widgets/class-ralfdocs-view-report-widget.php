@@ -5,8 +5,8 @@ class RALFDOCS_View_Report_Widget extends WP_Widget{
 	function __construct(){
 		parent::__construct(
 			'ralfdocs_view_report_widget',
-			__('View Report Widget', 'ralfdocs'),
-			array('description' => __('Show the View Report button', 'ralfdocs'))
+			esc_html__('View Report Widget', 'ralfdocs'),
+			array('description' => esc_html__('Show the View Report button', 'ralfdocs'))
 		);
 	}
 
@@ -30,7 +30,7 @@ class RALFDOCS_View_Report_Widget extends WP_Widget{
 			$title = $instance['title'];
 		}
 		else{
-			$title = __('New title', 'ralfreports');
+			$title = esc_html__('New title', 'ralfdocs');
 		}
 	?>
 		<p>

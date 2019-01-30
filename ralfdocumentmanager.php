@@ -92,9 +92,6 @@ class Ralf_Docs{
     add_action('ralfdocs_view_report_loop', array($template_functions, 'view_report_loop'));
     add_action('ralfdocs_article_meta', array($template_functions, 'article_meta'));
     add_action('ralfdocs_back_button', array($template_functions, 'back_button'));
-    add_action('ralfdocs_impacts_loop', array($template_functions, 'impacts_loop'));
-    add_action('ralfdocs_activities_loop', array($template_functions, 'activities_loop'));
-    add_action('ralfdocs_resources_loop', array($template_functions, 'resources_loop'));
     add_action('ralfdocs_related_impacts', array($template_functions, 'related_impacts'));
     add_action('ralfdocs_related_resources', array($template_functions, 'related_resources'));
     add_action('ralfdocs_related_activities', array($template_functions, 'related_activities'), 10, 2);
