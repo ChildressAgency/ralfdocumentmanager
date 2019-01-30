@@ -22,7 +22,6 @@ get_header(); ?>
 
             $impacts = new WP_Query(array(
               'post_type' => 'impacts',
-              'posts_per_page' => 10,
               'paged' => $paged,
               'tax_query' => array(
                 array(
@@ -35,7 +34,6 @@ get_header(); ?>
 
             $resources = new WP_Query(array(
               'post_type' => 'resources',
-              'posts_per_page' => 10,
               'paged' => $paged,
               'tax_query' => array(
                 array(

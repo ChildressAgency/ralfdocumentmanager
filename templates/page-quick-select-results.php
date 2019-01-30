@@ -31,7 +31,6 @@ get_header(); ?>
               $paged = get_query_var('paged') ? get_query_var('paged') : 1;
               $factors = new WP_Query(array(
                 'post_type' => array('impacts', 'activities'),
-                'posts_per_page' => 10,
                 'paged' => $paged,
                 'tax_query' => array(
                   array(

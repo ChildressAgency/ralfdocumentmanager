@@ -24,7 +24,6 @@ get_header(); ?>
                 'post_type' => array('impacts', 'activities'),
                 's' => $searched_word,
                 'engine' => 'default',
-                'posts_per_page' => 10,
                 'page' => $paged,
                 'fields' => 'all'
               ));
@@ -33,7 +32,6 @@ get_header(); ?>
                 'post_type' => 'resources',
                 's' => $searched_word,
                 'engine' => 'default',
-                'posts_per_page' => 10,
                 'page' => $paged,
                 'fields' => 'all'
               ));
