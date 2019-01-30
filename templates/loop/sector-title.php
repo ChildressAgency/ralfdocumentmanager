@@ -1,9 +1,9 @@
 <?php
 /**
- * Template for showing sector title on taxonomy archive page
+ * Template for showing sector title on sector taxonomy archive page
  * 
  * Can be overridden with custom template file here:
- * THEME_STYLESHEET_DIRECTORY/loop/sector-title.php
+ * THEME_STYLESHEET_DIRECTORY/ralfdocs-templates/loop/sector-title.php
  */
 if(!defined('ABSPATH')){ exit; }
 ?>
