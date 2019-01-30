@@ -73,8 +73,9 @@ class Ralf_Docs{
     add_filter('searchwp_weight_mods', array($this, 'searchwp_weight_priority_keywords'));
 
     //ajax pagination
-    add_action('wp_ajax_nopriv_ralfdocs_ajax_pagination', array($this, 'do_ralfdocs_ajax_pagination'));
-    add_action('wp_ajax_ralfdocs_ajax_pagination', array($this, 'do_ralfdocs_ajax_pagination'));
+    //doesn't work well with SearchWP but left code in for future possibilities
+    //add_action('wp_ajax_nopriv_ralfdocs_ajax_pagination', array($this, 'do_ralfdocs_ajax_pagination'));
+    //add_action('wp_ajax_ralfdocs_ajax_pagination', array($this, 'do_ralfdocs_ajax_pagination'));
 
     $email_report = new RALFDOCS_Email_Report();
   }
