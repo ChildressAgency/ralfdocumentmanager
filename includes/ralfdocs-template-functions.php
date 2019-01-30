@@ -1,4 +1,7 @@
 <?php
+/**
+ * Public and common template functions
+ */
 if(!defined('ABSPATH')){ exit; }
 
 function ralfdocs_get_template($template_name){
@@ -296,7 +299,7 @@ class RALFDOCS_Template_Functions{
   }
 
   public function article_meta($article_id){
-    include ralfdocs_get_template('ralfdocs-article-meta.php');
+    include ralfdocs_get_template('loop/article-meta.php');
   }
 
   public function impacts_loop(){
@@ -312,51 +315,15 @@ class RALFDOCS_Template_Functions{
   }
 
   public function related_impacts($impact_ids){
-    include ralfdocs_get_template('related/ralfdocs-related-impacts.php');
+    include ralfdocs_get_template('related/related-impacts.php');
   }
 
   public function related_resources($article_id){
-    include ralfdocs_get_template('related/ralfdocs-related-resources.php');
+    include ralfdocs_get_template('related/related-resources.php');
   }
 
   public function related_activities($article_id, $article_type){
     include ralfdocs_get_template('related/ralfdocs-related-activities.php');
-  }
-
-  public function resources_related_impacts($resource_id){
-    include ralfdocs_get_template('related/ralfdocs-resources-related-impacts.php');
-  }
-
-  public function impacts_activities_search_results($searched_word){
-    include ralfdocs_get_template('search/ralfdocs-impacts-activities-search-results.php');
-  }
-
-  public function resources_search_results($searched_word){
-    include ralfdocs_get_template('search/ralfdocs-resources-search-results.php');
-  }
-
-  public function quick_select_results(){
-    include ralfdocs_get_template('search/ralfdocs-quick-select-results.php');
-  }
-
-  public function sector_title($current_sector){
-    include ralfdocs_get_template('loop/ralfdocs-sector-title.php');
-  }
-
-  public function sector_impacts_loop($current_sector){
-    include ralfdocs_get_template('loop/ralfdocs-sector-impacts-loop.php');
-  }
-
-  public function sector_resources_loop($current_sector){
-    include ralfdocs_get_template('loop/ralfdocs-sector-resources-loop.php');
-  }
-
-  public function resource_type_title($current_resource_type){
-    include ralfdocs_get_template('loop/ralfdocs-resource-type-title.php');
-  }
-
-  public function resource_type_loop($current_resource_type){
-    include ralfdocs_get_template('loop/ralfdocs-resource-type-loop.php');
   }
 }
 }
