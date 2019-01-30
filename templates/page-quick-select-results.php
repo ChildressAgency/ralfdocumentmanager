@@ -29,12 +29,10 @@ get_header(); ?>
               echo '<h1>' . sprintf(esc_html__('Showing results for "%s"', 'ralfdocs'), $impact_tag_names) . '</h1>';
 
               $paged = get_query_var('paged') ? get_query_var('paged') : 1;
-              $factors = new SWP_Query(array(
+              $factors = new WP_Query(array(
                 'post_type' => array('impacts', 'activities'),
-                'engine' => 'default',
                 'posts_per_page' => 10,
-                'page' => $paged,
-                'fields' => 'all',
+                'paged' => $paged,
                 'tax_query' => array(
                   array(
                     'taxonomy' => 'impact_tags',
@@ -56,6 +54,10 @@ get_header(); ?>
               else{
                 include ralfdocs_get_template('loop/no-results.php');
               }
+            }
+            else{
+              echo '<p>' . esc_html__('You did not select any factors.', 'ralfdocs') . '</p>';
+            }
             ?>
 
         </main>
