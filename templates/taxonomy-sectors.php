@@ -1,4 +1,11 @@
-<?php get_header(); ?>
+<?php 
+/**
+ * Template for displaying sector loop
+ * 
+ * Can be overridden with custom template file here:
+ * THEME_STYLESHEET_DIRECTORY/ralfdocs-templates/taxonomy-sectors.php
+ */
+get_header(); ?>
 <div class="page-content">
   <div class="container">
     <div class="row">
@@ -9,22 +16,60 @@
         <main class="results-list">
           <?php 
             $current_sector = get_queried_object();
-            do_action('ralfdocs_sector_title', $current_sector); ?>
+            include ralfdocs_get_template('loop/sector-title.php');
+          
+            $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 
-          <ul class="nav nav-pills nav-justified" role="tablist">
-            <li role="presentation" class="active"><a href="#impacts" aria-controls="impacts" role="tab" data-toggle="tab"><?php echo esc_html__('Impacts / Activities', 'ralfdocs'); ?></a></li>
-            <li role="presentation"><a href="#resources" aria-controls="resources" role="tab" data-toggle="tab"><?php echo esc_html__('Resources', 'ralfdocs'); ?></a></li>
-          </ul>
+            $impacts = new SWP_Query(array(
+              'post_type' => 'impacts',
+              'engine' => 'default',
+              'posts_per_page' => 10,
+              'page' => $paged,
+              'fields' => 'all',
+              'tax_query' => array(
+                array(
+                  'taxonomy' => 'sectors',
+                  'field' => 'term_id',
+                  'terms' => $current_sector->term_id
+                )
+              )
+            ));
 
-          <div class="tab-content">
-            <div id="impacts" class="tab-pane fade in active" role="tabpanel">
-              <?php do_action('ralfdocs_sector_impacts_loop', $current_sector); ?>
-            </div>
+            $resources = new SWP_Query(array(
+              'post_type' => 'resources',
+              'engine' => 'default',
+              'posts_per_page' => 10,
+              'page' => $paged,
+              'fields' => 'all',
+              'tax_query' => array(
+                array(
+                  'taxonomy' => 'sectors',
+                  'field' => 'term_id',
+                  'terms' => $current_sector->term_id
+                )
+              )
+            ));
 
-            <div id="resources" class="tab-pane fade" role="tabpanel">
-              <?php do_action('ralfdocs_sector_resources_loop', $current_sector); ?>
-            </div>
-          </div>
+            if(isset($_GET['type']) && $_GET['type'] == 'resources'){
+              //user clicked the resources tab
+              include ralfdocs_get_template('loop/sector-impacts-loop.php');
+            }
+            else{
+              /**
+               * initial results - resources tab not clicked
+               * 
+               * if $impacts has no results then default to the resources tab,
+               * unless its also empty - then just display the default tab.
+               */
+              if(empty($impacts->posts) && !empty($resources->posts)){
+                include ralfdocs_get_template('loop/sector-resources-loop.php');
+              }
+              else{
+                include ralfdocs_get_template('loop/sector-impacts-loop.php');
+              }
+            }
+          ?>
+
         </main>
       </div>
     </div>
