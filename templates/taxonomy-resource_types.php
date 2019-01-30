@@ -19,12 +19,10 @@ get_header(); ?>
             include ralfdocs_get_template('loop/resource-type-title.php');
 
             $paged = get_query_var('paged') ? get_query_var('paged') : 1;
-            $resources = new SWP_Query(array(
+            $resources = new WP_Query(array(
               'post_type' => 'resources',
-              'engine' => 'default',
               'posts_per_page' => 10,
-              'page' => $paged,
-              'fields' => 'all',
+              'paged' => $paged,
               'tax_query' => array(
                 array(
                   'taxonomy' => 'resource_types',
