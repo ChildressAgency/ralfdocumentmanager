@@ -14,11 +14,13 @@ if(!defined('ABSPATH')){ exit; }
   </h2>
   <div class="loop-item-meta">
     <?php 
-      if(has_term($searched_word, 'priority_keywords', $post)){
-        echo '<span class="priority"></span>';
+      if(is_search()){
+        if(has_term($searched_word, 'priority_keywords', $post)){
+          echo '<span class="priority"></span>';
+        }
       }
 
-      include ralfdocs_get_template('article-meta.php');
+      include ralfdocs_get_template('loop/article-meta.php');
     ?>
   </div>
 </div>

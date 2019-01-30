@@ -20,12 +20,10 @@ get_header(); ?>
           
             $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 
-            $impacts = new SWP_Query(array(
+            $impacts = new WP_Query(array(
               'post_type' => 'impacts',
-              'engine' => 'default',
               'posts_per_page' => 10,
-              'page' => $paged,
-              'fields' => 'all',
+              'paged' => $paged,
               'tax_query' => array(
                 array(
                   'taxonomy' => 'sectors',
@@ -35,12 +33,10 @@ get_header(); ?>
               )
             ));
 
-            $resources = new SWP_Query(array(
+            $resources = new WP_Query(array(
               'post_type' => 'resources',
-              'engine' => 'default',
               'posts_per_page' => 10,
-              'page' => $paged,
-              'fields' => 'all',
+              'paged' => $paged,
               'tax_query' => array(
                 array(
                   'taxonomy' => 'sectors',
@@ -52,7 +48,7 @@ get_header(); ?>
 
             if(isset($_GET['type']) && $_GET['type'] == 'resources'){
               //user clicked the resources tab
-              include ralfdocs_get_template('loop/sector-impacts-loop.php');
+              include ralfdocs_get_template('loop/sector-resources-loop.php');
             }
             else{
               /**
