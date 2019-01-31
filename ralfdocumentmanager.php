@@ -16,7 +16,7 @@ define('RALFDOCS_PLUGIN_URL', plugin_dir_url(__FILE__));
 register_activation_hook(__FILE__, 'ralfdocs_activation_tasks');
 
 function ralfdocs_activation_tasks(){
-  require_once RALFDOCS_PLUGIN_DIR . '/includes/class-ralfdocs-activator.php';
+  require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-activator.php';
   RALFDOCS_Activator::create_emailed_reports_table();
   RALFDOCS_Activator::create_saved_reports_table();
   RALFDOCS_Activator::create_view_report_page();
@@ -40,13 +40,14 @@ class Ralf_Docs{
       add_filter('acf/settings/dir', array($this, 'acf_settings_dir'));
 
     require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-dashboard.php';
-    require_once RALFDOCS_PLUGIN_DIR . '/includes/class-ralfdocs-post-types.php';
+    require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-post-types.php';
     require_once RALFDOCS_PLUGIN_DIR . '/includes/widgets/class-ralfdocs-sectors-widget.php';
     require_once RALFDOCS_PLUGIN_DIR . '/includes/widgets/class-ralfdocs-search-history-widget.php';
     require_once RALFDOCS_PLUGIN_DIR . '/includes/widgets/class-ralfdocs-view-report-widget.php';
     require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-background-admin-tasks.php';
     require_once RALFDOCS_PLUGIN_DIR . '/includes/class-ralfdocs-email-report.php';
     require_once RALFDOCS_PLUGIN_DIR . '/includes/ralfdocs-template-functions.php';
+    require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-question-tree.php';
   }
 
   public function admin_init(){
@@ -57,6 +58,7 @@ class Ralf_Docs{
 
     $background_admin_tasks = new RALFDOCS_Background_Admin_Tasks();
     $ralfdocs_post_types = new RALFDOCS_Post_Types();
+    $question_tree = new RALFDOCS_Question_Tree();
 
     if(is_admin()){
       $dashboard_functions = new RALFDOCS_Dashboard();
