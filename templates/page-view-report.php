@@ -1,4 +1,11 @@
-<?php get_header(); ?>
+<?php 
+/**
+ * Template for viewing finished report
+ * 
+ * Can be overridden with custom template file here:
+ * THEME_STYLESHEET_DIRECTORY/ralfdocs-templates/page-view-report.php
+ */
+get_header(); ?>
 <div class="page-content">
   <div class="container">
     <main class="results-list">

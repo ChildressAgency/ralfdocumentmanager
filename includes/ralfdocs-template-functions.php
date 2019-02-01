@@ -1,4 +1,7 @@
 <?php
+/**
+ * Public and common template functions
+ */
 if(!defined('ABSPATH')){ exit; }
 
 function ralfdocs_get_template($template_name){
@@ -31,8 +34,8 @@ function ralfdocs_get_related_impacts($resource_id){
   return (new RALFDOCS_Template_Functions)->get_related_impacts($resource_id);
 }
 
-function ralfdocs_pagination($ajax_page = ''){
-  return (new RALFDOCS_Template_Functions)->pagination($ajax_page);
+function ralfdocs_pagination($the_query = ''){
+  return (new RALFDOCS_Template_Functions)->pagination($the_query);
 }
 
 if(!class_exists('RALFDOCS_Template_Functions')){
@@ -179,26 +182,26 @@ class RALFDOCS_Template_Functions{
     return $impacts;
   }
 
-  public function pagination($ajax_page){
+  public function pagination($the_query){
     //https://premium.wpmudev.org/blog/load-posts-ajax/
-    if($ajax_page != ''){
-      $paged = $ajax_page;
-    }
-    else{
-      $paged = get_query_var('paged') ? get_query_var('paged') : 1;
+    if($the_query == ''){
+      global $wp_query;
+      $the_query = $wp_query;
     }
 
-    global $wp_query;
+    $paged = get_query_var('paged') ? get_query_var('paged') : 1;
 
-    if($wp_query->max_num_pages <= 1){ return; }
+    //global $wp_query;
+
+    if($the_query->max_num_pages <= 1){ return; }
 
     $big = 999999999;
     $pages = paginate_links(array(
-              'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
-              'format' => '?paged=%#%',
+              'base' => str_replace($big, '%#%', html_entity_decode(get_pagenum_link($big))),
+              //'format' => '?paged=%#%',
               //'current' => max(1, get_query_var('paged')),
               'current' => max(1, $paged),
-              'total' => $wp_query->max_num_pages,
+              'total' => $the_query->max_num_pages,
               'type' => 'array'
     ));
 
@@ -262,10 +265,16 @@ class RALFDOCS_Template_Functions{
       $template_name = 'taxonomy-sectors.php';
     }
     elseif(is_page('quick-select-results')){
-      $template_name = 'search/page-quick-select-results.php';
+      $template_name = 'page-quick-select-results.php';
     }
     elseif(is_page('view-report')){
       $template_name = 'page-view-report.php';
+    }
+    elseif(is_page('question-tree')){
+      $template_name = 'page-question-tree.php';
+    }
+    elseif(is_singular('questions')){
+      $template_name = 'single-questions.php';
     }
 
     if($template_name !== ''){
@@ -292,71 +301,23 @@ class RALFDOCS_Template_Functions{
   }
 
   public function view_report_loop(){
-    include ralfdocs_get_template('loop/ralfdocs-view-report-loop.php');
+    include ralfdocs_get_template('loop/view-report-loop.php');
   }
 
   public function article_meta($article_id){
-    include ralfdocs_get_template('ralfdocs-article-meta.php');
-  }
-
-  public function impacts_loop(){
-    include ralfdocs_get_template('loop/ralfdocs-impacts-loop.php');
-  }
-
-  public function activities_loop(){
-    include ralfdocs_get_template('loop/ralfdocs-activities-loop.php');
-  }
-
-  public function resources_loop(){
-    include ralfdocs_get_template('loop/ralfdocs-resources-loop.php');
+    include ralfdocs_get_template('loop/article-meta.php');
   }
 
   public function related_impacts($impact_ids){
-    include ralfdocs_get_template('related/ralfdocs-related-impacts.php');
+    include ralfdocs_get_template('related/related-impacts.php');
   }
 
   public function related_resources($article_id){
-    include ralfdocs_get_template('related/ralfdocs-related-resources.php');
+    include ralfdocs_get_template('related/related-resources.php');
   }
 
   public function related_activities($article_id, $article_type){
-    include ralfdocs_get_template('related/ralfdocs-related-activities.php');
-  }
-
-  public function resources_related_impacts($resource_id){
-    include ralfdocs_get_template('related/ralfdocs-resources-related-impacts.php');
-  }
-
-  public function impacts_activities_search_results($searched_word){
-    include ralfdocs_get_template('search/ralfdocs-impacts-activities-search-results.php');
-  }
-
-  public function resources_search_results($searched_word){
-    include ralfdocs_get_template('search/ralfdocs-resources-search-results.php');
-  }
-
-  public function quick_select_results(){
-    include ralfdocs_get_template('search/ralfdocs-quick-select-results.php');
-  }
-
-  public function sector_title($current_sector){
-    include ralfdocs_get_template('loop/ralfdocs-sector-title.php');
-  }
-
-  public function sector_impacts_loop($current_sector){
-    include ralfdocs_get_template('loop/ralfdocs-sector-impacts-loop.php');
-  }
-
-  public function sector_resources_loop($current_sector){
-    include ralfdocs_get_template('loop/ralfdocs-sector-resources-loop.php');
-  }
-
-  public function resource_type_title($current_resource_type){
-    include ralfdocs_get_template('loop/ralfdocs-resource-type-title.php');
-  }
-
-  public function resource_type_loop($current_resource_type){
-    include ralfdocs_get_template('loop/ralfdocs-resource-type-loop.php');
+    include ralfdocs_get_template('related/related-activities.php');
   }
 }
 }

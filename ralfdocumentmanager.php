@@ -16,7 +16,7 @@ define('RALFDOCS_PLUGIN_URL', plugin_dir_url(__FILE__));
 register_activation_hook(__FILE__, 'ralfdocs_activation_tasks');
 
 function ralfdocs_activation_tasks(){
-  require_once RALFDOCS_PLUGIN_DIR . '/includes/class-ralfdocs-activator.php';
+  require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-activator.php';
   RALFDOCS_Activator::create_emailed_reports_table();
   RALFDOCS_Activator::create_saved_reports_table();
   RALFDOCS_Activator::create_view_report_page();
@@ -40,13 +40,14 @@ class Ralf_Docs{
       add_filter('acf/settings/dir', array($this, 'acf_settings_dir'));
 
     require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-dashboard.php';
-    require_once RALFDOCS_PLUGIN_DIR . '/includes/class-ralfdocs-post-types.php';
+    require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-post-types.php';
     require_once RALFDOCS_PLUGIN_DIR . '/includes/widgets/class-ralfdocs-sectors-widget.php';
     require_once RALFDOCS_PLUGIN_DIR . '/includes/widgets/class-ralfdocs-search-history-widget.php';
     require_once RALFDOCS_PLUGIN_DIR . '/includes/widgets/class-ralfdocs-view-report-widget.php';
     require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-background-admin-tasks.php';
     require_once RALFDOCS_PLUGIN_DIR . '/includes/class-ralfdocs-email-report.php';
     require_once RALFDOCS_PLUGIN_DIR . '/includes/ralfdocs-template-functions.php';
+    require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-question-tree.php';
   }
 
   public function admin_init(){
@@ -57,6 +58,7 @@ class Ralf_Docs{
 
     $background_admin_tasks = new RALFDOCS_Background_Admin_Tasks();
     $ralfdocs_post_types = new RALFDOCS_Post_Types();
+    $question_tree = new RALFDOCS_Question_Tree();
 
     if(is_admin()){
       $dashboard_functions = new RALFDOCS_Dashboard();
@@ -73,8 +75,9 @@ class Ralf_Docs{
     add_filter('searchwp_weight_mods', array($this, 'searchwp_weight_priority_keywords'));
 
     //ajax pagination
-    add_action('wp_ajax_nopriv_ralfdocs_ajax_pagination', array($this, 'do_ralfdocs_ajax_pagination'));
-    add_action('wp_ajax_ralfdocs_ajax_pagination', array($this, 'do_ralfdocs_ajax_pagination'));
+    //doesn't work well with SearchWP but left code in for future possibilities
+    //add_action('wp_ajax_nopriv_ralfdocs_ajax_pagination', array($this, 'do_ralfdocs_ajax_pagination'));
+    //add_action('wp_ajax_ralfdocs_ajax_pagination', array($this, 'do_ralfdocs_ajax_pagination'));
 
     $email_report = new RALFDOCS_Email_Report();
   }
@@ -92,21 +95,9 @@ class Ralf_Docs{
     add_action('ralfdocs_view_report_loop', array($template_functions, 'view_report_loop'));
     add_action('ralfdocs_article_meta', array($template_functions, 'article_meta'));
     add_action('ralfdocs_back_button', array($template_functions, 'back_button'));
-    add_action('ralfdocs_impacts_loop', array($template_functions, 'impacts_loop'));
-    add_action('ralfdocs_activities_loop', array($template_functions, 'activities_loop'));
-    add_action('ralfdocs_resources_loop', array($template_functions, 'resources_loop'));
     add_action('ralfdocs_related_impacts', array($template_functions, 'related_impacts'));
     add_action('ralfdocs_related_resources', array($template_functions, 'related_resources'));
     add_action('ralfdocs_related_activities', array($template_functions, 'related_activities'), 10, 2);
-    add_action('ralfdocs_resources_related_impacts', array($template_functions, 'resources_related_impacts'));
-    add_action('ralfdocs_impacts_activities_search_results', array($template_functions, 'impacts_activities_search_results'));
-    add_action('ralfdocs_resources_search_results', array($template_functions, 'resources_search_results'));
-    add_action('ralfdocs_quick_select_results', array($template_functions, 'quick_select_results'));
-    add_action('ralfdocs_sector_title', array($template_functions, 'sector_title'));
-    add_action('ralfdocs_sector_impacts_loop', array($template_functions, 'sector_impacts_loop'));
-    add_action('ralfdocs_sector_resources_loop', array($template_functions, 'sector_resources_loop'));
-    add_action('ralfdocs_resource_type_title', array($template_functions, 'resource_type_title'));
-    add_action('ralfdocs_resource_type_loop', array($template_functions, 'resource_type_loop'));
   }
 
   public function load_textdomain(){
@@ -143,13 +134,13 @@ class Ralf_Docs{
       'added_to_report_label' => esc_html__('Added to report!', 'ralfdocs'),
       'removed_from_report_label' => esc_html__('Removed from report', 'ralfdocs'),
       'valid_email_address_error' => esc_html__('Please enter only valid email addresses.', 'ralfdocs'),
-      'query_vars' => json_encode($wp_query->query)
+      //'query_vars' => json_encode($wp_query->query)
     ));
 
     //styles
-    //wp_register_style('ralfdocs-style', RALFDOCS_PLUGIN_URL . 'css/ralfdocs-style.css');
+    wp_register_style('ralfdocs-style', RALFDOCS_PLUGIN_URL . 'css/ralfdocs-style.css');
 
-    //wp_enqueue_style('ralfdocs-style');
+    wp_enqueue_style('ralfdocs-style');
     wp_enqueue_style('dashicons');
   }
 
@@ -204,7 +195,7 @@ class Ralf_Docs{
     ), $atts);
     $num_filters = $number_of_options['number_of_options'];
     ob_start();
-      require_once ralfdocs_get_template('search/ralfdocs-quick-select-form.php');
+      require_once ralfdocs_get_template('quick-select-form.php');
     return ob_get_clean();
   }
 

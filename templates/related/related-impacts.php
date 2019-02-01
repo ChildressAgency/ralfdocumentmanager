@@ -1,4 +1,10 @@
 <?php
+/**
+ * Template for showing related Impacts on Activities pages
+ * 
+ * Can be overridden with custom template file here:
+ * THEME_STYLESHEET_DIRECTORY/ralfdocs-templates/related/related-impacts.php
+ */
 if(!defined('ABSPATH')){ exit; }
 ?>
 

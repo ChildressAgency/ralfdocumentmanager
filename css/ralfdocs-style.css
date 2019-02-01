@@ -1,0 +1,96 @@
+#question-tree{
+  position:relative;
+  background-repeat:no-repeat;
+  background-size:cover;
+  padding-top:60px;
+  padding-bottom:60px;
+  min-height:700px;
+}
+.full-page-overlay{
+  position:absolute;
+  height:100%;
+  width:100%;
+  top:0;
+  left:0;
+  background-color:rgba(0,0,0,.6);
+  z-index:1;
+}
+#question-tree article{
+  position:relative;
+  max-width:800px;
+  margin-left:auto;
+  margin-right:auto;
+  z-index:3;
+  color:#fff;
+  text-align:center;
+}
+#question-tree article h1{
+  font-size:50px;
+  text-transform:uppercase;
+  margin-bottom:80px;
+}
+#question-tree article p{
+  font-size:28px;
+  line-height:1.2em;
+  margin-bottom:25px;
+}
+#question-tree article .btn-main{
+  font-size:30px;
+  padding:3px 60px;
+  border-radius:60px;
+  margin-top:60px;
+  position:relative;
+}
+#qt-start.btn-main>.glyphicon-refresh{
+  font-size:20px;
+  position:absolute;
+  top:16px;
+  right:27px;
+  opacity:1;
+  transition:opacity .3s ease;
+  animation:glyph-spin 2s infinite linear;
+}
+#qt-start.btn-main>.glyphicon-refresh.no-show{
+  opacity:0;
+}
+@keyframes glyph-spin{
+  0%{
+    transform:rotate(0deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
+#question-tree article ul{
+  text-align:left;
+  font-size:20px;
+  text-transform:uppercase;
+  margin-top:60px;
+}
+#question-tree article ul>li.radio{
+  margin-top:20px;
+  margin-bottom:20px;
+  padding-left:30px;
+}
+#question-tree article label{
+  font-weight:700;
+}
+#question-tree article input[type="radio"]{
+  opacity:0;
+}
+#question-tree article input[type="radio"] + .radio-btn{
+  position:absolute;
+  top:-3px;
+  left:0;
+  height:36px;
+  width:36px;
+  background-image:url(images/radio-btns.png);
+  background-position:0 -44px;
+}
+#question-tree article input[type="radio"]:checked + .radio-btn{
+  background-position:0 0;
+}
+
+#qt-btn.btn-main.btn-hide{
+  opacity:0;
+}

@@ -221,32 +221,32 @@ jQuery(document).ready(function($){
     $(this).parent().remove();
   });
 
-  //pagination
-  $('.tab-pane').on('click', '.pagination a', function(e){
+  $('#qt-start').on('click', function(e){
     e.preventDefault();
-    var $tab = $(this).closest('.tab-pane');
-    //tab id for post_type
-    var tabId = $tab.attr('id');
+    var $article = $('#question-tree article');
 
-    var page = find_page_number($(this).clone());
+    $('#qt-start.btn-main>.glyphicon-refresh').removeClass('no-show');
 
-    var data = {
-      action: 'ralfdocs_ajax_pagination',
-      query_vars: ralfdocs_settings.query_vars,
-      page: page,
-      tab_id: tabId
-    };
-
-    $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
-      //console.log(response);
-      $tab.html(response);
+    $.post(ralfdocs_settings.ralfdocs_ajaxurl, {'action': 'ralfdocs_show_first_question'}, function(response){
+      if(response != 0){
+        //console.log(response);
+        $article.fadeOut(function(){
+          $article.html(response).fadeIn();
+        });
+      }
+      else{
+        $('#question-tree article').html('<p>' + ralfdocs_settings.error + '</p>');
+      }
     });
   });
 
-  function find_page_number(el){
-    el.find('span').remove();
-    return parseInt(el.html());
-  }
+  $('#question-tree').on('change', 'input[type="radio"]', function(){
+    var $selected_answer = $('input[name="qt-answers"]:checked');
+    var qt_link = $selected_answer.val();
+    var next_type = $selected_answer.data('next_type');
+    
+    $('#qt-btn').attr('href', qt_link).text(next_type).removeClass('btn-hide');
+  });
 });
 
 function record_save(articleId, nonce){

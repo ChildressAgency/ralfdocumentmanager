@@ -1,4 +1,10 @@
 <?php
+/**
+ * Template for displaying article meta badges
+ * 
+ * Can be overridden with custom template file here:
+ * THEME_STYLESHEET_DIRECTORY/ralfdocs-templates/loop/article-meta.php
+ */
 if(!defined('ABSPATH')){ exit; }
 ?>
 

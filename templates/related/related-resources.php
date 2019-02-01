@@ -1,4 +1,10 @@
 <?php
+/**
+ * Template for showing related resources on single Activities pages
+ * 
+ * Can be overridden with custom template file here:
+ * THEME_STYLESHEET_DIRECTORY/ralfdocs-templates/related/related-resources.php
+ */
 if(!defined('ABSPATH')){ exit; }
 ?>
 

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Template for showing quick select form
+ * called by quick select shortcode [ralfdocs_quick_select_form]
+ * 
+ * Can be overridden with custom template file here:
+ * THEME_STYLESHEET_DIRECTORY/ralfdocs-templates/quick-select-form.php
+ */
 if(!defined('ABSPATH')){ exit; }
 ?>
 

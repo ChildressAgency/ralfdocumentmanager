@@ -1,4 +1,10 @@
 <?php
+/**
+ * Template for showing related impacts on single resources page
+ * 
+ * Can be overridden with custom template file here:
+ * THEME_STYLESHEET_DIRECTORY/ralfdocs-templates/related/resources-related-impacts.php
+ */
 if(!defined('ABSPATH')){ exit; }
 ?>
 

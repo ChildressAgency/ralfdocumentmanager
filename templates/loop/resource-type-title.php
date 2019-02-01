@@ -1,4 +1,10 @@
 <?php
+/**
+ * Template for showing resource title on resource type taxonomy archive page
+ * 
+ * Can be overridden with custom template file here:
+ * THEME_STYLESHEET_DIRECTORY/ralfdocs-templates/loop/resource-type-title.php
+ */
 if(!defined('ABSPATH')){ exit; }
 ?>
 

@@ -22,27 +22,27 @@ if(!class_exists('RALFDOCS_Background_Admin_Tasks')){
 
     public function admin_settings(){
       acf_add_options_sub_page(array(
-        'page_title' => 'Admin Report Settings',
-        'menu_title' => 'Admin Report Settings',
+        'page_title' => esc_html__('Admin Report Settings', 'ralfdocs'),
+        'menu_title' => esc_html__('Admin Report Settings', 'ralfdocs'),
         'parent_slug' => 'ralfdocs-settings'
       ));
 
       acf_add_options_sub_page(array(
-        'page_title' => 'Report History Settings',
-        'menu_title' => 'Report History Settings',
+        'page_title' => esc_html__('Report History Settings', 'ralfdocs'),
+        'menu_title' => esc_html__('Report History Settings', 'ralfdocs'),
         'parent_slug' => 'ralfdocs-settings'
       ));
 
       acf_add_local_field_group(array(
         'key' => 'group_5bcde52f3147b',
-        'title' => __('Report History Settings', 'ralfdocs'),
+        'title' => esc_html__('Report History Settings', 'ralfdocs'),
         'fields' => array(
           array(
             'key' => 'field_5bcde537c6286',
-            'label' => __('How long to store reports?', 'ralfdocs'),
+            'label' => esc_html__('How long to store reports?', 'ralfdocs'),
             'name' => 'how_long_to_store_reports',
             'type' => 'number',
-            'instructions' => __('Enter the number of days to keep reports before they are deleted.', 'ralfdocs'),
+            'instructions' => esc_html__('Enter the number of days to keep reports before they are deleted.', 'ralfdocs'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
@@ -80,11 +80,11 @@ if(!class_exists('RALFDOCS_Background_Admin_Tasks')){
 
       acf_add_local_field_group(array(
         'key' => 'group_5bf5dc4ee5038',
-        'title' => __('Email Reports Settings', 'ralfdocs'),
+        'title' => esc_html__('Email Reports Settings', 'ralfdocs'),
         'fields' => array(
           array(
             'key' => 'field_5bf5dc59b7941',
-            'label' => __('Number of results to include in report', 'ralfdocs'),
+            'label' => esc_html__('Number of results to include in report', 'ralfdocs'),
             'name' => 'number_of_results',
             'type' => 'number',
             'instructions' => '',
@@ -105,7 +105,7 @@ if(!class_exists('RALFDOCS_Background_Admin_Tasks')){
           ),
           array(
             'key' => 'field_5bf5dca7b7942',
-            'label' => __('Saved to Report', 'ralfdocs'),
+            'label' => esc_html__('Saved to Report', 'ralfdocs'),
             'name' => 'saved_to_report',
             'type' => 'group',
             'instructions' => '',
@@ -120,7 +120,7 @@ if(!class_exists('RALFDOCS_Background_Admin_Tasks')){
             'sub_fields' => array(
               array(
                 'key' => 'field_5bf5dd04b7943',
-                'label' => __('Email Addresses to Send Weekly', 'ralfdocs'),
+                'label' => esc_html__('Email Addresses to Send Weekly', 'ralfdocs'),
                 'name' => 'weekly_email_addresses',
                 'type' => 'repeater',
                 'instructions' => '',
@@ -135,11 +135,11 @@ if(!class_exists('RALFDOCS_Background_Admin_Tasks')){
                 'min' => 0,
                 'max' => 0,
                 'layout' => 'table',
-                'button_label' => __('Add Email Address', 'ralfdocs'),
+                'button_label' => esc_html__('Add Email Address', 'ralfdocs'),
                 'sub_fields' => array(
                   array(
                     'key' => 'field_5bf5dd38b7944',
-                    'label' => __('Email Address', 'ralfdocs'),
+                    'label' => esc_html__('Email Address', 'ralfdocs'),
                     'name' => 'email_address',
                     'type' => 'email',
                     'instructions' => '',
@@ -159,7 +159,7 @@ if(!class_exists('RALFDOCS_Background_Admin_Tasks')){
               ),
               array(
                 'key' => 'field_5bf5dd69b7945',
-                'label' => __('Email Addresses to Send Monthly', 'ralfdocs'),
+                'label' => esc_html__('Email Addresses to Send Monthly', 'ralfdocs'),
                 'name' => 'monthly_email_addresses',
                 'type' => 'repeater',
                 'instructions' => '',
@@ -174,11 +174,11 @@ if(!class_exists('RALFDOCS_Background_Admin_Tasks')){
                 'min' => 0,
                 'max' => 0,
                 'layout' => 'table',
-                'button_label' => __('Add Email Address', 'ralfdocs'),
+                'button_label' => esc_html__('Add Email Address', 'ralfdocs'),
                 'sub_fields' => array(
                   array(
                     'key' => 'field_5bf5dd81b7946',
-                    'label' => __('Email Address', 'ralfdocs'),
+                    'label' => esc_html__('Email Address', 'ralfdocs'),
                     'name' => 'email_address',
                     'type' => 'email',
                     'instructions' => '',
@@ -200,7 +200,7 @@ if(!class_exists('RALFDOCS_Background_Admin_Tasks')){
           ),
           array(
             'key' => 'field_5bf5ddb3b7947',
-            'label' => __('Searched Terms', 'ralfdocs'),
+            'label' => esc_html__('Searched Terms', 'ralfdocs'),
             'name' => 'searched_terms',
             'type' => 'group',
             'instructions' => '',
@@ -215,7 +215,7 @@ if(!class_exists('RALFDOCS_Background_Admin_Tasks')){
             'sub_fields' => array(
               array(
                 'key' => 'field_5bf5ddd8b7948',
-                'label' => __('Email Addresses to Send Weekly', 'ralfdocs'),
+                'label' => esc_html__('Email Addresses to Send Weekly', 'ralfdocs'),
                 'name' => 'weekly_email_addresses',
                 'type' => 'repeater',
                 'instructions' => '',
@@ -230,11 +230,11 @@ if(!class_exists('RALFDOCS_Background_Admin_Tasks')){
                 'min' => 0,
                 'max' => 0,
                 'layout' => 'table',
-                'button_label' => __('Add Email Address', 'ralfdocs'),
+                'button_label' => esc_html__('Add Email Address', 'ralfdocs'),
                 'sub_fields' => array(
                   array(
                     'key' => 'field_5bf5ddedb7949',
-                    'label' => __('Email Address', 'ralfdocs'),
+                    'label' => esc_html__('Email Address', 'ralfdocs'),
                     'name' => 'email_address',
                     'type' => 'email',
                     'instructions' => '',
@@ -254,7 +254,7 @@ if(!class_exists('RALFDOCS_Background_Admin_Tasks')){
               ),
               array(
                 'key' => 'field_5bf5de13b794a',
-                'label' => __('Email Addresses to Send Monthly', 'ralfdocs'),
+                'label' => esc_html__('Email Addresses to Send Monthly', 'ralfdocs'),
                 'name' => 'monthly_email_addresses',
                 'type' => 'repeater',
                 'instructions' => '',
@@ -269,11 +269,11 @@ if(!class_exists('RALFDOCS_Background_Admin_Tasks')){
                 'min' => 0,
                 'max' => 0,
                 'layout' => 'table',
-                'button_label' => __('Add Email Address', 'ralfdocs'),
+                'button_label' => esc_html__('Add Email Address', 'ralfdocs'),
                 'sub_fields' => array(
                   array(
                     'key' => 'field_5bf5de27b794b',
-                    'label' => __('Email Address', 'ralfdocs'),
+                    'label' => esc_html__('Email Address', 'ralfdocs'),
                     'name' => 'email_address',
                     'type' => 'email',
                     'instructions' => '',
