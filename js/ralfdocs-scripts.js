@@ -241,9 +241,11 @@ jQuery(document).ready(function($){
   });
 
   $('#question-tree').on('change', 'input[type="radio"]', function(){
-    var qt_link = $('input[name="qt-answers"]:checked').val();
+    var $selected_answer = $('input[name="qt-answers"]:checked');
+    var qt_link = $selected_answer.val();
+    var next_type = $selected_answer.data('next_type');
     
-    $('#qt-btn').attr('href', qt_link).removeClass('btn-hide');
+    $('#qt-btn').attr('href', qt_link).text(next_type).removeClass('btn-hide');
   });
 });
 
