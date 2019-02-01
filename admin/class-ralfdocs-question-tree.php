@@ -39,7 +39,7 @@ if(!class_exists('RALFDOCS_Question_Tree')){
           foreach($sectors as $sector){
             $question = get_field('question_link', 'sectors_' . $sector->term_id);
             
-            //if($question){
+            if($question){
               $question_link = get_permalink($question[0]->ID); ?>
 
                 <li class="radio">
@@ -51,7 +51,7 @@ if(!class_exists('RALFDOCS_Question_Tree')){
                 </li>
 
               <?php
-            //} //endif
+            } //endif
           } //endforeach
         ?>
 
