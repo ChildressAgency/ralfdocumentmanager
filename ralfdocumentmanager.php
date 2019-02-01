@@ -134,13 +134,13 @@ class Ralf_Docs{
       'added_to_report_label' => esc_html__('Added to report!', 'ralfdocs'),
       'removed_from_report_label' => esc_html__('Removed from report', 'ralfdocs'),
       'valid_email_address_error' => esc_html__('Please enter only valid email addresses.', 'ralfdocs'),
-      'query_vars' => json_encode($wp_query->query)
+      //'query_vars' => json_encode($wp_query->query)
     ));
 
     //styles
-    //wp_register_style('ralfdocs-style', RALFDOCS_PLUGIN_URL . 'css/ralfdocs-style.css');
+    wp_register_style('ralfdocs-style', RALFDOCS_PLUGIN_URL . 'css/ralfdocs-style.css');
 
-    //wp_enqueue_style('ralfdocs-style');
+    wp_enqueue_style('ralfdocs-style');
     wp_enqueue_style('dashicons');
   }
 
