@@ -241,10 +241,9 @@ jQuery(document).ready(function($){
   });
 
   $('#question-tree').on('change', 'input[type="radio"]', function(){
-    console.log('clicked');
     var qt_link = $('input[name="qt-answers"]:checked').val();
-    console.log(qt_link);
-    $('#qt-btn').attr('href', qt_link);
+    
+    $('#qt-btn').attr('href', qt_link).removeClass('btn-hide');
   });
 });
 

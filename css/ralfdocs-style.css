@@ -90,3 +90,7 @@
 #question-tree article input[type="radio"]:checked + .radio-btn{
   background-position:0 0;
 }
+
+#qt-btn.btn-main.btn-hide{
+  opacity:0;
+}
