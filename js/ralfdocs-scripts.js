@@ -220,6 +220,32 @@ jQuery(document).ready(function($){
     Cookies.remove('STYXKEY_ralfdocs_search_history', { path:'/' });
     $(this).parent().remove();
   });
+
+  $('#qt-start').on('click', function(e){
+    e.preventDefault();
+    var $article = $('#question-tree article');
+
+    $('#qt-start.btn-main>.glyphicon-refresh').removeClass('no-show');
+
+    $.post(ralfdocs_settings.ralfdocs_ajaxurl, {'action': 'ralfdocs_show_first_question'}, function(response){
+      if(response != 0){
+        //console.log(response);
+        $article.fadeOut(function(){
+          $article.html(response).fadeIn();
+        });
+      }
+      else{
+        $('#question-tree article').html('<p>' + ralfdocs_settings.error + '</p>');
+      }
+    });
+  });
+
+  $('#question-tree').on('change', 'input[type="radio"]', function(){
+    console.log('clicked');
+    var qt_link = $('input[name="qt-answers"]:checked').val();
+    console.log(qt_link);
+    $('#qt-btn').attr('href', qt_link);
+  });
 });
 
 function record_save(articleId, nonce){
