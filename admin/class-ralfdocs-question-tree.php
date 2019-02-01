@@ -38,12 +38,13 @@ if(!class_exists('RALFDOCS_Question_Tree')){
         <?php 
           foreach($sectors as $sector){
             $question = get_field('question_link', 'sectors_' . $sector->term_id);
+            
             //if($question){
               $question_link = get_permalink($question[0]->ID); ?>
 
                 <li class="radio">
                   <label>
-                    <input type="radio" name="qt-answers" value="<?php echo esc_url($question_link); ?>" />
+                    <input type="radio" name="qt-answers" value="<?php echo esc_url($question_link); ?>" data-next_type="Next" />
                     <?php echo esc_html($sector->name); ?>
                     <span class="radio-btn"></span>
                   </label>
@@ -152,6 +153,25 @@ if(!class_exists('RALFDOCS_Question_Tree')){
             'max_height' => '',
             'max_size' => '',
             'mime_types' => '',
+          ),
+          array(
+            'key' => 'field_5c54b20f29dbe',
+            'label' => esc_html__('Question Tree Background Image CSS', 'ralfdocs'),
+            'name' => 'question_tree_background_image_css',
+            'type' => 'text',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+              'width' => '',
+              'class' => '',
+              'id' => '',
+            ),
+            'default_value' => '',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+            'maxlength' => '',
           ),
           array(
             'key' => 'field_5c5367e88c042',
@@ -269,7 +289,7 @@ if(!class_exists('RALFDOCS_Question_Tree')){
                 ),
                 'elements' => '',
                 'min' => '',
-                'max' => '',
+                'max' => '1',
                 'return_format' => 'object',
               ),
             ),
