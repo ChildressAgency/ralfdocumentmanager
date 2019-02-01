@@ -9,11 +9,55 @@ if(!class_exists('RALFDOCS_Question_Tree')){
     public function __construct(){
       add_action('init', array($this, 'create_post_type'));
       add_action('acf/init', array($this, 'acf_init'));
+
+      add_action('wp_ajax_nopriv_ralfdocs_show_first_question', array($this, 'ralfdocs_show_first_question'));
+      add_action('wp_ajax_ralfdocs_show_first_question', array($this, 'ralfdocs_show_first_question'));
     }
 
     public function acf_init(){
       $this->add_sector_options();
       $this->question_tree_settings();
+      $this->prepared_reports_settings();
+    }
+
+    public function ralfdocs_show_first_question(){
+      $qt_page = get_page_by_path('question-tree');
+      $qt_page_id = $qt_page->ID;
+
+      $question = get_field('first_question', $qt_page_id);
+      $sectors = get_terms(array(
+        'taxonomy' => 'sectors',
+        'hide_empty' => true,
+        'parent' => 0
+      )); ?>
+
+      <form id="qt-choices">
+      <h3><?php echo esc_html($question); ?></h3>
+      <ul class="qt-options list-unstyled">
+
+        <?php 
+          foreach($sectors as $sector){
+            $question = get_field('question_link', 'sectors_' . $sector->term_id);
+            //if($question){
+              $question_link = get_permalink($question[0]->ID); ?>
+
+                <li class="radio">
+                  <label>
+                    <input type="radio" name="qt-answers" value="<?php echo esc_url($question_link); ?>" />
+                    <?php echo esc_html($sector->name); ?>
+                    <span class="radio-btn"></span>
+                  </label>
+                </li>
+
+              <?php
+            //} //endif
+          } //endforeach
+        ?>
+
+      </ul>
+      <a href="#" id="qt-btn" class="btn-main btn-hide">Next</a>
+      </form>
+      <?php wp_die();
     }
 
     public function create_post_type(){
@@ -133,7 +177,7 @@ if(!class_exists('RALFDOCS_Question_Tree')){
             ),
             'elements' => '',
             'min' => '',
-            'max' => '',
+            'max' => '1',
             'return_format' => 'object',
           ),
         ),
@@ -237,6 +281,147 @@ if(!class_exists('RALFDOCS_Question_Tree')){
               'param' => 'post_type',
               'operator' => '==',
               'value' => 'questions',
+            ),
+          ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => 1,
+        'description' => '',
+      )); 
+      
+      acf_add_local_field_group(array(
+        'key' => 'group_5c54579c2a879',
+        'title' => esc_html__('Question Tree Page Settings', 'ralfdocs'),
+        'fields' => array(
+          array(
+            'key' => 'field_5c5457a9106f6',
+            'label' => esc_html__('Background Image', 'ralfdocs'),
+            'name' => 'background_image',
+            'type' => 'image',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+              'width' => '',
+              'class' => '',
+              'id' => '',
+            ),
+            'return_format' => 'array',
+            'preview_size' => 'full',
+            'library' => 'all',
+            'min_width' => '',
+            'min_height' => '',
+            'min_size' => '',
+            'max_width' => '',
+            'max_height' => '',
+            'max_size' => '',
+            'mime_types' => '',
+          ),
+          array(
+            'key' => 'field_5c5457b7106f7',
+            'label' => esc_html__('Background Image CSS', 'ralfdocs'),
+            'name' => 'background_image_css',
+            'type' => 'text',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+              'width' => '',
+              'class' => '',
+              'id' => '',
+            ),
+            'default_value' => '',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+            'maxlength' => '',
+          ),
+       		array(
+            'key' => 'field_5c545dd4dd6a3',
+            'label' => esc_html__('First Question', 'ralfdocs'),
+            'name' => 'first_question',
+            'type' => 'text',
+            'instructions' => esc_html__('First question for the sector list.', 'ralfdocs'),
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+              'width' => '',
+              'class' => '',
+              'id' => '',
+            ),
+            'default_value' => '',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+            'maxlength' => '',
+          ),
+        ),
+        'location' => array(
+          array(
+            array(
+              'param' => 'page',
+              'operator' => '==',
+              'value' => '739',
+            ),
+          ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => 1,
+        'description' => '',
+      ));
+    }
+
+    public function prepared_reports_settings(){
+      acf_add_local_field_group(array(
+        'key' => 'group_5c534f6d67720',
+        'title' => esc_html__('Prepared Reports', 'ralfdocs'),
+        'fields' => array(
+          array(
+            'key' => 'field_5c534f829116d',
+            'label' => esc_html__('Report Articles', 'ralfdocs'),
+            'name' => 'report_articles',
+            'type' => 'relationship',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+              'width' => '',
+              'class' => '',
+              'id' => '',
+            ),
+            'post_type' => array(
+              0 => 'activities',
+              1 => 'impacts',
+              2 => 'resources',
+            ),
+            'taxonomy' => '',
+            'filters' => array(
+              0 => 'search',
+              1 => 'post_type',
+              2 => 'taxonomy',
+            ),
+            'elements' => '',
+            'min' => '',
+            'max' => '',
+            'return_format' => 'object',
+          ),
+        ),
+        'location' => array(
+          array(
+            array(
+              'param' => 'post_type',
+              'operator' => '==',
+              'value' => 'prepared_reports',
             ),
           ),
         ),
