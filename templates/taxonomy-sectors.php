@@ -20,9 +20,19 @@ get_header(); ?>
           
             $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 
+            // this will make sure the count on the tabs are correct despite pagination
+            if(isset($_GET['type']) && $_GET['type'] == 'resources'){
+              $resources_paged = $paged;
+              $impacts_paged = 1;
+            }
+            else{
+              $resources_paged = 1;
+              $impacts_paged = $paged;
+            }
+
             $impacts = new WP_Query(array(
               'post_type' => 'impacts',
-              'paged' => $paged,
+              'paged' => $impacts_paged,
               'tax_query' => array(
                 array(
                   'taxonomy' => 'sectors',
@@ -34,7 +44,7 @@ get_header(); ?>
 
             $resources = new WP_Query(array(
               'post_type' => 'resources',
-              'paged' => $paged,
+              'paged' => $resources_paged,
               'tax_query' => array(
                 array(
                   'taxonomy' => 'sectors',

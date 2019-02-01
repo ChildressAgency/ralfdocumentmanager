@@ -20,11 +20,21 @@ get_header(); ?>
             <?php
               $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 
+              //this will make sure the count on the tabs are correct despite pagination
+              if(isset($_GET['type']) && $_GET['type'] == 'resources'){
+                $resources_paged = $paged;
+                $impacts_paged = 1;
+              }
+              else{
+                $resources_paged = 1;
+                $impacts_paged = $paged;
+              }
+
               $impacts_activities = new SWP_Query(array(
                 'post_type' => array('impacts', 'activities'),
                 's' => $searched_word,
                 'engine' => 'default',
-                'page' => $paged,
+                'page' => $impacts_paged,
                 'fields' => 'all'
               ));
 
@@ -32,7 +42,7 @@ get_header(); ?>
                 'post_type' => 'resources',
                 's' => $searched_word,
                 'engine' => 'default',
-                'page' => $paged,
+                'page' => $resources_paged,
                 'fields' => 'all'
               ));
               
