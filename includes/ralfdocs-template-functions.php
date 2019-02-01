@@ -270,6 +270,9 @@ class RALFDOCS_Template_Functions{
     elseif(is_page('view-report')){
       $template_name = 'page-view-report.php';
     }
+    elseif(is_page('question-tree')){
+      $template_name = 'page-question-tree.php';
+    }
 
     if($template_name !== ''){
       return $this->find_template($template_name);
