@@ -273,6 +273,9 @@ class RALFDOCS_Template_Functions{
     elseif(is_page('question-tree')){
       $template_name = 'page-question-tree.php';
     }
+    elseif(is_singular('questions')){
+      $template_name = 'single-questions.php';
+    }
 
     if($template_name !== ''){
       return $this->find_template($template_name);
