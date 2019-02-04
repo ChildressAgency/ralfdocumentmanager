@@ -36,6 +36,7 @@ class RALFDOCS_Search_History_Widget extends WP_Widget{
     else{
       echo '<div class="sidebar-section-body"><ul><li><span class="search-history-empty">' . esc_html__('Your search history is empty.', 'ralfdocs') . '</span></li></ul></div>';
     }
+    echo $args['after_widget'];
   }
 
   public function get_search_history($widget_id){
