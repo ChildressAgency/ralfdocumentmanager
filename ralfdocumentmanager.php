@@ -79,7 +79,38 @@ class Ralf_Docs{
     //add_action('wp_ajax_nopriv_ralfdocs_ajax_pagination', array($this, 'do_ralfdocs_ajax_pagination'));
     //add_action('wp_ajax_ralfdocs_ajax_pagination', array($this, 'do_ralfdocs_ajax_pagination'));
 
+    //add_filter('facetwp_facet_filter_posts', array($this, 'modify_facetwp_facet_filter_posts'), 10, 2);
+
     $email_report = new RALFDOCS_Email_Report();
+  }
+
+  public function modify_facetwp_facet_filter_posts($return, $params){
+    if($params['facet']['name'] == 'impacts_sector'){
+      $selected_values = $params['selected_values'];
+      $post_ids = $this->get_impacts_sector_ids($selected_values);
+
+      return $post_ids;
+    }
+
+    return $return;
+  }
+
+  public function get_impacts_sector_ids($selected_values){
+    $post_ids = new WP_Query(array(
+      'post_type' => array('impacts'),
+      'post_status' => 'publish',
+      'tax_query' => array(
+        array(
+          'taxonomy' => 'sectors',
+          'field' => 'term_id',
+          'terms' => $selected_values,
+          'operator' => 'IN'
+        )
+      ),
+      'fields' => 'ids'
+    ));
+
+    return $post_ids;
   }
 
   public function shared_init(){
@@ -98,6 +129,8 @@ class Ralf_Docs{
     add_action('ralfdocs_related_impacts', array($template_functions, 'related_impacts'));
     add_action('ralfdocs_related_resources', array($template_functions, 'related_resources'));
     add_action('ralfdocs_related_activities', array($template_functions, 'related_activities'), 10, 2);
+
+    add_action('ralfdocs_sector_impacts_loop', array($template_functions, 'sector_impacts_loop'));
   }
 
   public function load_textdomain(){
