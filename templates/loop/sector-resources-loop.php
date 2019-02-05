@@ -11,9 +11,11 @@ include ralfdocs_get_template('loop/resources-tab.php');
 ?>
 
 <div class="tab-content">
-  <div id="resources">
+  <div id="resources" class="facetwp-template">
 
     <?php
+      echo facetwp_display('template', 'resources_sectors_template');
+    /*
       if(!empty($resources->posts)){
         foreach($resources->posts as $post){
           setup_postdata($post);
@@ -25,7 +27,7 @@ include ralfdocs_get_template('loop/resources-tab.php');
       }
       else{
         include ralfdocs_get_template('loop/no-results.php');
-      }
+      }*/
     ?>
 
   </div>
