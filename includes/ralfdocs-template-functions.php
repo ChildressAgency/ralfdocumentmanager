@@ -319,5 +319,9 @@ class RALFDOCS_Template_Functions{
   public function related_activities($article_id, $article_type){
     include ralfdocs_get_template('related/related-activities.php');
   }
+
+  public function sector_impacts_loop(){
+    include ralfdocs_get_template('loop/sector-impacts-facetwp-template.php');
+  }
 }
 }
