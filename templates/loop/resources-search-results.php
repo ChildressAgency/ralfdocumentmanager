@@ -15,6 +15,8 @@ include ralfdocs_get_template('loop/resources-tab.php');
   <div id="resources">
 
     <?php
+      //echo facetwp_display('template', 'search_resources_template');
+    
       if(!empty($resources->posts)){
         foreach($resources->posts as $post){
           setup_postdata($post);

@@ -14,7 +14,7 @@ include ralfdocs_get_template('loop/impacts-activities-tab.php');
   <div id="impacts" class="facetwp-template">
 
     <?php
-      echo facetwp_display('template', 'impacts_sectors_template');
+      //echo facetwp_display('template', 'impacts_sectors_template');
       /*if(!empty($impacts->posts)){
         foreach($impacts->posts as $post){
           setup_postdata($post);
@@ -24,7 +24,7 @@ include ralfdocs_get_template('loop/impacts-activities-tab.php');
         wp_reset_postdata();
         ralfdocs_pagination($impacts);
       }*/
-/*
+
       if($impacts->have_posts()){
         while($impacts->have_posts()){
           $impacts->the_post();
@@ -37,7 +37,7 @@ include ralfdocs_get_template('loop/impacts-activities-tab.php');
       }
       else{
         include ralfdocs_get_template('loop/no-results.php');
-      }*/
+      }
     ?>
 
   </div>
