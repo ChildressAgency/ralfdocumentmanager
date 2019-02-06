@@ -46,6 +46,7 @@ get_header(); ?>
                 'fields' => 'all'
               ));
               
+              
               if(isset($_GET['type']) && $_GET['type'] == 'resources'){
                 // user clicked the resources tab
                 include ralfdocs_get_template('loop/resources-search-results.php');
