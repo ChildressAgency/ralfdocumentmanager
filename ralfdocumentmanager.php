@@ -48,6 +48,7 @@ class Ralf_Docs{
     require_once RALFDOCS_PLUGIN_DIR . '/includes/class-ralfdocs-email-report.php';
     require_once RALFDOCS_PLUGIN_DIR . '/includes/ralfdocs-template-functions.php';
     require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-question-tree.php';
+    require_once RALFDOCS_PLUGIN_DIR . '/includes/widgets/class-ralfdocs-filter-widget.php';
   }
 
   public function admin_init(){
@@ -130,7 +131,7 @@ class Ralf_Docs{
     add_action('ralfdocs_related_resources', array($template_functions, 'related_resources'));
     add_action('ralfdocs_related_activities', array($template_functions, 'related_activities'), 10, 2);
 
-    add_action('ralfdocs_sector_impacts_loop', array($template_functions, 'sector_impacts_loop'));
+    add_action('ralfdocs_facetwp_template_loop', array($template_functions, 'facetwp_template_loop'));
   }
 
   public function load_textdomain(){
@@ -167,7 +168,7 @@ class Ralf_Docs{
       'added_to_report_label' => esc_html__('Added to report!', 'ralfdocs'),
       'removed_from_report_label' => esc_html__('Removed from report', 'ralfdocs'),
       'valid_email_address_error' => esc_html__('Please enter only valid email addresses.', 'ralfdocs'),
-      //'query_vars' => json_encode($wp_query->query)
+      'query_vars' => json_encode($wp_query->query)
     ));
 
     //styles
@@ -220,6 +221,7 @@ class Ralf_Docs{
     register_widget('RALFDOCS_Sectors_Widget');
     register_widget('RALFDOCS_Search_History_Widget');
     register_widget('RALFDOCS_View_Report_Widget');
+    register_widget('RALFDOCS_Filter_Widget');
   }
 
   public function quick_select_form($atts){
