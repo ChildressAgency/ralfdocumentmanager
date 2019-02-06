@@ -15,6 +15,8 @@ include ralfdocs_get_template('loop/impacts-activities-tab.php');
   <div id="impacts-activities">
 
     <?php 
+      //echo facetwp_display('template', 'search_impacts_resources_template');
+    
       if(!empty($impacts_activities->posts)){
         foreach($impacts_activities->posts as $post){
           setup_postdata($post);
