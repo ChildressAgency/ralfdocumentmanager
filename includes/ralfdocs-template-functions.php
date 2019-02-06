@@ -320,8 +320,8 @@ class RALFDOCS_Template_Functions{
     include ralfdocs_get_template('related/related-activities.php');
   }
 
-  public function sector_impacts_loop(){
-    include ralfdocs_get_template('loop/sectors-facetwp-template.php');
+  public function facetwp_template_loop(){
+    include ralfdocs_get_template('loop/facetwp-template.php');
   }
 }
 }
