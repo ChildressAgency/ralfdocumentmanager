@@ -26,16 +26,19 @@ class RALFDOCS_Filter_Widget extends WP_Widget{
       //show sectors filter
       //$current_sector = $query_vars['sectors'];
       $parent_sectors = get_terms(array(
+        'post_type' => 'impacts',
         'taxonomy' => 'sectors',
         'orderby' => 'term_group',
         'parent' => 0
       ));
+      //var_dump($parent_sectors);
       if($parent_sectors){
         echo '<div id="sectors-filter" class="sidebar-section-body"><ul>';
 
         foreach($parent_sectors as $sector){
           //get sector children
           $sector_children = get_terms(array(
+            'post_type' => 'impacts',
             'taxonomy' => 'sectors',
             'orderby' => 'name',
             'parent' => $sector->term_id

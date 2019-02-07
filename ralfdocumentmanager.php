@@ -76,11 +76,12 @@ class Ralf_Docs{
     add_filter('searchwp_weight_mods', array($this, 'searchwp_weight_priority_keywords'));
 
     //ajax pagination
-    //doesn't work well with SearchWP but left code in for future possibilities
-    //add_action('wp_ajax_nopriv_ralfdocs_ajax_pagination', array($this, 'do_ralfdocs_ajax_pagination'));
-    //add_action('wp_ajax_ralfdocs_ajax_pagination', array($this, 'do_ralfdocs_ajax_pagination'));
+    add_action('wp_ajax_nopriv_ralfdocs_ajax_pagination', array($this, 'ralfdocs_ajax_pagination'));
+    add_action('wp_ajax_ralfdocs_ajax_pagination', array($this, 'ralfdocs_ajax_pagination'));
 
     //add_filter('facetwp_facet_filter_posts', array($this, 'modify_facetwp_facet_filter_posts'), 10, 2);
+    add_action('wp_ajax_nopriv_ralfdocs_filter_articles', array($this, 'ralfdocs_filter_articles'));
+    add_action('wp_ajax_ralfdocs_filter_articles', array($this, 'ralfdocs_filter_articles'));
 
     $email_report = new RALFDOCS_Email_Report();
   }
@@ -132,6 +133,8 @@ class Ralf_Docs{
     add_action('ralfdocs_related_activities', array($template_functions, 'related_activities'), 10, 2);
 
     add_action('ralfdocs_facetwp_template_loop', array($template_functions, 'facetwp_template_loop'));
+
+    add_action('ralfdocs_build_archive_query', array($template_functions, 'build_archive_query'), 10, 3);
   }
 
   public function load_textdomain(){
@@ -260,59 +263,37 @@ class Ralf_Docs{
     }  
   }
 
-  public function do_ralfdocs_ajax_pagination(){
+  public function ralfdocs_filter_articles(){
     $query_vars = json_decode(stripslashes($_POST['query_vars']), true);
-    
-    $tab_id = $_POST['tab_id'];
-    $post_type = explode('-', $tab_id);
+    $sector_filters = $_POST['sector_filters'];
 
-    $impacts_activities = new SWP_Query(array(
-      'post_type' => $post_type,
-      's' => $query_vars['s'],
-      'engine' =>'default',
-      'posts_per_page' => 10,
-      'page' => $_POST['page'],
-      'fields' => 'all'
+    $impacts = new WP_Query(array(
+      'post_type' => 'impacts',
+      'paged' => 1,
+      'tax_query' => array(
+        array(
+          'taxonomy' => 'sectors',
+          'field' => 'term_id',
+          'terms' => $sector_filters,
+          'operator' => 'IN'
+        )
+      )
     ));
 
-    //if($impacts_activities->have_posts()): while($impacts_activities->have_posts()): $impacts_activities->the_post();
-    if(!empty($impacts_activities->posts)):
-      foreach($impacts_activities->posts as $post):
-        setup_postdata($post);
-        $article_id = $post->ID; ?>
+    include ralfdocs_get_template('loop/sector-impacts-loop.php');
 
-        <div class="loop-item">
-          <h2 class="loop-item-title">
-            <a href="<?php echo esc_url(get_permalink($article_id)); ?>"><?php echo esc_html(get_the_title($article_id)); ?></a>
-          </h2>
-          <div class="loop-item-meta">
-            <?php 
-              if(has_term($searched_word, 'priority_keywords', $post)){
-                echo '<span class="priority"></span>';
-              }
+    wp_die();
+  }
 
-              do_action('ralfdocs_article_meta', $article_id);
-            ?>
-          </div>
-        </div>
-      <?php endforeach; endif; //ralfdocs_pagination($_POST['page']); //wp_reset_postdata();    
+  public function ralfdocs_ajax_pagination(){
+    $archive_type = $_POST['archive_type'];
+    $tax_terms = $_POST['tax_terms'];
+    $ajax_page = $_POST['ajax_page'];
+    $ajax_location = $_POST['ajax_location'];
 
-    $big = 999999999;
-    $pages = paginate_links(array(
-      'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
-      'format' => '?paged=%#%',
-      'current' => max(1, $_POST['page']),
-      'total' => $impacts_activities->max_num_pages,
-      'type' => 'array'
-    ));
+    do_action('ralfdocs_build_archive_query', $archive_type, $tax_terms, $ajax_page, $ajax_location);
 
-    if(is_array($pages)){
-      echo '<nav aria-label="Page navigation" class="pagination-nav"><ul class="pagination">';
-      foreach($pages as $page){
-        echo '<li>' . $page . '</li>';
-      }
-      echo '</ul></nav>';
-    }
+    //$query_vars = json_decode(stripslashes($_POST['query_vars']), true);
 
     wp_die();
   }

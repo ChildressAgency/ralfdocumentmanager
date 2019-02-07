@@ -241,13 +241,85 @@ jQuery(document).ready(function($){
   });
 
   $('#question-tree').on('change', 'input[type="radio"]', function(){
-    var $selected_answer = $('input[name="qt-answers"]:checked');
-    var qt_link = $selected_answer.val();
-    var next_type = $selected_answer.data('next_type');
+    var $selectedAnswer = $('input[name="qt-answers"]:checked');
+    var qtLink = $selectedAnswer.val();
+    var nextType = $selectedAnswer.data('nextType');
     
-    $('#qt-btn').attr('href', qt_link).text(next_type).removeClass('btn-hide');
+    $('#qt-btn').attr('href', qtLink).text(nextType).removeClass('btn-hide');
+  });
+
+  //filter functions
+  $('#sectors-filter').on('change', 'input[name="sector-filter"]', function(){
+    var $selectedFilters = $('input[name="sector-filter"]:checked');
+    var filters = [];
+    $($selectedFilters).each(function(){
+      filters.push($(this).val());
+    });
+    //console.log(filters);
+
+    var data = {
+      'action': 'ralfdocs_filter_articles',
+      'sector_filters': filters
+    }
+
+    $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
+      if(response != 0){
+        $('.results-list').fadeOut(function(){
+          $('.results-list').html(response).fadeIn();
+        });
+      }
+      else{
+        $('.results-list').fadeOut(function(){
+          $('.results-list').html(ralfdocs_settings.error).fadeIn();
+        });
+      }
+    });
+  });
+
+  //ajax pagination
+  $('.results-list').on('click', '.pagination li a', function(e){
+  //$('.results-list').on('click', '.nav-links a', function(e){
+    e.preventDefault();
+
+    var ajaxPage = find_page_number($(this).clone());
+    var archiveType = $('#archive-type').val();
+    var taxTerms = $('#tax-terms').val();
+    var ajaxLocation = window.location.href;
+    var data = {
+      'action': 'ralfdocs_ajax_pagination',
+      'archive_type': archiveType,
+      'tax_terms': taxTerms,
+      'ajax_page': ajaxPage,
+      'ajax_location': ajaxLocation
+    }
+
+    $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
+      if(response != 0){
+        $('.results-list').fadeOut(function(){
+          $('.results-list').html(response).fadeIn();
+        });
+      }
+      else{
+
+      }
+    });
   });
 });
+
+function find_page_number(element){
+  element.find('span').remove();
+  var $current_page = $('#ajax-page').val();
+
+  if(element.hasClass('prev')){
+    return parseInt($current_page) - 1;
+  }
+  else if(element.hasClass('next')){
+    return parseInt($current_page) + 1;
+  }
+  else{
+    return parseInt(element.html());
+  }
+}
 
 function record_save(articleId, nonce){
   if(articleId !== ''){

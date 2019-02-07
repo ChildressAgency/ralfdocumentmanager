@@ -14,64 +14,19 @@ get_header(); ?>
       </div>
       <div class="col-sm-8 col-md-9">
         <main class="results-list">
-          <?php 
+          <?php
+          //break up into do_action that builds the archive queries depending on variable passed.
+          // variable might be sectors tax, resource_types tax or search.
+          // Setup ajax pagination that then uses the do_action to build queries based on info
+          // kept in hidden inputs maybe.  Filter ajaxing could use same do_action to build query
+          // with new filter info, adding those to hidden inputs so ajax pagination continues work
+          // with the filtered results.  Tabs will likely need to be ajax as well using the same
+          // do_action.
+
             $current_sector = get_queried_object();
             include ralfdocs_get_template('loop/sector-title.php');
-          
-            $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 
-            // this will make sure the count on the tabs are correct despite pagination
-            if(isset($_GET['type']) && $_GET['type'] == 'resources'){
-              $resources_paged = $paged;
-              $impacts_paged = 1;
-            }
-            else{
-              $resources_paged = 1;
-              $impacts_paged = $paged;
-            }
-
-            $impacts = new WP_Query(array(
-              'post_type' => 'impacts',
-              'paged' => $impacts_paged,
-              'tax_query' => array(
-                array(
-                  'taxonomy' => 'sectors',
-                  'field' => 'term_id',
-                  'terms' => $current_sector->term_id
-                )
-              )
-            ));
-
-            $resources = new WP_Query(array(
-              'post_type' => 'resources',
-              'paged' => $resources_paged,
-              'tax_query' => array(
-                array(
-                  'taxonomy' => 'sectors',
-                  'field' => 'term_id',
-                  'terms' => $current_sector->term_id
-                )
-              )
-            ));
-
-            if(isset($_GET['type']) && $_GET['type'] == 'resources'){
-              //user clicked the resources tab
-              include ralfdocs_get_template('loop/sector-resources-loop.php');
-            }
-            else{
-              /**
-               * initial results - resources tab not clicked
-               * 
-               * if $impacts has no results then default to the resources tab,
-               * unless its also empty - then just display the default tab.
-               */
-              if(empty($impacts->posts) && !empty($resources->posts)){
-                include ralfdocs_get_template('loop/sector-resources-loop.php');
-              }
-              else{
-                include ralfdocs_get_template('loop/sector-impacts-loop.php');
-              }
-            }
+            do_action('ralfdocs_build_archive_query', 'sectors', $current_sector->term_id);
           ?>
 
         </main>

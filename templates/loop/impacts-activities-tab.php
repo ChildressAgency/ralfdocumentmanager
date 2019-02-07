@@ -14,7 +14,7 @@ if(is_search()){
   $impacts_count = $impacts_activities->found_posts;
 }
 else{
-  $tab_link = add_query_arg(array('type' => 'resources', 'paged' => 1));
+  $tab_link = add_query_arg(array('type' => 'resources', 'paged' => 1), $ajax_location);
   $impacts_count = $impacts->found_posts;
 }
 $resources_count = $resources->found_posts;
