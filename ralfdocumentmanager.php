@@ -172,7 +172,8 @@ class Ralf_Docs{
       'added_to_report_label' => esc_html__('Added to report!', 'ralfdocs'),
       'removed_from_report_label' => esc_html__('Removed from report', 'ralfdocs'),
       'valid_email_address_error' => esc_html__('Please enter only valid email addresses.', 'ralfdocs'),
-      'query_vars' => json_encode($wp_query->query)
+      'query_vars' => json_encode($wp_query->query),
+      'spinner' => '<div id="spinner"><span class="glyphicon glyphicon-refresh"></span></div>'
     ));
 
     //styles

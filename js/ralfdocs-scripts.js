@@ -250,6 +250,10 @@ jQuery(document).ready(function($){
 
   //filter functions
   $('#sectors-filter').on('change', 'input[name="sector-filter"]', function(){
+    $('.results-list').fadeOut('fast', function(){
+      $('.results-list').html(ralfdocs_settings.spinner).fadeIn('fast');
+    });
+
     var $selectedFilters = $('input[name="sector-filter"]:checked');
     var filters = [];
     $($selectedFilters).each(function(){
@@ -287,6 +291,10 @@ jQuery(document).ready(function($){
   });
 
   $('#resources-filter').on('change', 'input[name="resource-type-filter"]', function(){
+    $('.results-list').fadeOut('fast', function () {
+      $('.results-list').html(ralfdocs_settings.spinner).fadeIn('fast');
+    });
+
     var $selectedFilters = $('input[name="resource-type-filter"]:checked');
     var filters = [];
     $($selectedFilters).each(function(){
@@ -324,8 +332,12 @@ jQuery(document).ready(function($){
   });
 
   //post type tabs
-  $('.results-list').on('click', '.post-type-tab', function(e){
+  $('.results-list').on('click', '.post-type-tab', function(e){    
     e.preventDefault();
+    $('.results-list').fadeOut('fast', function () {
+      $('.results-list').html(ralfdocs_settings.spinner).fadeIn('fast');
+    });
+
     var taxTerms = $('#tax-terms').val();
     var resourceTerms = $('#resource-terms').val();
     var archiveType = $('#archive-type').val();
@@ -361,6 +373,9 @@ jQuery(document).ready(function($){
   $('.results-list').on('click', '.pagination li a', function(e){
   //$('.results-list').on('click', '.nav-links a', function(e){
     e.preventDefault();
+    $('.results-list').fadeOut('fast', function () {
+      $('.results-list').html(ralfdocs_settings.spinner).fadeIn('fast');
+    });
 
     var ajaxPage = find_page_number($(this).clone());
     var archiveType = $('#archive-type').val();
