@@ -281,6 +281,9 @@ class RALFDOCS_Template_Functions{
     elseif(is_singular('questions')){
       $template_name = 'single-questions.php';
     }
+    elseif(is_page('sectors')){
+      $template_name = 'page-sectors.php';
+    }
 
     if($template_name !== ''){
       return $this->find_template($template_name);
@@ -329,7 +332,7 @@ class RALFDOCS_Template_Functions{
     include ralfdocs_get_template('loop/facetwp-template.php');
   }
 
-  public function build_archive_query($archive_type, $tax_terms, $ajax_page = '', $ajax_location = ''){
+  public function build_archive_query($archive_type, $tax_terms, $ajax_page = '', $ajax_location = '', $ajax_post_type = '', $resource_terms = ''){
     include ralfdocs_get_template('loop/build-archive-query.php');
   }
 }

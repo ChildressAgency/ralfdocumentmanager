@@ -256,10 +256,16 @@ jQuery(document).ready(function($){
       filters.push($(this).val());
     });
     //console.log(filters);
+    var ajaxLocation = window.location.href;
+    var ajaxPostType = $('#ajax-post-type').val();
+    var archiveType = $('#archive-type').val();
 
     var data = {
       'action': 'ralfdocs_filter_articles',
-      'sector_filters': filters
+      'sector_filters': filters,
+      'ajax_location': ajaxLocation,
+      'ajax_post_type': ajaxPostType,
+      'archive_type': archiveType
     }
 
     $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
@@ -276,6 +282,30 @@ jQuery(document).ready(function($){
     });
   });
 
+  //post type tabs
+  $('.results-list').on('click', '.post-type-tab', function(e){
+    e.preventDefault();
+    var taxTerms = $('#tax-terms').val();
+    var archiveType = $('#archive-type').val();
+    var postType = $(this).data('post_type');
+    var ajaxLocation = window.location.href;
+    var data = {
+      'action': 'ralfdocs_filter_articles',
+      'archive_type': archiveType,
+      'sector_filters': taxTerms,
+      'ajax_post_type': postType,
+      'ajax_location': ajaxLocation
+    };
+
+    $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
+      if(response != 0){
+        $('.results-list').fadeOut(function(){
+          $('.results-list').html(response).fadeIn();
+        });
+      }
+    });
+  });
+
   //ajax pagination
   $('.results-list').on('click', '.pagination li a', function(e){
   //$('.results-list').on('click', '.nav-links a', function(e){
@@ -285,12 +315,16 @@ jQuery(document).ready(function($){
     var archiveType = $('#archive-type').val();
     var taxTerms = $('#tax-terms').val();
     var ajaxLocation = window.location.href;
+    var ajaxPostType = $('#ajax-post-type').val();
+    var resourceTerms = $('#resource-terms').val();
     var data = {
       'action': 'ralfdocs_ajax_pagination',
       'archive_type': archiveType,
       'tax_terms': taxTerms,
       'ajax_page': ajaxPage,
-      'ajax_location': ajaxLocation
+      'ajax_location': ajaxLocation,
+      'ajax_post_type': ajaxPostType,
+      'resource_terms': resourceTerms
     }
 
     $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){

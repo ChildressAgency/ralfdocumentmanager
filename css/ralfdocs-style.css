@@ -94,3 +94,7 @@
 #qt-btn.btn-main.btn-hide{
   opacity:0;
 }
+
+#sectors-filter ul>li>ul{
+  padding-left:10px;
+}

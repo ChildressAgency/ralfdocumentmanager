@@ -18,7 +18,7 @@ get_header(); ?>
             $current_resource_type = get_queried_object();
             include ralfdocs_get_template('loop/resource-type-title.php');
 
-            do_action('ralfdocs_build_archive_query', 'resource_types', $current_resource_type->term_id);
+            do_action('ralfdocs_build_archive_query', 'resource_types', null, null, null, null,  $current_resource_type->term_id);
           ?>
 
         </main>

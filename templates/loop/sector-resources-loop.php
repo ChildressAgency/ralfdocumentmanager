@@ -22,6 +22,7 @@ include ralfdocs_get_template('loop/resources-tab.php');
       }
       echo '<input type="hidden" id="tax-terms" value="' . $tax_terms . '" />';
       echo '<input type="hidden" id="ajax-page" value="' . $paged . '" />';
+      echo '<input type="hidden" id="ajax-post-type" value="resources" />';
     
       if($resources->have_posts()){
         while($resources->have_posts()){
@@ -30,7 +31,7 @@ include ralfdocs_get_template('loop/resources-tab.php');
           include ralfdocs_get_template('loop/loop-item.php');
         }
         wp_reset_postdata();
-        ralfdocs_pagination($resources, $resources_paged);
+        ralfdocs_pagination($resources, $resources_paged, $ajax_location);
       }
       else{
         include ralfdocs_get_template('loop/no-results.php');

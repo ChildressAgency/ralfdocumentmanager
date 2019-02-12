@@ -19,7 +19,7 @@ switch($archive_type){
     //$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 
     // this will make sure the count on the tabs are correct despite pagination
-    if(isset($_GET['type']) && $_GET['type'] == 'resources'){
+    if($ajax_post_type != '' && $ajax_post_type == 'resources'){
       $resources_paged = $paged;
       $impacts_paged = 1;
     }
@@ -28,6 +28,8 @@ switch($archive_type){
       $impacts_paged = $paged;
     }
 
+    $terms_to_include = ralfdocs_get_terms_to_include($tax_terms, 'sectors');
+
     $impacts = new WP_Query(array(
       'post_type' => 'impacts',
       'paged' => $impacts_paged,
@@ -35,7 +37,7 @@ switch($archive_type){
         array(
           'taxonomy' => 'sectors',
           'field' => 'term_id',
-          'terms' => $tax_terms
+          'terms' => $terms_to_include,
         )
       )
     ));
@@ -47,12 +49,12 @@ switch($archive_type){
         array(
           'taxonomy' => 'sectors',
           'field' => 'term_id',
-          'terms' => $tax_terms
+          'terms' => $terms_to_include
         )
       )
     ));
 
-    if(isset($_GET['type']) && $_GET['type'] == 'resources'){
+    if($ajax_post_type != '' && $ajax_post_type == 'resources'){
       //user clicked the resources tab
       include ralfdocs_get_template('loop/sector-resources-loop.php');
     }
@@ -83,14 +85,23 @@ switch($archive_type){
       $paged = 1;
     }
 
+    $sectors_to_include = ralfdocs_get_terms_to_include($tax_terms, 'sectors');
+    $resource_types_to_include = ralfdocs_get_terms_to_include($resource_terms, 'resource_types');
+
     $resources = new WP_Query(array(
       'post_type' => 'resources',
       'paged' => $paged,
       'tax_query' => array(
+        'relation' => 'AND',
         array(
           'taxonomy' => 'resource_types',
           'field' => 'term_id',
-          'terms' => $tax_terms
+          'terms' => $resource_types_to_include
+        ),
+        array(
+          'taxonomy' => 'sectors',
+          'field' => 'term_id',
+          'terms' => $sectors_to_include
         )
       )
     ));
@@ -99,7 +110,11 @@ switch($archive_type){
     if(is_array($tax_terms)){
       $tax_terms = implode(',', $tax_terms);
     }
+    if(is_array($resource_terms)){
+      $resource_terms = implode(',', $resource_terms);
+    }
     echo '<input type="hidden" id="tax-terms" value="' . $tax_terms . '" />';
+    echo '<input type="hidden" id="resource-terms" value="' . $resource_terms . '" />';
     echo '<input type="hidden" id="ajax-page" value="' . $paged . '" />';
 
     if($resources->have_posts()){
@@ -118,4 +133,42 @@ switch($archive_type){
   case 'search':
 
     break;
+}
+
+function ralfdocs_get_terms_to_include($tax_terms, $terms_tax){
+  $terms_to_include = array();
+  $terms_to_exclude = array();
+
+  if($tax_terms == ''){
+    $terms_to_include = get_terms(array(
+      'taxonomy' => $terms_tax,
+      'fields' => 'ids'
+    ));
+  }
+  else{
+    if(!is_array($tax_terms)){
+      $tax_terms = explode(',', $tax_terms);
+    }
+
+    if(is_array($tax_terms)){
+      foreach($tax_terms as $tax_term_id){
+        $term = get_term($tax_term_id, $terms_tax);
+        if($term->parent > 0){
+          $terms_to_exclude[] = $term->parent;
+        }
+      }
+
+      if(!empty($terms_to_exclude)){
+        $terms_to_include = array_merge(array_diff($tax_terms, $terms_to_exclude));
+      }
+      else{
+        $terms_to_include = $tax_terms;
+      }
+    }
+    else{
+      $terms_to_include = $tax_terms;
+    }
+  }
+
+  return $terms_to_include;
 }

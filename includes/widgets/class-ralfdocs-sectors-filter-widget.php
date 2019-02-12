@@ -2,7 +2,7 @@
 //https://rudrastyh.com/wordpress/ajax-post-filters.html
 if(!defined('ABSPATH')){ exit; }
 
-class RALFDOCS_Filter_Widget extends WP_Widget{
+class RALFDOCS_Sectors_Filter_Widget extends WP_Widget{
   function __construct(){
     parent::__construct(
       'ralfdocs_filter_widget',
@@ -12,12 +12,22 @@ class RALFDOCS_Filter_Widget extends WP_Widget{
   }
 
   public function widget($args, $instance){
-    $title = apply_filters('widget_title', $instance['title']);
-    $current_sectors = get_queried_object();
-    $chosen_sector_filters[] = $current_sectors->term_id;
-    $chosen_sector_filters[] = $current_sectors->parent;
+    if(is_page('sectors') || is_tax('resource_types')){
+      $title = apply_filters('widget_title', $instance['title']);
+      $chosen_sector_filters = array();
 
-    if(is_tax('sectors')){
+      if(isset($_GET['sector_term'])){
+        $current_sectors = get_term($_GET['sector_term'], 'sectors');
+      }
+      else{
+        $current_sectors = get_queried_object();
+      }
+      
+      if($current_sectors){
+        $chosen_sector_filters[] = $current_sectors->term_id;
+        $chosen_sector_filters[] = $current_sectors->parent;
+      }
+
       echo $args['before_widget'];
       if(!empty($title)){
         echo $args['before_title'] . $title . $args['after_title'];
@@ -72,26 +82,6 @@ class RALFDOCS_Filter_Widget extends WP_Widget{
         echo '</ul></div>';
         echo $args['after_widget'];
       }
-    }
-    elseif(is_tax('resource_types')){
-      echo $args['before_widget'];
-      if(!empty($title)){
-        echo $args['before_title'] . $title . $args['after_title'];
-      }
-
-      //show resource_types filter
-
-      echo $args['after_widget'];
-    }
-    elseif(is_search()){
-      echo $args['before_widget'];
-      if(!empty($title)){
-        echo $args['before_title'] . $title . $args['after_title'];
-      }
-
-      //show sectors filter based on search results
-
-      echo $args['after_widget'];
     }
   }
 

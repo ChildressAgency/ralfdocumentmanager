@@ -48,7 +48,7 @@ class Ralf_Docs{
     require_once RALFDOCS_PLUGIN_DIR . '/includes/class-ralfdocs-email-report.php';
     require_once RALFDOCS_PLUGIN_DIR . '/includes/ralfdocs-template-functions.php';
     require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-question-tree.php';
-    require_once RALFDOCS_PLUGIN_DIR . '/includes/widgets/class-ralfdocs-filter-widget.php';
+    require_once RALFDOCS_PLUGIN_DIR . '/includes/widgets/class-ralfdocs-sectors-filter-widget.php';
   }
 
   public function admin_init(){
@@ -134,7 +134,7 @@ class Ralf_Docs{
 
     add_action('ralfdocs_facetwp_template_loop', array($template_functions, 'facetwp_template_loop'));
 
-    add_action('ralfdocs_build_archive_query', array($template_functions, 'build_archive_query'), 10, 3);
+    add_action('ralfdocs_build_archive_query', array($template_functions, 'build_archive_query'), 10, 6);
   }
 
   public function load_textdomain(){
@@ -224,7 +224,7 @@ class Ralf_Docs{
     register_widget('RALFDOCS_Sectors_Widget');
     register_widget('RALFDOCS_Search_History_Widget');
     register_widget('RALFDOCS_View_Report_Widget');
-    register_widget('RALFDOCS_Filter_Widget');
+    register_widget('RALFDOCS_Sectors_Filter_Widget');
   }
 
   public function quick_select_form($atts){
@@ -265,22 +265,14 @@ class Ralf_Docs{
 
   public function ralfdocs_filter_articles(){
     $query_vars = json_decode(stripslashes($_POST['query_vars']), true);
-    $sector_filters = $_POST['sector_filters'];
+    $checked_sector_filters = $_POST['sector_filters'];
+    $ajax_location = $_POST['ajax_location'];
+    $ajax_post_type = $_POST['ajax_post_type'];
+    $ajax_page = 1;
+    $archive_type = $_POST['archive_type'];
+    $resource_terms = $_POST['resource_terms'];
 
-    $impacts = new WP_Query(array(
-      'post_type' => 'impacts',
-      'paged' => 1,
-      'tax_query' => array(
-        array(
-          'taxonomy' => 'sectors',
-          'field' => 'term_id',
-          'terms' => $sector_filters,
-          'operator' => 'IN'
-        )
-      )
-    ));
-
-    include ralfdocs_get_template('loop/sector-impacts-loop.php');
+    do_action('ralfdocs_build_archive_query', $archive_type, $checked_sector_filters, $ajax_page, $ajax_location, $ajax_post_type, $resource_terms);
 
     wp_die();
   }
@@ -290,8 +282,10 @@ class Ralf_Docs{
     $tax_terms = $_POST['tax_terms'];
     $ajax_page = $_POST['ajax_page'];
     $ajax_location = $_POST['ajax_location'];
+    $ajax_post_type = $_POST['ajax_post_type'];
+    $resource_terms = $_POST['resource_terms'];
 
-    do_action('ralfdocs_build_archive_query', $archive_type, $tax_terms, $ajax_page, $ajax_location);
+    do_action('ralfdocs_build_archive_query', $archive_type, $tax_terms, $ajax_page, $ajax_location, $ajax_post_type, $resource_terms);
 
     //$query_vars = json_decode(stripslashes($_POST['query_vars']), true);
 

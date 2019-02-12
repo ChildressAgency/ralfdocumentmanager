@@ -11,7 +11,7 @@ include ralfdocs_get_template('loop/impacts-activities-tab.php');
 ?>
 
 <div class="tab-content">
-  <div id="impacts" class="facetwp-template">
+  <div id="impacts" class="">
 
     <?php
       //echo facetwp_display('template', 'impacts_sectors_template');
@@ -31,6 +31,7 @@ include ralfdocs_get_template('loop/impacts-activities-tab.php');
       }
       echo '<input type="hidden" id="tax-terms" value="' . $tax_terms . '" />';
       echo '<input type="hidden" id="ajax-page" value="' . $paged . '" />';
+      echo '<input type="hidden" id="ajax-post-type" value="impacts" />';
 
       if($impacts->have_posts()){
         while($impacts->have_posts()){
