@@ -29,7 +29,7 @@ get_header(); ?>
                     <div class="result-meta">
                       <?php
                         $article_id = $resource_id;
-                        include ralfdocs_get_template('loop/article_meta');
+                        include ralfdocs_get_template('loop/article-meta.php');
                       ?>
                     </div>
                   </header>
