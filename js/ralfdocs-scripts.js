@@ -259,10 +259,47 @@ jQuery(document).ready(function($){
     var ajaxLocation = window.location.href;
     var ajaxPostType = $('#ajax-post-type').val();
     var archiveType = $('#archive-type').val();
+    var resourceTerms = $('#resource-terms').val();
 
     var data = {
       'action': 'ralfdocs_filter_articles',
       'sector_filters': filters,
+      'ajax_location': ajaxLocation,
+      'ajax_post_type': ajaxPostType,
+      'archive_type': archiveType,
+      'resource_terms': resourceTerms
+    }
+
+    $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
+      if(response != 0){
+        $('.results-list').fadeOut(function(){
+          $('.results-list').html(response).fadeIn();
+        });
+      }
+      else{
+        $('.results-list').fadeOut(function(){
+          $('.results-list').html(ralfdocs_settings.error).fadeIn();
+        });
+      }
+    });
+  });
+
+  $('#resources-filter').on('change', 'input[name="resource-type-filter"]', function(){
+    var $selectedFilters = $('input[name="resource-type-filter"]:checked');
+    var filters = [];
+    $($selectedFilters).each(function(){
+      filters.push($(this).val());
+    });
+
+    var ajaxLocation = window.location.href;
+    var ajaxPostType = $('#ajax-post-type').val();
+    var archiveType = $('#archive-type').val();
+    var impactTerms = $('#tax-terms').val();
+
+    var data = {
+      'action': 'ralfdocs_filter_articles',
+      'sector_filters': impactTerms,
+      'resource_terms': filters,
       'ajax_location': ajaxLocation,
       'ajax_post_type': ajaxPostType,
       'archive_type': archiveType
@@ -301,6 +338,11 @@ jQuery(document).ready(function($){
       if(response != 0){
         $('.results-list').fadeOut(function(){
           $('.results-list').html(response).fadeIn();
+        });
+      }
+      else{
+        $('.results-list').fadeOut(function(){
+          $('.results-list').html(ralfdocs_settings.error).fadeIn();
         });
       }
     });

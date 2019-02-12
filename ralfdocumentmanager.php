@@ -49,6 +49,7 @@ class Ralf_Docs{
     require_once RALFDOCS_PLUGIN_DIR . '/includes/ralfdocs-template-functions.php';
     require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-question-tree.php';
     require_once RALFDOCS_PLUGIN_DIR . '/includes/widgets/class-ralfdocs-sectors-filter-widget.php';
+    require_once RALFDOCS_PLUGIN_DIR . '/includes/widgets/class-ralfdocs-resource-types-filter-widget.php';
   }
 
   public function admin_init(){
@@ -225,6 +226,7 @@ class Ralf_Docs{
     register_widget('RALFDOCS_Search_History_Widget');
     register_widget('RALFDOCS_View_Report_Widget');
     register_widget('RALFDOCS_Sectors_Filter_Widget');
+    register_widget('RALFDOCS_Resource_Types_Filter_Widget');
   }
 
   public function quick_select_form($atts){

@@ -116,6 +116,7 @@ switch($archive_type){
     echo '<input type="hidden" id="tax-terms" value="' . $tax_terms . '" />';
     echo '<input type="hidden" id="resource-terms" value="' . $resource_terms . '" />';
     echo '<input type="hidden" id="ajax-page" value="' . $paged . '" />';
+    echo '<input type="hidden" id="ajax-post-type" value="resources" />';
 
     if($resources->have_posts()){
       while($resources->have_posts()){

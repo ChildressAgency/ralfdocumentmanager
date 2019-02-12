@@ -95,6 +95,17 @@
   opacity:0;
 }
 
-#sectors-filter ul>li>ul{
-  padding-left:10px;
+#sectors-filter ul>li>ul,
+#resources-filter ul>li>ul{
+  padding-left:18px;
+}
+#sectors-filter li input,
+#resources-filter li input{
+  margin-right:5px;
+  margin-left:-18px;
+}
+#sectors-filter label,
+#resources-filter label{
+  font-weight:400;
+  margin-left:18px;
 }
