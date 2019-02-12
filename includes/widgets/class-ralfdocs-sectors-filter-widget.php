@@ -12,7 +12,7 @@ class RALFDOCS_Sectors_Filter_Widget extends WP_Widget{
   }
 
   public function widget($args, $instance){
-    if(is_page('sectors') || is_tax('resource_types')){
+    if(is_page('sectors') || is_tax('resource_types') || is_search()){
       $title = apply_filters('widget_title', $instance['title']);
       $chosen_sector_filters = array();
 

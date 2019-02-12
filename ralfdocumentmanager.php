@@ -135,7 +135,7 @@ class Ralf_Docs{
 
     add_action('ralfdocs_facetwp_template_loop', array($template_functions, 'facetwp_template_loop'));
 
-    add_action('ralfdocs_build_archive_query', array($template_functions, 'build_archive_query'), 10, 6);
+    add_action('ralfdocs_build_archive_query', array($template_functions, 'build_archive_query'), 10, 7);
   }
 
   public function load_textdomain(){
@@ -266,15 +266,16 @@ class Ralf_Docs{
   }
 
   public function ralfdocs_filter_articles(){
-    $query_vars = json_decode(stripslashes($_POST['query_vars']), true);
+    //$query_vars = json_decode(stripslashes($_POST['query_vars']), true);
     $checked_sector_filters = $_POST['sector_filters'];
     $ajax_location = $_POST['ajax_location'];
     $ajax_post_type = $_POST['ajax_post_type'];
     $ajax_page = 1;
     $archive_type = $_POST['archive_type'];
     $resource_terms = $_POST['resource_terms'];
+    $searched_word = $_POST['searched_word'];
 
-    do_action('ralfdocs_build_archive_query', $archive_type, $checked_sector_filters, $ajax_page, $ajax_location, $ajax_post_type, $resource_terms);
+    do_action('ralfdocs_build_archive_query', $archive_type, $checked_sector_filters, $ajax_page, $ajax_location, $ajax_post_type, $resource_terms, $searched_word);
 
     wp_die();
   }
@@ -286,8 +287,9 @@ class Ralf_Docs{
     $ajax_location = $_POST['ajax_location'];
     $ajax_post_type = $_POST['ajax_post_type'];
     $resource_terms = $_POST['resource_terms'];
+    $searched_word = $_POST['searched_word'];
 
-    do_action('ralfdocs_build_archive_query', $archive_type, $tax_terms, $ajax_page, $ajax_location, $ajax_post_type, $resource_terms);
+    do_action('ralfdocs_build_archive_query', $archive_type, $tax_terms, $ajax_page, $ajax_location, $ajax_post_type, $resource_terms, $searched_word);
 
     //$query_vars = json_decode(stripslashes($_POST['query_vars']), true);
 

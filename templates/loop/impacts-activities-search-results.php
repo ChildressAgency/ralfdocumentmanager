@@ -16,6 +16,14 @@ include ralfdocs_get_template('loop/impacts-activities-tab.php');
 
     <?php 
       //echo facetwp_display('template', 'search_impacts_resources_template');
+
+      echo '<input type="hidden" id="archive-type" value="search" />';
+      if(is_array($tax_terms)){
+        $tax_terms = implode(',', $tax_terms);
+      }
+      echo '<input type="hidden" id="tax-terms" value="' . $tax_terms . '" />';
+      echo '<input type="hidden" id="ajax-page" value="' . $paged . '" />';
+      echo '<input type="hidden" id="ajax-post-type" value="impacts" />';
     
       if(!empty($impacts_activities->posts)){
         foreach($impacts_activities->posts as $post){
@@ -24,7 +32,7 @@ include ralfdocs_get_template('loop/impacts-activities-tab.php');
           include ralfdocs_get_template('loop/loop-item.php');
         }
         wp_reset_postdata();
-        ralfdocs_pagination($impacts_activities);
+        ralfdocs_pagination($impacts_activities, $impacts_paged, $ajax_location);
       }
       else{
         include ralfdocs_get_template('loop/no-results.php');

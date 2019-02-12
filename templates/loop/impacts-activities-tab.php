@@ -9,8 +9,10 @@
  */
 if(!defined('ABSPATH')){ exit; }
 
-if(is_search()){
+//if(is_search()){
+if($archive_type == 'search'){
   //$tab_link = add_query_arg(array('s' => $searched_word, 'type' => 'resources'), home_url());
+  //var_dump($impacts_activities);
   $impacts_count = $impacts_activities->found_posts;
   $ia_post_type = 'impacts,activities';
 }

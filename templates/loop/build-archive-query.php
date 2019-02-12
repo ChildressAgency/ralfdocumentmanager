@@ -1,6 +1,16 @@
 <?php
 /**
+ * Builds the queries for Sectors page, Resource types archive page and Search
+ * both initial setup and ajax calls
  * 
+ * Called from do_action ralfdocs_build_archive_query
+ * 
+ * @param $archive_type
+ * @param $tax_terms = sector terms
+ * @param $ajax_page
+ * @param $ajax_location
+ * @param $ajax_post_type
+ * @param $resource_terms
  */
 
 if(!defined('ABSPATH')){ exit; }
@@ -74,6 +84,7 @@ switch($archive_type){
     }
 
     break;
+
   case 'resource_types':
     if($ajax_page != ''){
       $paged = $ajax_page;
@@ -131,7 +142,71 @@ switch($archive_type){
       include ralfdocs_get_template('loop/no-results.php');
     }
     break;
+
   case 'search':
+    if($ajax_page != ''){
+      $paged = $ajax_page;
+    }
+    elseif(get_query_var('paged')){
+      $paged = get_query_var('paged');
+    }
+    else{
+      $paged = 1;
+    }
+
+    //this will make sure the count on the tabs are correct despite pagination
+    if($ajax_post_type != '' && $ajax_post_type == 'resources'){
+      $resources_paged = $paged;
+      $impacts_paged = 1;
+    }
+    else{
+      $resources_paged = 1;
+      $impacts_paged = $paged;
+    }
+
+    $terms_to_include = ralfdocs_get_terms_to_include($tax_terms, 'sectors');
+
+    $impacts_activities = new SWP_Query(array(
+      'post_type' => array('impacts', 'activities'),
+      's' => $searched_word,
+      'engine' => 'default',
+      'page' => $impacts_paged,
+      'fields' => 'all',
+      'tax_query' => array(
+        array(
+          'taxonomy' => 'sectors',
+          'field' => 'term_id',
+          'terms' => $terms_to_include
+        )
+      )
+    ));
+
+    $resources = new SWP_Query(array(
+      'post_type' => 'resources',
+      's' => $searched_word,
+      'engine' => 'default',
+      'page' => $resources_paged,
+      'fields' => 'all',
+      'tax_query' => array(
+        array(
+          'taxonomy' => 'sectors',
+          'field' => 'term_id',
+          'terms' => $terms_to_include
+        )
+      )
+    ));
+
+    if($ajax_post_type != '' && $ajax_post_type == 'resources'){
+      include ralfdocs_get_template('loop/resources-search-results.php');
+    }
+    else{
+      if(empty($impacts_activities->posts) && !empty($resources->posts)){
+        include ralfdocs_get_template('loop/resources-search-results.php');
+      }
+      else{
+        include ralfdocs_get_template('loop/impacts-activities-search-results.php');
+      }
+    }
 
     break;
 }

@@ -260,6 +260,7 @@ jQuery(document).ready(function($){
     var ajaxPostType = $('#ajax-post-type').val();
     var archiveType = $('#archive-type').val();
     var resourceTerms = $('#resource-terms').val();
+    var searchedWord = JSON.parse(ralfdocs_settings.query_vars).s;
 
     var data = {
       'action': 'ralfdocs_filter_articles',
@@ -267,7 +268,8 @@ jQuery(document).ready(function($){
       'ajax_location': ajaxLocation,
       'ajax_post_type': ajaxPostType,
       'archive_type': archiveType,
-      'resource_terms': resourceTerms
+      'resource_terms': resourceTerms,
+      'searched_word': searchedWord
     }
 
     $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
@@ -295,6 +297,7 @@ jQuery(document).ready(function($){
     var ajaxPostType = $('#ajax-post-type').val();
     var archiveType = $('#archive-type').val();
     var impactTerms = $('#tax-terms').val();
+    var searchedWord = JSON.parse(ralfdocs_settings.query_vars).s;
 
     var data = {
       'action': 'ralfdocs_filter_articles',
@@ -302,7 +305,8 @@ jQuery(document).ready(function($){
       'resource_terms': filters,
       'ajax_location': ajaxLocation,
       'ajax_post_type': ajaxPostType,
-      'archive_type': archiveType
+      'archive_type': archiveType,
+      'searched_word': searchedWord
     }
 
     $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
@@ -323,15 +327,20 @@ jQuery(document).ready(function($){
   $('.results-list').on('click', '.post-type-tab', function(e){
     e.preventDefault();
     var taxTerms = $('#tax-terms').val();
+    var resourceTerms = $('#resource-terms').val();
     var archiveType = $('#archive-type').val();
     var postType = $(this).data('post_type');
     var ajaxLocation = window.location.href;
+    var searchedWord = JSON.parse(ralfdocs_settings.query_vars).s;
+
     var data = {
       'action': 'ralfdocs_filter_articles',
       'archive_type': archiveType,
       'sector_filters': taxTerms,
+      'resource_terms': resourceTerms,
       'ajax_post_type': postType,
-      'ajax_location': ajaxLocation
+      'ajax_location': ajaxLocation,
+      'searched_word': searchedWord
     };
 
     $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
@@ -359,6 +368,8 @@ jQuery(document).ready(function($){
     var ajaxLocation = window.location.href;
     var ajaxPostType = $('#ajax-post-type').val();
     var resourceTerms = $('#resource-terms').val();
+    var searchedWord = JSON.parse(ralfdocs_settings.query_vars).s;
+
     var data = {
       'action': 'ralfdocs_ajax_pagination',
       'archive_type': archiveType,
@@ -366,7 +377,8 @@ jQuery(document).ready(function($){
       'ajax_page': ajaxPage,
       'ajax_location': ajaxLocation,
       'ajax_post_type': ajaxPostType,
-      'resource_terms': resourceTerms
+      'resource_terms': resourceTerms,
+      'searched_word': searchedWord
     }
 
     $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){

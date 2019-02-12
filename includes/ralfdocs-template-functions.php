@@ -332,7 +332,7 @@ class RALFDOCS_Template_Functions{
     include ralfdocs_get_template('loop/facetwp-template.php');
   }
 
-  public function build_archive_query($archive_type, $tax_terms, $ajax_page = '', $ajax_location = '', $ajax_post_type = '', $resource_terms = ''){
+  public function build_archive_query($archive_type, $tax_terms, $ajax_page = '', $ajax_location = '', $ajax_post_type = '', $resource_terms = '', $searched_word = ''){
     include ralfdocs_get_template('loop/build-archive-query.php');
   }
 }

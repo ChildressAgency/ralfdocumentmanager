@@ -8,7 +8,7 @@
  */
 if(!defined('ABSPATH')){ exit; }
 
-if(is_search()){
+if($archive_type == 'search'){
   //$tab_link = add_query_arg(array('s' => $searched_word, 'type' => 'impacts-activities'), home_url());
   $impacts_count = $impacts_activities->found_posts;
   $is_post_type = 'impacts,activities';
