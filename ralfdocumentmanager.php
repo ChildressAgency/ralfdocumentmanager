@@ -84,6 +84,9 @@ class Ralf_Docs{
     add_action('wp_ajax_nopriv_ralfdocs_filter_articles', array($this, 'ralfdocs_filter_articles'));
     add_action('wp_ajax_ralfdocs_filter_articles', array($this, 'ralfdocs_filter_articles'));
 
+    add_action('wp_ajax_nopriv_ralfdocs_remove_search_term', array($this, 'ralfdocs_remove_search_term'));
+    add_action('wp_ajax_ralfdocs_remove_search_term', array($this, 'ralfdocs_remove_search_term'));
+
     $email_report = new RALFDOCS_Email_Report();
   }
 
@@ -295,6 +298,22 @@ class Ralf_Docs{
     //$query_vars = json_decode(stripslashes($_POST['query_vars']), true);
 
     wp_die();
+  }
+
+  public function ralfdocs_remove_search_term(){
+    if(isset($_POST['search_term_to_remove'])){
+      $search_term_to_remove = $_POST['search_term_to_remove'];
+      global $wpdb;
+
+      $success = $wpdb->delete(
+        "{$wpdb->prefix}swp_log",
+        array('query' => $search_term_to_remove),
+        '%s'
+      );
+      if($success){
+        echo 'success';
+      }
+    }
   }
 } // end Ralf_Docs class
 }

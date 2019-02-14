@@ -403,9 +403,30 @@ jQuery(document).ready(function($){
         });
       }
       else{
-
+        $('.results-list').fadeOut(function(){
+          $('.results-list').html(ralfdocs_settings.error).fadeIn();
+        });
       }
     });
+  });
+
+  $('.remove-search-term').on('click', function(){
+    //are you sure
+    if(window.confirm("Are you sure you want to remove this searched term?")){
+      var $searchTermItem = $(this);
+      var searchTerm = $(this).data('query');
+
+      var data = {
+        'action': 'ralfdocs_remove_search_term',
+        'search_term_to_remove': searchTerm
+      }
+
+      $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
+        if(response != 0){
+          $($searchTermItem).parent().fadeOut();
+        }
+      });
+    }
   });
 });
 
