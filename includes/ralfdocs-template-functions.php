@@ -34,8 +34,8 @@ function ralfdocs_get_related_impacts($resource_id){
   return (new RALFDOCS_Template_Functions)->get_related_impacts($resource_id);
 }
 
-function ralfdocs_pagination($the_query = ''){
-  return (new RALFDOCS_Template_Functions)->pagination($the_query);
+function ralfdocs_pagination($the_query = '', $paged = 1, $ajax_location = ''){
+  return (new RALFDOCS_Template_Functions)->pagination($the_query, $paged, $ajax_location);
 }
 
 if(!class_exists('RALFDOCS_Template_Functions')){
@@ -182,22 +182,27 @@ class RALFDOCS_Template_Functions{
     return $impacts;
   }
 
-  public function pagination($the_query){
+  public function pagination($the_query, $paged, $ajax_location){
     //https://premium.wpmudev.org/blog/load-posts-ajax/
     if($the_query == ''){
       global $wp_query;
       $the_query = $wp_query;
     }
 
-    $paged = get_query_var('paged') ? get_query_var('paged') : 1;
+    //$paged = get_query_var('paged') ? get_query_var('paged') : 1;
 
     //global $wp_query;
 
     if($the_query->max_num_pages <= 1){ return; }
 
     $big = 999999999;
+    //$base = str_replace($big, '%#%', html_entity_decode(get_pagenum_link($big)));
+    //if($ajax_location != ''){
+    //  $base = esc_url(add_query_arg('paged', $paged, $ajax_location));
+    // }
     $pages = paginate_links(array(
               'base' => str_replace($big, '%#%', html_entity_decode(get_pagenum_link($big))),
+              //'base' => $base,
               //'format' => '?paged=%#%',
               //'current' => max(1, get_query_var('paged')),
               'current' => max(1, $paged),
@@ -276,6 +281,9 @@ class RALFDOCS_Template_Functions{
     elseif(is_singular('questions')){
       $template_name = 'single-questions.php';
     }
+    elseif(is_page('sectors')){
+      $template_name = 'page-sectors.php';
+    }
 
     if($template_name !== ''){
       return $this->find_template($template_name);
@@ -318,6 +326,14 @@ class RALFDOCS_Template_Functions{
 
   public function related_activities($article_id, $article_type){
     include ralfdocs_get_template('related/related-activities.php');
+  }
+
+  public function facetwp_template_loop(){
+    include ralfdocs_get_template('loop/facetwp-template.php');
+  }
+
+  public function build_archive_query($archive_type, $tax_terms, $ajax_page = '', $ajax_location = '', $ajax_post_type = '', $resource_terms = '', $searched_word = ''){
+    include ralfdocs_get_template('loop/build-archive-query.php');
   }
 }
 }

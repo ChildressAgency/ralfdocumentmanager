@@ -48,6 +48,8 @@ class Ralf_Docs{
     require_once RALFDOCS_PLUGIN_DIR . '/includes/class-ralfdocs-email-report.php';
     require_once RALFDOCS_PLUGIN_DIR . '/includes/ralfdocs-template-functions.php';
     require_once RALFDOCS_PLUGIN_DIR . '/admin/class-ralfdocs-question-tree.php';
+    require_once RALFDOCS_PLUGIN_DIR . '/includes/widgets/class-ralfdocs-sectors-filter-widget.php';
+    require_once RALFDOCS_PLUGIN_DIR . '/includes/widgets/class-ralfdocs-resource-types-filter-widget.php';
   }
 
   public function admin_init(){
@@ -75,11 +77,43 @@ class Ralf_Docs{
     add_filter('searchwp_weight_mods', array($this, 'searchwp_weight_priority_keywords'));
 
     //ajax pagination
-    //doesn't work well with SearchWP but left code in for future possibilities
-    //add_action('wp_ajax_nopriv_ralfdocs_ajax_pagination', array($this, 'do_ralfdocs_ajax_pagination'));
-    //add_action('wp_ajax_ralfdocs_ajax_pagination', array($this, 'do_ralfdocs_ajax_pagination'));
+    add_action('wp_ajax_nopriv_ralfdocs_ajax_pagination', array($this, 'ralfdocs_ajax_pagination'));
+    add_action('wp_ajax_ralfdocs_ajax_pagination', array($this, 'ralfdocs_ajax_pagination'));
+
+    //add_filter('facetwp_facet_filter_posts', array($this, 'modify_facetwp_facet_filter_posts'), 10, 2);
+    add_action('wp_ajax_nopriv_ralfdocs_filter_articles', array($this, 'ralfdocs_filter_articles'));
+    add_action('wp_ajax_ralfdocs_filter_articles', array($this, 'ralfdocs_filter_articles'));
 
     $email_report = new RALFDOCS_Email_Report();
+  }
+
+  public function modify_facetwp_facet_filter_posts($return, $params){
+    if($params['facet']['name'] == 'impacts_sector'){
+      $selected_values = $params['selected_values'];
+      $post_ids = $this->get_impacts_sector_ids($selected_values);
+
+      return $post_ids;
+    }
+
+    return $return;
+  }
+
+  public function get_impacts_sector_ids($selected_values){
+    $post_ids = new WP_Query(array(
+      'post_type' => array('impacts'),
+      'post_status' => 'publish',
+      'tax_query' => array(
+        array(
+          'taxonomy' => 'sectors',
+          'field' => 'term_id',
+          'terms' => $selected_values,
+          'operator' => 'IN'
+        )
+      ),
+      'fields' => 'ids'
+    ));
+
+    return $post_ids;
   }
 
   public function shared_init(){
@@ -98,6 +132,10 @@ class Ralf_Docs{
     add_action('ralfdocs_related_impacts', array($template_functions, 'related_impacts'));
     add_action('ralfdocs_related_resources', array($template_functions, 'related_resources'));
     add_action('ralfdocs_related_activities', array($template_functions, 'related_activities'), 10, 2);
+
+    add_action('ralfdocs_facetwp_template_loop', array($template_functions, 'facetwp_template_loop'));
+
+    add_action('ralfdocs_build_archive_query', array($template_functions, 'build_archive_query'), 10, 7);
   }
 
   public function load_textdomain(){
@@ -134,7 +172,8 @@ class Ralf_Docs{
       'added_to_report_label' => esc_html__('Added to report!', 'ralfdocs'),
       'removed_from_report_label' => esc_html__('Removed from report', 'ralfdocs'),
       'valid_email_address_error' => esc_html__('Please enter only valid email addresses.', 'ralfdocs'),
-      //'query_vars' => json_encode($wp_query->query)
+      'query_vars' => json_encode($wp_query->query),
+      'spinner' => '<div id="spinner"><span class="glyphicon glyphicon-refresh"></span></div>'
     ));
 
     //styles
@@ -187,6 +226,8 @@ class Ralf_Docs{
     register_widget('RALFDOCS_Sectors_Widget');
     register_widget('RALFDOCS_Search_History_Widget');
     register_widget('RALFDOCS_View_Report_Widget');
+    register_widget('RALFDOCS_Sectors_Filter_Widget');
+    register_widget('RALFDOCS_Resource_Types_Filter_Widget');
   }
 
   public function quick_select_form($atts){
@@ -225,59 +266,33 @@ class Ralf_Docs{
     }  
   }
 
-  public function do_ralfdocs_ajax_pagination(){
-    $query_vars = json_decode(stripslashes($_POST['query_vars']), true);
-    
-    $tab_id = $_POST['tab_id'];
-    $post_type = explode('-', $tab_id);
+  public function ralfdocs_filter_articles(){
+    //$query_vars = json_decode(stripslashes($_POST['query_vars']), true);
+    $checked_sector_filters = $_POST['sector_filters'];
+    $ajax_location = $_POST['ajax_location'];
+    $ajax_post_type = $_POST['ajax_post_type'];
+    $ajax_page = 1;
+    $archive_type = $_POST['archive_type'];
+    $resource_terms = $_POST['resource_terms'];
+    $searched_word = $_POST['searched_word'];
 
-    $impacts_activities = new SWP_Query(array(
-      'post_type' => $post_type,
-      's' => $query_vars['s'],
-      'engine' =>'default',
-      'posts_per_page' => 10,
-      'page' => $_POST['page'],
-      'fields' => 'all'
-    ));
+    do_action('ralfdocs_build_archive_query', $archive_type, $checked_sector_filters, $ajax_page, $ajax_location, $ajax_post_type, $resource_terms, $searched_word);
 
-    //if($impacts_activities->have_posts()): while($impacts_activities->have_posts()): $impacts_activities->the_post();
-    if(!empty($impacts_activities->posts)):
-      foreach($impacts_activities->posts as $post):
-        setup_postdata($post);
-        $article_id = $post->ID; ?>
+    wp_die();
+  }
 
-        <div class="loop-item">
-          <h2 class="loop-item-title">
-            <a href="<?php echo esc_url(get_permalink($article_id)); ?>"><?php echo esc_html(get_the_title($article_id)); ?></a>
-          </h2>
-          <div class="loop-item-meta">
-            <?php 
-              if(has_term($searched_word, 'priority_keywords', $post)){
-                echo '<span class="priority"></span>';
-              }
+  public function ralfdocs_ajax_pagination(){
+    $archive_type = $_POST['archive_type'];
+    $tax_terms = $_POST['tax_terms'];
+    $ajax_page = $_POST['ajax_page'];
+    $ajax_location = $_POST['ajax_location'];
+    $ajax_post_type = $_POST['ajax_post_type'];
+    $resource_terms = $_POST['resource_terms'];
+    $searched_word = $_POST['searched_word'];
 
-              do_action('ralfdocs_article_meta', $article_id);
-            ?>
-          </div>
-        </div>
-      <?php endforeach; endif; //ralfdocs_pagination($_POST['page']); //wp_reset_postdata();    
+    do_action('ralfdocs_build_archive_query', $archive_type, $tax_terms, $ajax_page, $ajax_location, $ajax_post_type, $resource_terms, $searched_word);
 
-    $big = 999999999;
-    $pages = paginate_links(array(
-      'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
-      'format' => '?paged=%#%',
-      'current' => max(1, $_POST['page']),
-      'total' => $impacts_activities->max_num_pages,
-      'type' => 'array'
-    ));
-
-    if(is_array($pages)){
-      echo '<nav aria-label="Page navigation" class="pagination-nav"><ul class="pagination">';
-      foreach($pages as $page){
-        echo '<li>' . $page . '</li>';
-      }
-      echo '</ul></nav>';
-    }
+    //$query_vars = json_decode(stripslashes($_POST['query_vars']), true);
 
     wp_die();
   }

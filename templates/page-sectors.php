@@ -1,9 +1,10 @@
-<?php 
+<?php
 /**
- * Template for displaying sector loop
+ * Page template for displaying sector loop
+ * all changes done with ajax
  * 
  * Can be overridden with custom template file here:
- * THEME_STYLESHEET_DIRECTORY/ralfdocs-templates/taxonomy-sectors.php
+ * THEME_STYLESHEET_DIRECTORY/ralfdocs-template/page-sectors.php
  */
 get_header(); ?>
 <div class="page-content">
@@ -15,13 +16,12 @@ get_header(); ?>
       <div class="col-sm-8 col-md-9">
         <main class="results-list">
           <?php
-            $current_sector = get_queried_object();
-
-            include ralfdocs_get_template('loop/sector-title.php');
-
-            do_action('ralfdocs_build_archive_query', 'sectors', $current_sector->term_id);
+            $tax_terms = ''; 
+            if(isset($_GET['sector_term'])){
+              $tax_terms = $_GET['sector_term'];
+            }
+            do_action('ralfdocs_build_archive_query', 'sectors', $tax_terms);
           ?>
-
         </main>
       </div>
     </div>

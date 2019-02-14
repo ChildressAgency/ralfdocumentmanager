@@ -18,31 +18,7 @@ get_header(); ?>
             $current_resource_type = get_queried_object();
             include ralfdocs_get_template('loop/resource-type-title.php');
 
-            $paged = get_query_var('paged') ? get_query_var('paged') : 1;
-            $resources = new WP_Query(array(
-              'post_type' => 'resources',
-              'paged' => $paged,
-              'tax_query' => array(
-                array(
-                  'taxonomy' => 'resource_types',
-                  'field' => 'term_id',
-                  'terms' => $current_resource_type->term_id
-                )
-              )
-            ));
-
-            if(!empty($resources->posts)){
-              foreach($resources->posts as $post){
-                setup_postdata($post);
-                $article_id = $post->ID;
-                include ralfdocs_get_template('loop/loop-item.php');
-              }
-              wp_reset_postdata();
-              ralfdocs_pagination($resources);
-            }
-            else{
-              include ralfdocs_get_template('loop/no-results.php');
-            }
+            do_action('ralfdocs_build_archive_query', 'resource_types', null, null, null, null,  $current_resource_type->term_id);
           ?>
 
         </main>

@@ -241,13 +241,188 @@ jQuery(document).ready(function($){
   });
 
   $('#question-tree').on('change', 'input[type="radio"]', function(){
-    var $selected_answer = $('input[name="qt-answers"]:checked');
-    var qt_link = $selected_answer.val();
-    var next_type = $selected_answer.data('next_type');
+    var $selectedAnswer = $('input[name="qt-answers"]:checked');
+    var qtLink = $selectedAnswer.val();
+    var nextType = $selectedAnswer.data('nextType');
     
-    $('#qt-btn').attr('href', qt_link).text(next_type).removeClass('btn-hide');
+    $('#qt-btn').attr('href', qtLink).text(nextType).removeClass('btn-hide');
+  });
+
+  //filter functions
+  $('#sectors-filter').on('change', 'input[name="sector-filter"]', function(){
+    $('.results-list').fadeOut('fast', function(){
+      $('.results-list').html(ralfdocs_settings.spinner).fadeIn('fast');
+    });
+
+    var $selectedFilters = $('input[name="sector-filter"]:checked');
+    var filters = [];
+    $($selectedFilters).each(function(){
+      filters.push($(this).val());
+    });
+    //console.log(filters);
+    var ajaxLocation = window.location.href;
+    var ajaxPostType = $('#ajax-post-type').val();
+    var archiveType = $('#archive-type').val();
+    var resourceTerms = $('#resource-terms').val();
+    var searchedWord = JSON.parse(ralfdocs_settings.query_vars).s;
+
+    var data = {
+      'action': 'ralfdocs_filter_articles',
+      'sector_filters': filters,
+      'ajax_location': ajaxLocation,
+      'ajax_post_type': ajaxPostType,
+      'archive_type': archiveType,
+      'resource_terms': resourceTerms,
+      'searched_word': searchedWord
+    }
+
+    $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
+      if(response != 0){
+        $('.results-list').fadeOut(function(){
+          $('.results-list').html(response).fadeIn();
+        });
+      }
+      else{
+        $('.results-list').fadeOut(function(){
+          $('.results-list').html(ralfdocs_settings.error).fadeIn();
+        });
+      }
+    });
+  });
+
+  $('#resources-filter').on('change', 'input[name="resource-type-filter"]', function(){
+    $('.results-list').fadeOut('fast', function () {
+      $('.results-list').html(ralfdocs_settings.spinner).fadeIn('fast');
+    });
+
+    var $selectedFilters = $('input[name="resource-type-filter"]:checked');
+    var filters = [];
+    $($selectedFilters).each(function(){
+      filters.push($(this).val());
+    });
+
+    var ajaxLocation = window.location.href;
+    var ajaxPostType = $('#ajax-post-type').val();
+    var archiveType = $('#archive-type').val();
+    var impactTerms = $('#tax-terms').val();
+    var searchedWord = JSON.parse(ralfdocs_settings.query_vars).s;
+
+    var data = {
+      'action': 'ralfdocs_filter_articles',
+      'sector_filters': impactTerms,
+      'resource_terms': filters,
+      'ajax_location': ajaxLocation,
+      'ajax_post_type': ajaxPostType,
+      'archive_type': archiveType,
+      'searched_word': searchedWord
+    }
+
+    $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
+      if(response != 0){
+        $('.results-list').fadeOut(function(){
+          $('.results-list').html(response).fadeIn();
+        });
+      }
+      else{
+        $('.results-list').fadeOut(function(){
+          $('.results-list').html(ralfdocs_settings.error).fadeIn();
+        });
+      }
+    });
+  });
+
+  //post type tabs
+  $('.results-list').on('click', '.post-type-tab', function(e){    
+    e.preventDefault();
+    $('.results-list').fadeOut('fast', function () {
+      $('.results-list').html(ralfdocs_settings.spinner).fadeIn('fast');
+    });
+
+    var taxTerms = $('#tax-terms').val();
+    var resourceTerms = $('#resource-terms').val();
+    var archiveType = $('#archive-type').val();
+    var postType = $(this).data('post_type');
+    var ajaxLocation = window.location.href;
+    var searchedWord = JSON.parse(ralfdocs_settings.query_vars).s;
+
+    var data = {
+      'action': 'ralfdocs_filter_articles',
+      'archive_type': archiveType,
+      'sector_filters': taxTerms,
+      'resource_terms': resourceTerms,
+      'ajax_post_type': postType,
+      'ajax_location': ajaxLocation,
+      'searched_word': searchedWord
+    };
+
+    $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
+      if(response != 0){
+        $('.results-list').fadeOut(function(){
+          $('.results-list').html(response).fadeIn();
+        });
+      }
+      else{
+        $('.results-list').fadeOut(function(){
+          $('.results-list').html(ralfdocs_settings.error).fadeIn();
+        });
+      }
+    });
+  });
+
+  //ajax pagination
+  $('.results-list').on('click', '.pagination li a', function(e){
+  //$('.results-list').on('click', '.nav-links a', function(e){
+    e.preventDefault();
+    $('.results-list').fadeOut('fast', function () {
+      $('.results-list').html(ralfdocs_settings.spinner).fadeIn('fast');
+    });
+
+    var ajaxPage = find_page_number($(this).clone());
+    var archiveType = $('#archive-type').val();
+    var taxTerms = $('#tax-terms').val();
+    var ajaxLocation = window.location.href;
+    var ajaxPostType = $('#ajax-post-type').val();
+    var resourceTerms = $('#resource-terms').val();
+    var searchedWord = JSON.parse(ralfdocs_settings.query_vars).s;
+
+    var data = {
+      'action': 'ralfdocs_ajax_pagination',
+      'archive_type': archiveType,
+      'tax_terms': taxTerms,
+      'ajax_page': ajaxPage,
+      'ajax_location': ajaxLocation,
+      'ajax_post_type': ajaxPostType,
+      'resource_terms': resourceTerms,
+      'searched_word': searchedWord
+    }
+
+    $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
+      if(response != 0){
+        $('.results-list').fadeOut(function(){
+          $('.results-list').html(response).fadeIn();
+        });
+      }
+      else{
+
+      }
+    });
   });
 });
+
+function find_page_number(element){
+  element.find('span').remove();
+  var $current_page = $('#ajax-page').val();
+
+  if(element.hasClass('prev')){
+    return parseInt($current_page) - 1;
+  }
+  else if(element.hasClass('next')){
+    return parseInt($current_page) + 1;
+  }
+  else{
+    return parseInt(element.html());
+  }
+}
 
 function record_save(articleId, nonce){
   if(articleId !== ''){

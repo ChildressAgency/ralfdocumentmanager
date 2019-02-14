@@ -94,3 +94,32 @@
 #qt-btn.btn-main.btn-hide{
   opacity:0;
 }
+
+#sectors-filter ul>li>ul,
+#resources-filter ul>li>ul{
+  padding-left:18px;
+}
+#sectors-filter li input,
+#resources-filter li input{
+  margin-right:5px;
+  margin-left:-18px;
+}
+#sectors-filter label,
+#resources-filter label{
+  font-weight:400;
+  margin-left:18px;
+}
+
+#spinner{
+  position:relative;
+  height:400px;
+  width:100%;
+}
+#spinner .glyphicon-refresh{
+  position:absolute;
+  top:50%;
+  left:50%;
+  font-size:50px;
+  transform:translate(-50%, -50%);
+  animation:glyph-spin 2s infinite linear;
+}
