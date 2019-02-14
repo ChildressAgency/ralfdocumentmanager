@@ -21,6 +21,8 @@ if(!class_exists('RALFDOCS_Question_Tree')){
     }
 
     public function ralfdocs_show_first_question(){
+      check_ajax_referer('ralfdocs_ajax_nonce', 'nonce');
+      
       $qt_page = get_page_by_path('question-tree');
       $qt_page_id = $qt_page->ID;
 

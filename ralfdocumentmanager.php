@@ -176,7 +176,8 @@ class Ralf_Docs{
       'removed_from_report_label' => esc_html__('Removed from report', 'ralfdocs'),
       'valid_email_address_error' => esc_html__('Please enter only valid email addresses.', 'ralfdocs'),
       'query_vars' => json_encode($wp_query->query),
-      'spinner' => '<div id="spinner"><span class="glyphicon glyphicon-refresh"></span></div>'
+      'spinner' => '<div id="spinner"><span class="glyphicon glyphicon-refresh"></span></div>',
+      'ajax_nonce' => wp_create_nonce('ralfdocs_ajax_nonce')
     ));
 
     //styles
@@ -270,7 +271,8 @@ class Ralf_Docs{
   }
 
   public function ralfdocs_filter_articles(){
-    //$query_vars = json_decode(stripslashes($_POST['query_vars']), true);
+    check_ajax_referer('ralfdocs_ajax_nonce', 'nonce');
+
     $checked_sector_filters = $_POST['sector_filters'];
     $ajax_location = $_POST['ajax_location'];
     $ajax_post_type = $_POST['ajax_post_type'];
@@ -285,6 +287,8 @@ class Ralf_Docs{
   }
 
   public function ralfdocs_ajax_pagination(){
+    check_ajax_referer('ralfdocs_ajax_nonce', 'nonce');
+
     $archive_type = $_POST['archive_type'];
     $tax_terms = $_POST['tax_terms'];
     $ajax_page = $_POST['ajax_page'];
@@ -301,6 +305,8 @@ class Ralf_Docs{
   }
 
   public function ralfdocs_remove_search_term(){
+    check_ajax_referer('ralfdocs_ajax_nonce', 'nonce');
+    
     if(isset($_POST['search_term_to_remove'])){
       $search_term_to_remove = $_POST['search_term_to_remove'];
       global $wpdb;

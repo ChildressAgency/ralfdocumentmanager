@@ -227,7 +227,12 @@ jQuery(document).ready(function($){
 
     $('#qt-start.btn-main>.glyphicon-refresh').removeClass('no-show');
 
-    $.post(ralfdocs_settings.ralfdocs_ajaxurl, {'action': 'ralfdocs_show_first_question'}, function(response){
+    data = {
+      'action': 'ralfdocs_show_first_question',
+      'nonce': ralfdocs_settings.ajax_nonce
+    }
+
+    $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
       if(response != 0){
         //console.log(response);
         $article.fadeOut(function(){
@@ -273,7 +278,8 @@ jQuery(document).ready(function($){
       'ajax_post_type': ajaxPostType,
       'archive_type': archiveType,
       'resource_terms': resourceTerms,
-      'searched_word': searchedWord
+      'searched_word': searchedWord,
+      'nonce': ralfdocs_settings.ajax_nonce
     }
 
     $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
@@ -314,7 +320,8 @@ jQuery(document).ready(function($){
       'ajax_location': ajaxLocation,
       'ajax_post_type': ajaxPostType,
       'archive_type': archiveType,
-      'searched_word': searchedWord
+      'searched_word': searchedWord,
+      'nonce': ralfdocs_settings.ajax_nonce
     }
 
     $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
@@ -352,7 +359,8 @@ jQuery(document).ready(function($){
       'resource_terms': resourceTerms,
       'ajax_post_type': postType,
       'ajax_location': ajaxLocation,
-      'searched_word': searchedWord
+      'searched_word': searchedWord,
+      'nonce': ralfdocs_settings.ajax_nonce
     };
 
     $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
@@ -393,7 +401,8 @@ jQuery(document).ready(function($){
       'ajax_location': ajaxLocation,
       'ajax_post_type': ajaxPostType,
       'resource_terms': resourceTerms,
-      'searched_word': searchedWord
+      'searched_word': searchedWord,
+      'nonce': ralfdocs_settings.ajax_nonce
     }
 
     $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
@@ -418,7 +427,8 @@ jQuery(document).ready(function($){
 
       var data = {
         'action': 'ralfdocs_remove_search_term',
-        'search_term_to_remove': searchTerm
+        'search_term_to_remove': searchTerm,
+        'nonce': ralfdocs_settings.ajax_nonce
       }
 
       $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
