@@ -80,7 +80,6 @@ class Ralf_Docs{
     add_action('wp_ajax_nopriv_ralfdocs_ajax_pagination', array($this, 'ralfdocs_ajax_pagination'));
     add_action('wp_ajax_ralfdocs_ajax_pagination', array($this, 'ralfdocs_ajax_pagination'));
 
-    //add_filter('facetwp_facet_filter_posts', array($this, 'modify_facetwp_facet_filter_posts'), 10, 2);
     add_action('wp_ajax_nopriv_ralfdocs_filter_articles', array($this, 'ralfdocs_filter_articles'));
     add_action('wp_ajax_ralfdocs_filter_articles', array($this, 'ralfdocs_filter_articles'));
 
@@ -88,17 +87,6 @@ class Ralf_Docs{
     add_action('wp_ajax_ralfdocs_remove_search_term', array($this, 'ralfdocs_remove_search_term'));
 
     $email_report = new RALFDOCS_Email_Report();
-  }
-
-  public function modify_facetwp_facet_filter_posts($return, $params){
-    if($params['facet']['name'] == 'impacts_sector'){
-      $selected_values = $params['selected_values'];
-      $post_ids = $this->get_impacts_sector_ids($selected_values);
-
-      return $post_ids;
-    }
-
-    return $return;
   }
 
   public function get_impacts_sector_ids($selected_values){
@@ -306,7 +294,7 @@ class Ralf_Docs{
 
   public function ralfdocs_remove_search_term(){
     check_ajax_referer('ralfdocs_ajax_nonce', 'nonce');
-    
+
     if(isset($_POST['search_term_to_remove'])){
       $search_term_to_remove = $_POST['search_term_to_remove'];
       global $wpdb;
