@@ -48,6 +48,18 @@ if(!class_exists('RALFDOCS_Activator')){
       }
     }
 
+    public static function create_question_tree_page(){
+      if(!get_page_by_path('question-tree')){
+        RALFDOCS_Activator::create_page('Question Tree');
+      }
+    }
+
+    public static function create_sectors_page(){
+      if(!get_page_by_path('sectors')){
+        RALFDOCS_Activator::create_page('Sectors');
+      }
+    }
+
     private static function create_page($page_title){
       $page_slug = sanitize_title($page_title);
 

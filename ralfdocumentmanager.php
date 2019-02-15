@@ -21,6 +21,8 @@ function ralfdocs_activation_tasks(){
   RALFDOCS_Activator::create_saved_reports_table();
   RALFDOCS_Activator::create_view_report_page();
   RALFDOCS_Activator::create_quick_select_results_page();
+  RALFDOCS_Activator::create_question_tree_page();
+  RALFDOCS_Activator::create_sectors_page();
 }
 
 if(!class_exists('Ralf_Docs')){
