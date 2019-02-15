@@ -248,7 +248,7 @@ jQuery(document).ready(function($){
   $('#question-tree').on('change', 'input[type="radio"]', function(){
     var $selectedAnswer = $('input[name="qt-answers"]:checked');
     var qtLink = $selectedAnswer.val();
-    var nextType = $selectedAnswer.data('nextType');
+    var nextType = $selectedAnswer.data('next_type');
     
     $('#qt-btn').attr('href', qtLink).text(nextType).removeClass('btn-hide');
   });
