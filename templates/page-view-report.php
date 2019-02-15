@@ -55,6 +55,9 @@ get_header(); ?>
           //return call_user_func($shortcode_tags['email_form'], array('activity_ids' => $article_ids));
           echo do_shortcode('[email_form activity_ids="' . implode(',', $article_ids) . '"]');
         }
+        else{
+          include ralfdocs_get_template('loop/no-results.php');
+        }
       ?>
     </main>
   </div>
