@@ -225,12 +225,12 @@ class RALFDOCS_Template_Functions{
   }
 
   public function back_button(){
-    ob_start();
+    //ob_start();
     echo '<div class="go-back">';
     echo '<a href="javascript:history.back(-1);">' . esc_html__('BACK', 'ralfdocs') . '</a>';
     echo '</div>';
 
-    return ob_get_clean();
+    //return ob_get_clean();
   }
 
   public function get_field_excerpt($field_name){
