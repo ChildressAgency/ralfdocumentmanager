@@ -172,6 +172,7 @@ switch($archive_type){
     }
 
     $terms_to_include = ralfdocs_get_terms_to_include($tax_terms, 'sectors');
+    $resource_types_to_include = ralfdocs_get_terms_to_include($resource_terms, 'resource_types');
 
     $impacts_activities = new SWP_Query(array(
       'post_type' => array('impacts', 'activities'),
@@ -195,10 +196,16 @@ switch($archive_type){
       'page' => $resources_paged,
       'fields' => 'all',
       'tax_query' => array(
+        'relation' =>'AND',
         array(
           'taxonomy' => 'sectors',
           'field' => 'term_id',
           'terms' => $terms_to_include
+        ),
+        array(
+          'taxonomy' => 'resource_types',
+          'field' => 'term_id',
+          'terms' => $resource_types_to_include
         )
       )
     ));
