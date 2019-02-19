@@ -13,9 +13,9 @@ get_header(); ?>
           <?php get_sidebar(); ?>
         </div>
         <div class="col-sm-8 col-md-9">
+          <?php $searched_word = get_search_query(); ?>
+          <h1><?php printf(esc_html__('Search results for "%s"', 'ralfdocs'), $searched_word); ?></h1>
           <main class="results-list">
-            <?php $searched_word = get_search_query(); ?>
-            <h1><?php printf(esc_html__('Search results for "%s"', 'ralfdocs'), $searched_word); ?></h1>
 
             <?php do_action('ralfdocs_build_archive_query', 'search', null, null, null, null, null, $searched_word); ?>
 
