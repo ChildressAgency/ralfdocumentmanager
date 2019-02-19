@@ -296,6 +296,15 @@ jQuery(document).ready(function($){
     });
   });
 
+  $('#clear-sectors-filters').on('click', function(e){
+    e.preventDefault();
+    $selectedFilters = $('input[name="sector-filter"]:checked');
+    $selectedFilters.each(function(){
+      $(this).prop('checked', false);
+    });
+    $selectedFilters.change();
+  });
+
   $('#resources-filter').on('change', 'input[name="resource-type-filter"]', function(){
     $('.results-list').fadeOut('fast', function () {
       $('.results-list').html(ralfdocs_settings.spinner).fadeIn('fast');
@@ -336,6 +345,15 @@ jQuery(document).ready(function($){
         });
       }
     });
+  });
+
+  $('#clear-resource-types-filters').on('click', function(e){
+    e.preventDefault();
+    $selectedFilters = $('input[name="resource-type-filter"]:checked');
+    $selectedFilters.each(function(){
+      $(this).prop('checked', false);
+    });
+    $selectedFilters.change();
   });
 
   //post type tabs

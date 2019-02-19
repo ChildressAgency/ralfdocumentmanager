@@ -66,7 +66,7 @@ class RALFDOCS_Resource_Types_Filter_Widget extends WP_Widget{
 
           echo '</li>';
         }
-        echo '</ul></div>';
+        echo '</ul><a href="#" id="clear-resource-types-filters" class="widget-clear">' . esc_html__('clear all', 'ralfdocs') . '</a></div>';
       }
 
       echo $args['after_widget'];

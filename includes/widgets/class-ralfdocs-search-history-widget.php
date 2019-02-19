@@ -31,7 +31,7 @@ class RALFDOCS_Search_History_Widget extends WP_Widget{
         echo '<li><a href="' . esc_url(add_query_arg('s', $search_term, home_url())) . '">' . esc_html($search_term) . '</a></li>';
       }
       echo '</ul>';
-      echo '<a href="#" id="clear-search-history">' . esc_html__('clear all', 'ralfdocs') . '</a></div>';
+      echo '<a href="#" id="clear-search-history" class="widget-clear">' . esc_html__('clear all', 'ralfdocs') . '</a></div>';
     }
     else{
       echo '<div class="sidebar-section-body"><ul><li><span class="search-history-empty">' . esc_html__('Your search history is empty.', 'ralfdocs') . '</span></li></ul></div>';
