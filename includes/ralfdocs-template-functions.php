@@ -75,7 +75,8 @@ class RALFDOCS_Template_Functions{
         $article_meta['sectors'][] = array(
           'name' => $sector->name,
           'color' => get_field('sector_color', 'sectors_' . $sector->term_id),
-          'link' => get_term_link($sector->term_id, 'sectors')
+          //'link' => get_term_link($sector->term_id, 'sectors')
+          'link' => add_query_arg('sector_term', $sector->term_id, home_url('sectors'))
         );
       }
     }
