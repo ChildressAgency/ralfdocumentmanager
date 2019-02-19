@@ -14,6 +14,7 @@ get_header(); ?>
         <?php get_sidebar(); ?>
       </div>
       <div class="col-sm-8 col-md-9">
+        <h1 class="sector-title">Sectors</h1>
         <main class="results-list">
           <?php
             $tax_terms = ''; 
