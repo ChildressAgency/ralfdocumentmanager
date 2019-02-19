@@ -11,19 +11,24 @@ get_header();
 $page_id = get_the_ID();
 $question_sectors = wp_get_post_terms($page_id, 'sectors');
 $sector_id = '';
+$current_sector = '';
 foreach($question_sectors as $sector){
   if($sector->parent == 0){
    $sector_id = $sector->term_id;
+   $current_sector = $sector;
   }
 }
 $sector_image = get_field('question_tree_background_image', 'sectors_' . $sector_id);
 $sector_image_css = get_field('question_tree_background_image_css', 'sectors_' . $sector_id);
+//$sector_icon = get_field('sector_icon', 'sectors_' . $sector_id);
 ?>
 
 <div id="question-tree" style="background-image:url(<?php echo esc_url($sector_image['url']); ?>); <?php echo esc_html($sector_image_css); ?>">
   <div class="container">
+    <?php do_action('ralfdocs_back_button'); ?>
     <?php if(have_posts()): while(have_posts()): the_post(); ?>
       <article>
+        <?php include ralfdocs_get_template('loop/sector-title.php'); ?>
         <h3><?php the_title(); ?></h3>
         <?php if(have_rows('answers')): ?>
 
@@ -65,6 +70,9 @@ $sector_image_css = get_field('question_tree_background_image_css', 'sectors_' .
         <?php endif; ?>
       </article>
     <?php endwhile; endif; ?>
+  </div>
+  <div class="questions-start-over">
+    <a href="<?php echo esc_url(home_url('question-tree')); ?>">start over</a>
   </div>
   <div class="full-page-overlay"></div>
 </div>

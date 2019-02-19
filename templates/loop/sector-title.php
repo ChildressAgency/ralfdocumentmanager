@@ -1,6 +1,7 @@
 <?php
 /**
  * Template for showing sector title on sector taxonomy archive page
+ * and question tree pages.
  * 
  * Can be overridden with custom template file here:
  * THEME_STYLESHEET_DIRECTORY/ralfdocs-templates/loop/sector-title.php

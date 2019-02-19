@@ -15,6 +15,23 @@
   background-color:rgba(0,0,0,.6);
   z-index:1;
 }
+.questions-start-over{
+  position:absolute;
+  z-index:3;
+  text-align:center;
+  left:50%;
+  transform:translateX(-50%);
+  bottom:15px;
+}
+.questions-start-over>a{
+  color:#fff;
+  font-style:italic;
+  text-decoration:underline;
+}
+.questions-start-over>a:hover,
+.questions-start-over>a:focus{
+  color:#fff;
+}
 #question-tree article{
   position:relative;
   max-width:800px;
@@ -28,6 +45,9 @@
   font-size:50px;
   text-transform:uppercase;
   margin-bottom:80px;
+}
+#question-tree article h1.sector-title{
+  margin-bottom:40px;
 }
 #question-tree article p{
   font-size:28px;
