@@ -13,11 +13,13 @@ get_header(); ?>
         <?php get_sidebar(); ?>
       </div>
       <div class="col-sm-8 col-md-9">
+        <?php
+          $current_resource_type = get_queried_object();
+          //include ralfdocs_get_template('loop/resource-type-title.php');
+        ?>
+        <h1 class="sector-title">Resources</h1>
         <main class="results-list">
           <?php 
-            $current_resource_type = get_queried_object();
-            include ralfdocs_get_template('loop/resource-type-title.php');
-
             do_action('ralfdocs_build_archive_query', 'resource_types', null, null, null, null,  $current_resource_type->term_id);
           ?>
 
