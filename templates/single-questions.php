@@ -52,8 +52,8 @@ $sector_image_css = get_field('question_tree_background_image_css', 'sectors_' .
                       $report_ids[] = $report->ID;
                     }
                     $article_ids = implode(',', $report_ids);
-                    $answer_link = add_query_arg('article_ids', $article_ids, home_url('view-report'));
-                    $next_type = 'View Report';
+                    $answer_link = add_query_arg(array('article_ids' => $article_ids, 'sector' => $current_sector->term_id), home_url('recommended-for-report'));
+                    $next_type = 'View Recommendations';
                   }
               ?>
               <li class="radio">

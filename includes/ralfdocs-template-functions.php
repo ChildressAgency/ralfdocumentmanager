@@ -285,6 +285,9 @@ class RALFDOCS_Template_Functions{
     elseif(is_page('sectors')){
       $template_name = 'page-sectors.php';
     }
+    elseif(is_page('recommended-for-report')){
+      $template_name = 'page-recommended-for-report.php';
+    }
 
     if($template_name !== ''){
       return $this->find_template($template_name);

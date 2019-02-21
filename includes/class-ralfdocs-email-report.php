@@ -194,7 +194,11 @@ if(!class_exists('RALFDOCS_Email_Report')){
     } 
     
     public function report_button_container(){
-      if(is_singular('activities') || is_singular('impacts') || is_singular('resources') || is_page('view-report')){
+      if(is_singular('activities') 
+          || is_singular('impacts') 
+          || is_singular('resources') 
+          || is_page('view-report')
+          || is_page('recommended-for-report')){
         $article_id = get_the_ID();
         $nonce = wp_create_nonce('report_button_' . $article_id);
 
