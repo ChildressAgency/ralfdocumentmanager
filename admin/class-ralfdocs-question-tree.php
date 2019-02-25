@@ -42,10 +42,15 @@ if(!class_exists('RALFDOCS_Question_Tree')){
             $question = get_field('question_link', 'sectors_' . $sector->term_id);
             
             if($question){
-              $question_link = get_permalink($question[0]->ID); ?>
+              $question_link = get_permalink($question[0]->ID); 
+              $sector_icon = get_field('sector_icon', 'sectors_' . $sector->term_id);
+              $sector_icon_bg_color = get_field('sector_color', 'sectors_' . $sector->term_id); ?>
 
                 <li class="radio">
                   <label>
+                    <?php if($sector_icon): ?>
+                      <img src="<?php echo esc_url($sector_icon); ?>" class="img-circle img-responsive" alt="<?php echo esc_attr($sector->name) . ' ' . esc_attr__('Sector', 'ralfdocs'); ?>" style="background-color:<?php echo esc_html($sector_icon_bg_color); ?>" />
+                    <?php endif; ?>
                     <input type="radio" name="qt-answers" value="<?php echo esc_url($question_link); ?>" data-next_type="Next" />
                     <?php echo esc_html($sector->name); ?>
                     <span class="radio-btn"></span>
