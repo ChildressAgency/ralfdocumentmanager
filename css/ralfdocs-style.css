@@ -156,3 +156,12 @@
 #question-tree #qt-choices .radio-btn{
   top:5px;
 }
+
+#question-tree .article-heading .sector-popout{
+  color:#fff;
+}
+#question-tree .article-heading .sector-popout:hover,
+#question-tree .article-heading .sector-popout:focus{
+  color:#fff;
+  text-decoration:none;
+}
