@@ -65,14 +65,14 @@ class RALFDOCS_Sectors_Filter_Widget extends WP_Widget{
           echo '<li>';
             //display the parent sector checkbox
             $sector_parent_checked = (in_array($sector->term_id, $chosen_sector_filters)) ? ' checked="checked"' : '';
-            echo '<label><input type="checkbox" name="sector-filter" value="' . $sector->term_id . '"' . $sector_parent_checked . ' />' . $sector->name . ' (' . $total_sector_count . ')</label>';
+            echo '<label><input type="checkbox" name="sector-filter" value="' . $sector->term_id . '"' . $sector_parent_checked . ' class="article-filter" />' . $sector->name . ' (' . $total_sector_count . ')</label>';
 
             //add checkboxes for child sectors
             if(!empty($sector_children) && !is_wp_error($sector_children)){
               echo '<ul>';
               foreach($sector_children as $child){
                 $child_checked = (in_array($child->term_id, $chosen_sector_filters)) ? ' checked="checked"' : '';
-                echo '<li><label><input type="checkbox" name="sector-filter" value="' . $child->term_id . '"' . $child_checked . ' />' . $child->name . ' (' . $child->count . ')</label></li>';
+                echo '<li><label><input type="checkbox" name="sector-filter" value="' . $child->term_id . '"' . $child_checked . ' class="article-filter" />' . $child->name . ' (' . $child->count . ')</label></li>';
               }
               echo '</ul>';
             }

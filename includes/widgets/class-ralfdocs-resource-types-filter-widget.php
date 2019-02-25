@@ -53,13 +53,13 @@ class RALFDOCS_Resource_Types_Filter_Widget extends WP_Widget{
           echo '<li>';
 
             $resource_type_parent_checked = (in_array($parent_resource_type->term_id, $chosen_resource_type_filters)) ? ' checked="checked"' : '';
-            echo '<label><input type="checkbox" name="resource-type-filter" value="' . $parent_resource_type->term_id . '"' . $resource_type_parent_checked . ' />' . $parent_resource_type->name . ' (' . $total_resource_type_count . ')</label>';
+            echo '<label><input type="checkbox" name="resource-type-filter" value="' . $parent_resource_type->term_id . '"' . $resource_type_parent_checked . ' class="article-filter" />' . $parent_resource_type->name . ' (' . $total_resource_type_count . ')</label>';
 
             if(!empty($resource_type_children) && !is_wp_error($resource_type_children)){
               echo '<ul>';
               foreach($resource_type_children as $child){
                 $child_checked = (in_array($child->term_id, $chosen_resource_type_filters)) ? ' checked="checked"' : '';
-                echo '<li><label><input type="checkbox" name="resource-type-filter" value="' . $child->term_id . '"' . $child_checked . ' />' . $child->name . ' (' . $child->count . ')</label></li>';
+                echo '<li><label><input type="checkbox" name="resource-type-filter" value="' . $child->term_id . '"' . $child_checked . ' class="article-filter" />' . $child->name . ' (' . $child->count . ')</label></li>';
               }
               echo '</ul>';
             }
