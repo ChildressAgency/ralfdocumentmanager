@@ -200,6 +200,22 @@ jQuery(document).ready(function($){
 
   $(function(){
     $('[data-toggle="tooltip"]').tooltip();
+    //$('[data-tooltip="tooltip"]').tooltip();
+  });
+
+  var expandTooltip = $('[data-tooltip="tooltip"]').tooltip();
+
+  $('[id^="article_id-"]').on('show.bs.collapse', function(){
+    var tabId = $(this).attr('id');
+    var $tab = $('[href="#' + tabId + '"]');
+    $(expandTooltip).tooltip('hide');
+    $($tab).attr('data-original-title', 'Collapse');
+  });
+  $('[id^="article_id-"]').on('hide.bs.collapse', function(){
+    var tabId = $(this).attr('id');
+    var $tab = ('[href="#' + tabId + '"]');
+    $(expandTooltip).tooltip('hide');
+    $($tab).attr('data-original-title', 'Expand');
   });
 
   $('.impact-by-sector>h2').on('click', '.dashicons-excerpt-view', function(){
