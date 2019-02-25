@@ -143,3 +143,16 @@
   transform:translate(-50%, -50%);
   animation:glyph-spin 2s infinite linear;
 }
+
+#qt-choices li.radio>label{
+  display:inline;
+}
+#qt-choices li.radio>label>img{
+  max-width:45px;
+  display:inline-block;
+  margin-right:7px;
+  margin-bottom:5px;
+}
+#question-tree #qt-choices .radio-btn{
+  top:5px;
+}
