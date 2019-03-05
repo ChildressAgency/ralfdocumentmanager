@@ -49,7 +49,9 @@ if(!class_exists('RALFDOCS_Question_Tree')){
                 <li class="radio">
                   <label>
                     <?php if($sector_icon): ?>
-                      <img src="<?php echo esc_url($sector_icon); ?>" class="img-circle img-responsive" alt="<?php echo esc_attr($sector->name) . ' ' . esc_attr__('Sector', 'ralfdocs'); ?>" style="background-color:<?php echo esc_html($sector_icon_bg_color); ?>" />
+                      <div class="sector-icon-bg-small" style="background-color:<?php echo esc_html($sector_icon_bg_color); ?>">
+                        <img src="<?php echo esc_url($sector_icon); ?>" class="img-responsive" alt="<?php echo esc_attr($sector->name) . ' ' . esc_attr__('Sector', 'ralfdocs'); ?>" />
+                      </div>
                     <?php endif; ?>
                     <input type="radio" name="qt-answers" value="<?php echo esc_url($question_link); ?>" data-next_type="Next" />
                     <?php echo esc_html($sector->name); ?>
