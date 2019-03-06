@@ -38,16 +38,75 @@ class RALFDOCS_Resource_Types_Filter_Widget extends WP_Widget{
 
         foreach($parent_resource_types as $parent_resource_type){
           $resource_type_children = get_terms(array(
+            'post_type' => 'resources',
             'taxonomy' => 'resource_types',
             'orderby' => 'name',
             'parent' => $parent_resource_type->term_id
           ));
-
-          $total_resource_type_count = $parent_resource_type->count;
-          if(!empty($resource_type_children) && !is_wp_error($resource_type_children)){
-            foreach($resource_type_children as $child){
-              $total_resource_type_count = $total_resource_type_count + $child->count;
+          
+          
+          if(is_search() || isset($_GET['s'])){
+            //don't count the parent if there is a child also selected
+            $child_selected_with_parent = array();
+            foreach($resource_type_children as $resource_type_child){
+              $child_selected_with_parent[] = $resource_type_child->term_id;
             }
+            $searched_parent_resource_type = new SWP_Query(array(
+              'post_type' => 'resources',
+              's' => get_search_query(),
+              'engine' => 'default',
+              'fields' => 'ids',
+              'tax_query' => array(
+                'relation' => 'AND',
+                array(
+                  'taxonomy' => 'resource_types',
+                  'field' => 'term_id', 
+                  'terms' => $parent_resource_type->term_id
+                ),
+                array(
+                  'taxonomy' => 'resource_types',
+                  'field' => 'term_id',
+                  'terms' => $child_selected_with_parent,
+                  'operator' => 'NOT IN'
+                )
+              )
+            ));
+            $resource_type_count = $searched_parent_resource_type->post_count;
+            //$resource_type_count = count($searched_parent_resource_type->posts);
+          }
+          else{
+            $resource_type_count = $parent_resource_type->count;
+          }
+
+          if(!empty($resource_type_children) && !is_wp_error($resource_type_children)){
+            $searched_resource_type_child_count = 0;
+
+            foreach($resource_type_children as $child){
+              if(is_search()){
+                $searched_resource_type_child = new SWP_Query(array(
+                  'post_type' => 'resources',
+                  's' => get_search_query(),
+                  'engine' => 'default',
+                  'fields' => 'ids',
+                  'tax_query' => array(
+                    array(
+                      'taxonomy' => 'resource_types',
+                      'field' => 'term_id',
+                      'terms' => $child->term_id
+                    )
+                  )
+                ));
+                //$searched_resource_type_child_count += count($searched_resource_type_child->posts);
+                $searched_resource_type_child_count += $searched_resource_type_child->post_count;
+              }
+              else{
+                $searched_resource_type_child_count += $child->count;
+              }
+            }
+            $total_resource_type_count = $resource_type_count + $searched_resource_type_child_count;
+          }
+          else{
+            $total_resource_type_count = $resource_type_count;
           }
 
           echo '<li>';
@@ -58,8 +117,29 @@ class RALFDOCS_Resource_Types_Filter_Widget extends WP_Widget{
             if(!empty($resource_type_children) && !is_wp_error($resource_type_children)){
               echo '<ul>';
               foreach($resource_type_children as $child){
+                if(is_search()){
+                  $searched_resource_type_child = new SWP_Query(array(
+                    'post_type' => 'resources',
+                    's' => get_search_query(),
+                    'engine' => 'default',
+                    'fields' => 'ids',
+                    'tax_query' => array(
+                      array(
+                        'taxonomy' => 'resource_types',
+                        'field' => 'term_id',
+                        'terms' => $child->term_id
+                      )
+                    )
+                  ));
+                  //$resource_type_child_count = count($searched_resource_type_child->posts);
+                  $resource_type_child_count = $searched_resource_type_child->post_count;
+                }
+                else{
+                  $resource_type_child_count = $child->count;
+                }
+
                 $child_checked = (in_array($child->term_id, $chosen_resource_type_filters)) ? ' checked="checked"' : '';
-                echo '<li><label><input type="checkbox" name="resource-type-filter" value="' . $child->term_id . '"' . $child_checked . ' class="article-filter" />' . $child->name . ' (' . $child->count . ')</label></li>';
+                echo '<li><label><input type="checkbox" name="resource-type-filter" value="' . $child->term_id . '"' . $child_checked . ' class="article-filter" />' . $child->name . ' (' . $resource_type_child_count . ')</label></li>';
               }
               echo '</ul>';
             }
