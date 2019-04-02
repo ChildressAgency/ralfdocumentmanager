@@ -115,7 +115,7 @@ if(!class_exists('RALFDOCS_Post_Types')){
 
     public function create_taxonomies(){
       register_taxonomy('sectors',
-        array('impacts', 'resources', 'questions'),
+        array('impacts', 'resources', 'questions', 'prepared_reports'),
         array(
           'hierarchical' => true,
           'show_admin_column' => true,

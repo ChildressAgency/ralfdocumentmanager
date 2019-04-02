@@ -143,3 +143,35 @@
   transform:translate(-50%, -50%);
   animation:glyph-spin 2s infinite linear;
 }
+
+#qt-choices li.radio>label{
+  display:inline;
+}
+#qt-choices li.radio>label>img{
+  max-width:45px;
+  display:inline-block;
+  margin-right:7px;
+  margin-bottom:5px;
+}
+#question-tree #qt-choices .radio-btn{
+  top:5px;
+}
+
+#question-tree .article-heading .sector-popout{
+  color:#fff;
+}
+#question-tree .article-heading .sector-popout:hover,
+#question-tree .article-heading .sector-popout:focus{
+  color:#fff;
+  text-decoration:none;
+}
+
+.sector-icon-bg-small{
+  display:inline-block;
+  width:50px;
+  height:50px;
+  vertical-align:middle;
+  margin-right:5px;
+  padding:10px;
+  border-radius:50%;
+}

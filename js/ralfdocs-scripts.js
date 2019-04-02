@@ -200,6 +200,22 @@ jQuery(document).ready(function($){
 
   $(function(){
     $('[data-toggle="tooltip"]').tooltip();
+    //$('[data-tooltip="tooltip"]').tooltip();
+  });
+
+  var expandTooltip = $('[data-tooltip="tooltip"]').tooltip();
+
+  $('[id^="article_id-"]').on('show.bs.collapse', function(){
+    var tabId = $(this).attr('id');
+    var $tab = $('[href="#' + tabId + '"]');
+    $(expandTooltip).tooltip('hide');
+    $($tab).attr('data-original-title', 'Collapse');
+  });
+  $('[id^="article_id-"]').on('hide.bs.collapse', function(){
+    var tabId = $(this).attr('id');
+    var $tab = ('[href="#' + tabId + '"]');
+    $(expandTooltip).tooltip('hide');
+    $($tab).attr('data-original-title', 'Expand');
   });
 
   $('.impact-by-sector>h2').on('click', '.dashicons-excerpt-view', function(){
@@ -253,8 +269,12 @@ jQuery(document).ready(function($){
     $('#qt-btn').attr('href', qtLink).text(nextType).removeClass('btn-hide');
   });
 
+  resources_filter();
+
   //filter functions
   $('#sectors-filter').on('change', 'input[name="sector-filter"]', function(){
+    disable_article_filters(true);
+
     $('.results-list').fadeOut('fast', function(){
       $('.results-list').html(ralfdocs_settings.spinner).fadeIn('fast');
     });
@@ -285,7 +305,10 @@ jQuery(document).ready(function($){
     $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
       if(response != 0){
         $('.results-list').fadeOut(function(){
-          $('.results-list').html(response).fadeIn();
+          $('.results-list').html(response).fadeIn(function(){
+            disable_article_filters(false);
+            resources_filter();
+          });
         });
       }
       else{
@@ -306,6 +329,7 @@ jQuery(document).ready(function($){
   });
 
   $('#resources-filter').on('change', 'input[name="resource-type-filter"]', function(){
+    disable_article_filters(true);
     $('.results-list').fadeOut('fast', function () {
       $('.results-list').html(ralfdocs_settings.spinner).fadeIn('fast');
     });
@@ -336,7 +360,10 @@ jQuery(document).ready(function($){
     $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
       if(response != 0){
         $('.results-list').fadeOut(function(){
-          $('.results-list').html(response).fadeIn();
+          $('.results-list').html(response).fadeIn(function(){
+            disable_article_filters(false);
+            resources_filter();
+          });
         });
       }
       else{
@@ -384,7 +411,9 @@ jQuery(document).ready(function($){
     $.post(ralfdocs_settings.ralfdocs_ajaxurl, data, function(response){
       if(response != 0){
         $('.results-list').fadeOut(function(){
-          $('.results-list').html(response).fadeIn();
+          $('.results-list').html(response).fadeIn(function(){
+            resources_filter();
+          });
         });
       }
       else{
@@ -457,6 +486,22 @@ jQuery(document).ready(function($){
     }
   });
 });
+
+function disable_article_filters(status){
+  $('.article-filter').each(function () {
+    $(this).prop('disabled', status);
+  });
+}
+
+function resources_filter(){
+  var $resourcesSidebarFilter = $('#resources-filter').parent();
+  if($('#ajax-post-type').val() !== 'resources'){
+    $($resourcesSidebarFilter).addClass('hidden');
+  }
+  else{
+    $($resourcesSidebarFilter).removeClass('hidden');
+  }
+}
 
 function find_page_number(element){
   element.find('span').remove();
